@@ -43,7 +43,7 @@ jobs:
         shell: pwsh
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-          KOMAC_PATH: "C:\Program Files\Komac\bin\Komac.exe"
+          KOMAC_PATH: 'C:\Program Files\Komac\bin\Komac.exe'
         run: |
           # Ensure the update script is executable and run it.
           # The script uses environment variables for sensitive info.
