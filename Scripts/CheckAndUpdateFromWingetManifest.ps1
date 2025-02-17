@@ -1,6 +1,6 @@
 Param(
     [string]$WingetIdsFile   = ".\winget_ids.txt",        
-    [string]$GitHubToken     = ${env:PAT_TOKEN},           # GitHub personal access token
+    [string]$GitHubToken     = ${env:PAT_TOKEN},           
     [string]$KomacPath       = "C:\Program Files\Komac\bin\Komac.exe",
     [string]$LastCheckedFile = ".\last_checked.json",     # store Winget IDs + last-check times
     [int]$SkipHours          = 24                         # skip re-check for 24 hours
