@@ -13,6 +13,20 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Copy required files from Scripts folder
+        shell: pwsh
+        run: |
+          # Verify the Scripts folder exists
+          if (!(Test-Path "$env:GITHUB_WORKSPACE\Scripts")) {
+              Write-Error "Scripts folder not found in repository"
+              exit 1
+          }
+          # Copy winget_ids.txt, last_checked.json, and the komac folder to the workspace root.
+          Copy-Item -Path "$env:GITHUB_WORKSPACE\Scripts\winget_ids.txt" -Destination "$env:GITHUB_WORKSPACE\winget_ids.txt" -Force
+          Copy-Item -Path "$env:GITHUB_WORKSPACE\Scripts\last_checked.json" -Destination "$env:GITHUB_WORKSPACE\last_checked.json" -Force
+          Copy-Item -Path "$env:GITHUB_WORKSPACE\Scripts\komac" -Destination "$env:GITHUB_WORKSPACE\komac" -Recurse -Force
+        working-directory: ${{ github.workspace }}
+
       - name: Install WinGet
         run: |
           Install-Module -Name Microsoft.WinGet.Client -Force -Scope CurrentUser -Repository PSGallery
