@@ -62,3 +62,11 @@ jobs:
           # Ensure the update script is executable and run it.
           # The script uses environment variables for sensitive info.
           .\Scripts\CheckAndUpdateFromWingetManifest.ps1
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: update-artifacts
+          path: |
+            last_checked.json
+            komac
