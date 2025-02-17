@@ -1,0 +1,15 @@
+InstallerType: zip
+PackageVersion: 1.1.0
+PackageIdentifier: FredEmmott.FredsControllerTester
+ReleaseDate: 2024-09-13
+ManifestType: installer
+ManifestVersion: 1.9.0
+NestedInstallerFiles:
+- RelativeFilePath: freds-controller-tester.exe
+  PortableCommandAlias: freds-controller-tester
+NestedInstallerType: portable
+Installers:
+- InstallerSha256: A08624E82FC255194482931267272FDB8EABB1053B8DE69FB9C862356F47B64A
+  Architecture: x64
+  InstallerUrl: https://github.com/fredemmott/Freds-Controller-Tester/releases/download/v1.1.0/Freds-Controller-Tester-v1.1.0.35.zip
+
