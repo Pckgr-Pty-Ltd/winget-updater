@@ -24,7 +24,7 @@ jobs:
           Copy-Item -Path wingetcreate_settings.json -Destination $env:LOCALAPPDATA\Packages\Microsoft.WindowsPackageManagerManifestCreator_8wekyb3d8bbwe\LocalState\settings.json -Force
           winget install komac --scope machine --disable-interactivity --accept-source-agreements --accept-package-agreements
           $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-        working-directory: automation
+        working-directory: Automations
 
       - name: Setup PowerShell Modules
         shell: pwsh
