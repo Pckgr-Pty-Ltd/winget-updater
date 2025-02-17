@@ -1,0 +1,50 @@
+name: Update Winget Manifests
+
+on:
+  schedule:
+    - cron: '0 0 * * *'         # Runs daily at midnight UTC
+  workflow_dispatch:            # Allows manual triggering
+
+jobs:
+  update:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install WinGet
+        run: |
+          Install-Module -Name Microsoft.WinGet.Client -Force -Scope CurrentUser -Repository PSGallery
+          Repair-WinGetPackageManager -Latest -AllUsers -Verbose
+          winget settings --enable LocalManifestFiles
+          winget --info
+          winget install wingetcreate --disable-interactivity --accept-source-agreements --accept-package-agreements
+          wingetcreate info
+          Copy-Item -Path wingetcreate_settings.json -Destination $env:LOCALAPPDATA\Packages\Microsoft.WindowsPackageManagerManifestCreator_8wekyb3d8bbwe\LocalState\settings.json -Force
+          winget install komac --scope machine --disable-interactivity --accept-source-agreements --accept-package-agreements
+          $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+        working-directory: automation
+
+      - name: Setup PowerShell Modules
+        shell: pwsh
+        run: |
+          # Install powershell-yaml if not available
+          if (-not (Get-Module -ListAvailable -Name powershell-yaml)) {
+              Install-Module -Name powershell-yaml -Scope CurrentUser -Force -AllowClobber
+          }
+          # Install a Winget module if needed (example: PSWinget)
+          if (-not (Get-Module -ListAvailable -Name PSWinget)) {
+              Install-Module -Name PSWinget -Scope CurrentUser -Force -AllowClobber
+          }
+          Write-Host "Required modules installed."
+
+      - name: Run Update Script
+        shell: pwsh
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+          KOMAC_PATH: "C:\Program Files\Komac\bin\Komac.exe"
+        run: |
+          # Ensure the update script is executable and run it.
+          # The script uses environment variables for sensitive info.
+          .\CheckAndUpdateFromWingetManifest.ps1
