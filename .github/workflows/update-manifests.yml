@@ -47,4 +47,4 @@ jobs:
         run: |
           # Ensure the update script is executable and run it.
           # The script uses environment variables for sensitive info.
-          .\CheckAndUpdateFromWingetManifest.ps1
+          .\Scripts\CheckAndUpdateFromWingetManifest.ps1
