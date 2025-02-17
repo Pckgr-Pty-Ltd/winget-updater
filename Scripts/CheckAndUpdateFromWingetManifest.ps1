@@ -1,5 +1,5 @@
 Param(
-    [string]$WingetIdsFile   = ".\winget_ids.txt",        # one Winget ID per line
+    [string]$WingetIdsFile   = ".\winget_ids.txt",        
     [string]$GitHubToken     = ${env:PAT_TOKEN},           # GitHub personal access token
     [string]$KomacPath       = "C:\Program Files\Komac\bin\Komac.exe",
     [string]$LastCheckedFile = ".\last_checked.json",     # store Winget IDs + last-check times
