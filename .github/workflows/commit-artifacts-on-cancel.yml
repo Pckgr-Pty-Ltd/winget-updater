@@ -1,4 +1,4 @@
-name: Commit Artifacts on Cancel
+name: Commit Artifacts on Failure or Cancel
 
 on:
   workflow_run:
@@ -7,11 +7,11 @@ on:
 
 jobs:
   commit:
-    if: ${{ github.event.workflow_run.conclusion == 'cancelled' }}
+    if: ${{ github.event.workflow_run.conclusion != 'success' }}
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -21,12 +21,17 @@ jobs:
         with:
           name: update-artifacts
           path: artifacts
+        continue-on-error: true
 
-      - name: Copy artifacts to repository root
+      - name: Verify Artifacts and Copy to Root
         shell: pwsh
         run: |
+          if (!(Test-Path "artifacts\last_checked.json")) {
+              Write-Host "Artifact 'update-artifacts' not found. Skipping commit."
+              exit 0
+          }
           Copy-Item -Path "artifacts\last_checked.json" -Destination "$env:GITHUB_WORKSPACE\last_checked.json" -Force
-          Copy-Item -Path "artifacts\komac" -Destination "$env:GITHUB_WORKSPACE\komac" -Recurse -Force
+          Copy-Item -Path "artifacts\.komac" -Destination "$env:GITHUB_WORKSPACE\.komac" -Recurse -Force
 
       - name: Commit and Push Changes
         shell: pwsh
@@ -35,9 +40,9 @@ jobs:
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          git add last_checked.json komac
+          git add last_checked.json .komac
           if (-not (git diff --cached --quiet)) {
-              git commit -m "Update manifest state files on workflow cancel"
+              git commit -m "Update manifest state files from failed/cancelled update run"
               git push
           }
           else {
