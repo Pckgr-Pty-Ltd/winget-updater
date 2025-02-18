@@ -1,0 +1,14 @@
+ManifestVersion: 1.9.0
+InstallerType: portable
+Commands:
+- tldr
+UpgradeBehavior: uninstallPrevious
+PackageIdentifier: dbrgn.tealdeer
+PackageVersion: 1.7.1
+ReleaseDate: 2024-11-14
+Installers:
+- InstallerUrl: https://github.com/tealdeer-rs/tealdeer/releases/download/v1.7.1/tealdeer-windows-x86_64-msvc.exe
+  Architecture: x64
+  InstallerSha256: 9E98B71562493A1E057540EAC5617E4045107CF505AC155980CCB14A74E7D5FB
+ManifestType: installer
+
