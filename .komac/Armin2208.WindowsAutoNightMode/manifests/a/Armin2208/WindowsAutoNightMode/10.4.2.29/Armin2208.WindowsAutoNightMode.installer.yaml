@@ -1,0 +1,34 @@
+InstallerType: inno
+ReleaseDate: 2025-01-24
+UpgradeBehavior: uninstallPrevious
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+AppsAndFeaturesEntries:
+- ProductCode: '{470BC918-3740-4A97-9797-8570A7961130}_is1'
+InstallerLocale: en-US
+PackageIdentifier: Armin2208.WindowsAutoNightMode
+ProductCode: '{470BC918-3740-4A97-9797-8570A7961130}_is1'
+ManifestType: installer
+ElevationRequirement: elevatesSelf
+Platform:
+- Windows.Desktop
+ManifestVersion: 1.9.0
+PackageVersion: 10.4.2.29
+Installers:
+- InstallerUrl: https://github.com/AutoDarkMode/Windows-Auto-Night-Mode/releases/download/10.4.2.29/AutoDarkModeX_10.4.2.29_ARM64.exe
+  Architecture: x64
+  InstallerSha256: 5CB18E96EA5129F5C60169819E74EB6E41CCA774373B82B1C4323295FB635FE4
+  InstallerSwitches:
+    Custom: /CURRENTUSER
+  Scope: user
+- InstallerUrl: https://github.com/AutoDarkMode/Windows-Auto-Night-Mode/releases/download/10.4.2.29/AutoDarkModeX_10.4.2.29_ARM64.exe
+  Architecture: x64
+  InstallerSha256: 5CB18E96EA5129F5C60169819E74EB6E41CCA774373B82B1C4323295FB635FE4
+  InstallationMetadata:
+    DefaultInstallLocation: '%ProgramFiles%\AutoDarkMode'
+  InstallerSwitches:
+    Custom: /ALLUSERS
+  Scope: machine
+
