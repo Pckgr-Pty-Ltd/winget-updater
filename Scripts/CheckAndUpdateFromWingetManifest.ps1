@@ -227,37 +227,36 @@ function Get-ExistingPRs {
 
 function Find-NewAssetUrlHybrid {
     param(
-        [Parameter(Mandatory)] $oldInstaller,
-        [Parameter(Mandatory)] [Version]$newVersion,
-        [Parameter(Mandatory)] $assets
+        [Parameter(Mandatory)] $oldInstaller,          # Old installer object from the previous manifest.
+        [Parameter(Mandatory)] [Version]$newVersion,    # New version (as a [Version] object).
+        [Parameter(Mandatory)] $assets                 # Array of new release assets from GitHub.
     )
+    # Get basic file details from the old installer.
     $oldUrl = $oldInstaller.InstallerUrl
     $oldFileName = [System.IO.Path]::GetFileName($oldUrl)
     $oldExt = [System.IO.Path]::GetExtension($oldFileName).ToLowerInvariant()
-    
-    # Extract version from filename if InstallerVersion isn't specified
+
+    # Extract old version from the InstallerVersion property if available; otherwise, try to parse from filename.
     $oldInstallerVersion = $oldInstaller.InstallerVersion
     if (-not $oldInstallerVersion) {
-        if ($oldFileName -match '_((\d+\.)+\d+)(?=\.[^.]*$)') {
+        if ($oldFileName -match '_v?((\d+\.)+\d+)') {
             $oldInstallerVersion = $matches[1]
-        } else {
-            $oldInstallerVersion = $oldFileName -replace '.*[vV]', '' -replace '[-_].*', ''
+        }
+        else {
+            # Fallback: extract first occurrence of a digit sequence with dots.
+            if ($oldFileName -match '((\d+\.)+\d+)') {
+                $oldInstallerVersion = $matches[1]
+            }
         }
     }
-    $oldVerString = "$oldInstallerVersion"
-    $newVerString = "$newVersion"
-    
-    # Determine architecture from old installer and filename hints
-    $arch = $oldInstaller.Architecture
-    $oldFileNameLower = $oldFileName.ToLowerInvariant()
-    if ($oldFileNameLower -match 'x86_64|amd64|\bx64\b') {
-        Write-Verbose "Normalizing architecture to x64 based on filename."
-        $arch = "x64"
-    } elseif ($oldFileNameLower -match 'i386|x86|\b32\b') {
-        Write-Verbose "Normalizing architecture to x86 based on filename."
-        $arch = "x86"
+    if (-not $oldInstallerVersion) {
+        Write-Warning "Could not determine old version from $oldFileName"
+        return $null
     }
-    
+    $oldVerString = $oldInstallerVersion
+    $newVerString = $newVersion.ToString()
+
+    # Direct substitution: form a candidate filename by replacing the old version with the new version.
     Write-Host "Trying direct substitution for $oldFileName"
     $candidateName = $oldFileName -replace [Regex]::Escape($oldVerString), $newVerString
     Write-Host "Candidate new name: $candidateName"
@@ -267,34 +266,51 @@ function Find-NewAssetUrlHybrid {
             return $asset.browser_download_url
         }
     }
-    
+
     Write-Host "No exact match found. Falling back to pattern-based matching..."
+    # Determine the desired architecture from the old manifest.
+    $desiredArch = $oldInstaller.Architecture.ToLowerInvariant()
+    $oldFileNameLower = $oldFileName.ToLowerInvariant()
+    # Normalize architecture based on filename hints.
+    if ($oldFileNameLower -match 'x86_64|amd64|\bx64\b') {
+        $desiredArch = "x64"
+    }
+    elseif ($oldFileNameLower -match 'i386|x86|\b32\b') {
+        $desiredArch = "x86"
+    }
+    
     foreach ($asset in $assets) {
-        $an = $asset.name
-        $assetExt = [System.IO.Path]::GetExtension($an).ToLowerInvariant()
+        $assetName = $asset.name
+        $assetExt = [System.IO.Path]::GetExtension($assetName).ToLowerInvariant()
         if ($assetExt -ne $oldExt) { continue }
+        # Ensure the asset name contains the new version string.
+        if ($assetName -notmatch [Regex]::Escape($newVerString)) { continue }
         
-        $anLower = $an.ToLowerInvariant()
-        switch ($arch) {
+        # Check for architecture markers:
+        $assetNameLower = $assetName.ToLowerInvariant()
+        switch ($desiredArch) {
             'x64' {
-                # Require explicit x64 markers (x86_64, amd64, x64)
-                if ($anLower -match '(x86_64|amd64|\bx64\b)') {
-                    Write-Host "Fallback x64 match found: $an"
-                    return $asset.browser_download_url
-                }
+                # For x64, ensure that asset name has an accepted marker and does NOT include "arm64"
+                if ($assetNameLower -match '(?i)arm64') { continue }
+                if (-not ($assetNameLower -match '(?i)(x86_64|amd64|\bx64\b)')) { continue }
             }
             'x86' {
-                # Require explicit x86 markers (i386, x86, 32)
-                if ($anLower -match '(i386|x86|\b32\b)') {
-                    Write-Host "Fallback x86 match found: $an"
-                    return $asset.browser_download_url
-                }
+                if (-not ($assetNameLower -match '(?i)(x86|32|386)')) { continue }
+            }
+            'arm64' {
+                if (-not ($assetNameLower -match '(?i)arm64')) { continue }
+            }
+            default {
+                # For unknown architectures, we don’t enforce extra checks.
             }
         }
+        Write-Host "Fallback match found: $assetName"
+        return $asset.browser_download_url
     }
-    Write-Warning "No fallback pattern match for $oldFileName"
+    Write-Warning "No suitable asset found for $oldFileName"
     return $null
 }
+
 
 
 ##############################################################################
@@ -306,15 +322,16 @@ function Fix-KomacManifestsAndSubmit {
         [Parameter(Mandatory)] [string]$WingetId,
         [Parameter(Mandatory)] [version]$NewVersion,
         [Parameter(Mandatory)] [string[]]$InstallerUrls,
-        [Parameter(Mandatory)] $OldInstallers,
+        [Parameter(Mandatory)] $OldInstallers,  # Array of installer objects from the old manifest.
         [string]$OutputFolder = ".komac/$WingetId",
         [string]$GitHubToken,
         [switch]$OpenPr
     )
+    # Update token if provided.
     if ($GitHubToken) {
         & $KomacPath token update --token $GitHubToken
     }
-    # STEP 1: Run Komac update in dry-run mode
+    # STEP 1: Run Komac in dry-run mode to generate the new manifest locally.
     $komacUpdateArgs = @(
         "update", $WingetId,
         "--version", "$NewVersion",
@@ -325,55 +342,62 @@ function Fix-KomacManifestsAndSubmit {
         $komacUpdateArgs += "--urls"
         $komacUpdateArgs += $url
     }
-    Write-Host "Komac dry-run arguments: $komacUpdateArgs"
+    Write-Host "Running Komac dry-run with arguments: $komacUpdateArgs"
     & $KomacPath @komacUpdateArgs
     if ($LASTEXITCODE -ne 0) {
-        Write-Warning "Komac update (dry-run) failed with code $LASTEXITCODE"
+        Write-Warning "Komac dry-run update failed with exit code $LASTEXITCODE"
         return "FAILED_TO_CREATE_PR"
     }
-    # STEP 2: Locate the generated installer manifest
+    
+    # STEP 2: Locate and load the generated manifest file.
     $installerFileObj = Get-ChildItem -Path $OutputFolder -Recurse -Filter *.installer.yaml | Select-Object -First 1
     if (-not $installerFileObj) {
-        Write-Warning "No installer manifest file found under $OutputFolder"
+        Write-Warning "No installer manifest file found in $OutputFolder"
         return "FAILED_TO_CREATE_PR"
     }
-    $installerYaml = Get-Content -Path $installerFileObj.FullName -Raw
-    $installerObj = ConvertFrom-Yaml $installerYaml
-
-    # Check for valid installers
-    if (-not $installerObj.Installers) {
-        Write-Warning "No valid installers found for $WingetId. Cannot proceed."
+    $manifestYaml = Get-Content -Path $installerFileObj.FullName -Raw
+    $manifestObj = ConvertFrom-Yaml $manifestYaml
+    if (-not $manifestObj.Installers) {
+        Write-Warning "No installer entries found in the generated manifest."
         return "FAILED_TO_CREATE_PR"
     }
-
-    # STEP 2A: Match architectures between old and new installers (not index-based)
-    foreach ($oldInstaller in $OldInstallers) {
-        $oldArch = $oldInstaller.Architecture
-        # Find the corresponding new installer by architecture
-        $newInstaller = $installerObj.Installers | Where-Object { $_.Architecture -eq $oldArch } | Select-Object -First 1
-        if ($newInstaller) {
-            Write-Host "Forcing architecture '$oldArch' for installer: $($newInstaller.InstallerUrl)"
-            $newInstaller.Architecture = $oldArch
-        } else {
-            Write-Warning "No new installer found for architecture $oldArch"
+    
+    # STEP 2A: For each old installer entry, force the matching new manifest entry to have the same architecture.
+    foreach ($oldInst in $OldInstallers) {
+        $oldArch = $oldInst.Architecture
+        # Try to find a new installer whose InstallerUrl (or candidate name) matches the old installer architecture.
+        # We assume that Find-NewAssetUrlHybrid already handled updating the URL,
+        # so here we simply check for any new installer with a matching architecture marker.
+        $matchingNew = $manifestObj.Installers | Where-Object {
+            $newArch = $_.Architecture
+            # Compare in a case-insensitive manner.
+            $newArch.ToLower() -eq $oldArch.ToLower()
+        } | Select-Object -First 1
+        if ($matchingNew) {
+            Write-Host "Forcing architecture for $WingetId: Setting new installer ($($matchingNew.InstallerUrl)) architecture to $oldArch"
+            $matchingNew.Architecture = $oldArch
+        }
+        else {
+            Write-Warning "No new installer found for architecture $oldArch in $WingetId"
         }
     }
-
-    # STEP 2B: Write the updated manifest back to disk
-    $updatedYaml = ConvertTo-Yaml $installerObj
+    
+    # STEP 2B: Write the updated manifest back to disk.
+    $updatedYaml = ConvertTo-Yaml $manifestObj
     $updatedYaml | Out-File $installerFileObj.FullName -Force -Encoding UTF8
-
-    # STEP 3: Submit the updated manifest
+    Write-Host "Architecture fix complete. Updated manifest saved at: $($installerFileObj.FullName)"
+    
+    # STEP 3: Submit the updated manifest using Komac submit.
     $komacSubmitArgs = @("submit", $OutputFolder, "--yes")
     if ($OpenPr) { $komacSubmitArgs += "--open-pr" }
     if ($GitHubToken) {
         $komacSubmitArgs += "--token"
         $komacSubmitArgs += $GitHubToken
     }
-    Write-Host "Komac submit arguments: $komacSubmitArgs"
+    Write-Host "Submitting updated manifest with arguments: $komacSubmitArgs"
     & $KomacPath @komacSubmitArgs
     if ($LASTEXITCODE -ne 0) {
-        Write-Warning "Komac submit failed with code $LASTEXITCODE"
+        Write-Warning "Komac submit failed with exit code $LASTEXITCODE"
         return "FAILED_TO_CREATE_PR"
     }
     return "CREATED_NEW_PR"
