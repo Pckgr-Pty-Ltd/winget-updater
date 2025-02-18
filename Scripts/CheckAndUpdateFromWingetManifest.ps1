@@ -3,7 +3,8 @@ Param(
     [string]$GitHubToken     = ${env:PAT_TOKEN},           # GitHub personal access token
     [string]$KomacPath       = "C:\Program Files\Komac\bin\Komac.exe",
     [string]$LastCheckedFile = ".\last_checked.json",     # store Winget IDs + last-check times
-    [int]$SkipHours          = 24                         # skip re-check for 24 hours
+    [int]$SkipHours          = 24,
+    [string]$gptKey          = ${env:OPENAI_KEY}
 )
 
 ##############################################################################
@@ -225,38 +226,108 @@ function Get-ExistingPRs {
     }
 }
 
+function GenerateNewAssetUrlWithGPT {
+    param(
+        [Parameter(Mandatory=$true)][string]$WingetId,
+        [Parameter(Mandatory=$true)][string]$OldInstallerUrl,
+        [Parameter(Mandatory=$true)][string]$NewVersion,
+        [Parameter(Mandatory=$true)][string]$OpenAiKey
+    )
+    
+    $systemMessage = @"
+You are a PowerShell assistant that updates installer URLs for Winget package manifests.
+Given an old installer URL and a new version number, output only the updated installer URL by replacing the old version with the new version.
+Do not include any extra text.
+"@
+    
+    $userPrompt = @"
+Winget ID: $WingetId
+Old Installer URL: $OldInstallerUrl
+New version: $NewVersion
+Please output only the updated installer URL.
+"@
+    
+    $openAiUrl = "https://api.openai.com/v1/chat/completions"
+    $headers = @{
+        "Content-Type"  = "application/json"
+        "Authorization" = "Bearer $OpenAiKey"
+    }
+    
+    $body = @{
+        "model" = "o3-mini"
+        "messages" = @(
+            @{
+                "role"    = "system"
+                "content" = $systemMessage
+            },
+            @{
+                "role"    = "user"
+                "content" = $userPrompt
+            }
+        )
+    } | ConvertTo-Json -Depth 5
+    
+    try {
+        $response = Invoke-RestMethod -Uri $openAiUrl -Method POST -Headers $headers -Body $body
+        if ($response.choices) {
+            $output = $response.choices[0].message.content.Trim()
+            if ($output -match '^https?://') {
+                return $output
+            }
+            else {
+                Write-Warning "GPT output is not a valid URL: $output"
+                return $null
+            }
+        }
+    }
+    catch {
+        Write-Warning "GPT API call failed: $($_.Exception.Message)"
+        return $null
+    }
+    return $null
+}
+
+
 function Find-NewAssetUrlHybrid {
     param(
-        [Parameter(Mandatory)] $oldInstaller,          # Old installer object from the previous manifest.
-        [Parameter(Mandatory)] [Version]$newVersion,    # New version (as a [Version] object).
-        [Parameter(Mandatory)] $assets                 # Array of new release assets from GitHub.
+        [Parameter(Mandatory)] $oldInstaller,          # Old installer object from the previous manifest
+        [Parameter(Mandatory)] [Version]$newVersion,    # New version from GitHub (as a [Version] object)
+        [Parameter(Mandatory)] $assets,                 # Array of new release assets from GitHub
+        [string]$OpenAiKey = $null                     # Optional OpenAI API key for GPT fallback
     )
-    # Get basic file details from the old installer.
+    # Get basic info from the old installer.
     $oldUrl = $oldInstaller.InstallerUrl
     $oldFileName = [System.IO.Path]::GetFileName($oldUrl)
     $oldExt = [System.IO.Path]::GetExtension($oldFileName).ToLowerInvariant()
-
-    # Extract old version from the InstallerVersion property if available; otherwise, try to parse from filename.
+    
+    # Extract the old version from the InstallerVersion property if available;
+    # otherwise, try to extract it from the file name.
     $oldInstallerVersion = $oldInstaller.InstallerVersion
     if (-not $oldInstallerVersion) {
         if ($oldFileName -match '_v?((\d+\.)+\d+)') {
             $oldInstallerVersion = $matches[1]
         }
         else {
-            # Fallback: extract first occurrence of a digit sequence with dots.
-            if ($oldFileName -match '((\d+\.)+\d+)') {
-                $oldInstallerVersion = $matches[1]
-            }
+            $oldInstallerVersion = $oldFileName -replace '.*[vV]', '' -replace '[-_].*', ''
         }
     }
     if (-not $oldInstallerVersion) {
-        Write-Warning "Could not determine old version from $oldFileName"
+        Write-Warning "Cannot determine old version from $oldFileName"
         return $null
     }
     $oldVerString = $oldInstallerVersion
     $newVerString = $newVersion.ToString()
-
-    # Direct substitution: form a candidate filename by replacing the old version with the new version.
+    
+    # Determine the desired architecture from the old manifest.
+    $desiredArch = $oldInstaller.Architecture.ToLowerInvariant()
+    $oldFileNameLower = $oldFileName.ToLowerInvariant()
+    if ($oldFileNameLower -match 'x86_64|amd64|\bx64\b') {
+        $desiredArch = "x64"
+    }
+    elseif ($oldFileNameLower -match 'i386|x86|\b32\b') {
+        $desiredArch = "x86"
+    }
+    
     Write-Host "Trying direct substitution for $oldFileName"
     $candidateName = $oldFileName -replace [Regex]::Escape($oldVerString), $newVerString
     Write-Host "Candidate new name: $candidateName"
@@ -266,50 +337,43 @@ function Find-NewAssetUrlHybrid {
             return $asset.browser_download_url
         }
     }
-
-    Write-Host "No exact match found. Falling back to pattern-based matching..."
-    # Determine the desired architecture from the old manifest.
-    $desiredArch = $oldInstaller.Architecture.ToLowerInvariant()
-    $oldFileNameLower = $oldFileName.ToLowerInvariant()
-    # Normalize architecture based on filename hints.
-    if ($oldFileNameLower -match 'x86_64|amd64|\bx64\b') {
-        $desiredArch = "x64"
-    }
-    elseif ($oldFileNameLower -match 'i386|x86|\b32\b') {
-        $desiredArch = "x86"
-    }
     
+    Write-Host "No exact match found. Falling back to pattern-based matching..."
     foreach ($asset in $assets) {
-        $assetName = $asset.name
-        $assetExt = [System.IO.Path]::GetExtension($assetName).ToLowerInvariant()
+        $an = $asset.name
+        $assetExt = [System.IO.Path]::GetExtension($an).ToLowerInvariant()
         if ($assetExt -ne $oldExt) { continue }
-        # Ensure the asset name contains the new version string.
-        if ($assetName -notmatch [Regex]::Escape($newVerString)) { continue }
-        
-        # Check for architecture markers:
-        $assetNameLower = $assetName.ToLowerInvariant()
+        $anLower = $an.ToLowerInvariant()
         switch ($desiredArch) {
             'x64' {
-                # For x64, ensure that asset name has an accepted marker and does NOT include "arm64"
-                if ($assetNameLower -match '(?i)arm64') { continue }
-                if (-not ($assetNameLower -match '(?i)(x86_64|amd64|\bx64\b)')) { continue }
+                if ($anLower -match '(?i)arm64') { continue }
+                if (-not ($anLower -match '(?i)(x86_64|amd64|\bx64\b)')) { continue }
             }
             'x86' {
-                if (-not ($assetNameLower -match '(?i)(x86|32|386)')) { continue }
+                if (-not ($anLower -match '(?i)(x86|32|386)')) { continue }
             }
             'arm64' {
-                if (-not ($assetNameLower -match '(?i)arm64')) { continue }
-            }
-            default {
-                # For unknown architectures, we don’t enforce extra checks.
+                if (-not ($anLower -match '(?i)arm64')) { continue }
             }
         }
-        Write-Host "Fallback match found: $assetName"
+        Write-Host "Fallback match found: $an"
         return $asset.browser_download_url
     }
+    
+    # If no match is found and an OpenAiKey is provided, use GPT fallback.
+    if ($OpenAiKey) {
+        Write-Host "No asset match found via direct or pattern-based matching. Using GPT fallback for $oldFileName."
+        $gptUrl = GenerateNewAssetUrlWithGPT -WingetId $oldInstaller.PackageIdentifier -OldInstallerUrl $oldUrl -NewVersion $newVerString -OpenAiKey $OpenAiKey
+        if ($gptUrl) {
+            Write-Host "GPT fallback returned URL: $gptUrl"
+            return $gptUrl
+        }
+    }
+    
     Write-Warning "No suitable asset found for $oldFileName"
     return $null
 }
+
 
 
 
@@ -549,6 +613,7 @@ foreach ($wingetId in $wingetIds) {
             -oldInstaller $oldInstaller `
             -newVersion $latestVersion `
             -assets $latestRelease.assets
+            -OpenAiKey $gptKey
         if ($urlMatch) {
             $newInstallerUrls += $urlMatch
         }

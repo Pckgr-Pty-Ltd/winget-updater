@@ -56,6 +56,7 @@ jobs:
         shell: pwsh
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
           KOMAC_PATH: 'C:\Program Files\Komac\bin\Komac.exe'
         run: |
           .\Scripts\CheckAndUpdateFromWingetManifest.ps1
