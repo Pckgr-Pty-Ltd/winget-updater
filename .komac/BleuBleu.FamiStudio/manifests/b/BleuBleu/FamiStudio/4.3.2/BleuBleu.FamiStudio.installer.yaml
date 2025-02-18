@@ -1,0 +1,19 @@
+InstallerType: zip
+ReleaseDate: 2025-01-17
+NestedInstallerType: msi
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.DotNet.Runtime.8
+  - PackageIdentifier: Microsoft.VCRedist.2015+.x64
+Installers:
+- Architecture: x86
+  InstallerUrl: https://github.com/BleuBleu/FamiStudio/releases/download/4.3.2/FamiStudio432-LinuxAMD64.zip
+  InstallerSha256: EECB10DF0D68FDF6FE623FEF0056168BD9038C09EC8F048B569EF59D1753BAB2
+InstallerLocale: en-US
+ManifestVersion: 1.9.0
+PackageIdentifier: BleuBleu.FamiStudio
+PackageVersion: 4.3.2
+ManifestType: installer
+NestedInstallerFiles:
+- RelativeFilePath: Setup.msi
+

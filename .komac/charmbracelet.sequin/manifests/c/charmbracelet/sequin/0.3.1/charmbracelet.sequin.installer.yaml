@@ -1,0 +1,21 @@
+InstallerType: zip
+ReleaseDate: 2025-01-27
+UpgradeBehavior: uninstallPrevious
+NestedInstallerType: portable
+ManifestVersion: 1.9.0
+InstallerLocale: en-US
+PackageIdentifier: charmbracelet.sequin
+PackageVersion: 0.3.1
+ManifestType: installer
+Installers:
+- NestedInstallerFiles:
+  - RelativeFilePath: sequin_0.3.1_Windows_i386/sequin.exe
+  Architecture: x64
+  InstallerUrl: https://github.com/charmbracelet/sequin/releases/download/v0.3.1/sequin_0.3.1_Windows_i386.zip
+  InstallerSha256: E5336C56F2CAE37F78EE47B47F711C9B4D98A893E645F8FB0C447C356B5792A0
+- NestedInstallerFiles:
+  - RelativeFilePath: sequin_0.3.1_Windows_x86_64/sequin.exe
+  Architecture: x86
+  InstallerUrl: https://github.com/charmbracelet/sequin/releases/download/v0.3.1/sequin_0.3.1_Windows_x86_64.zip
+  InstallerSha256: 7F10E402491CD5EECB5BB2BDA74FAEA48B24D96F7C280819A827F5DCC47438E7
+
