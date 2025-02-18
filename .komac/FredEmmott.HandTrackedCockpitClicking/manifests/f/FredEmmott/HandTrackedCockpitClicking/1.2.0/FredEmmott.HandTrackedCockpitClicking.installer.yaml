@@ -1,0 +1,20 @@
+PackageVersion: 1.2.0
+InstallerType: wix
+Installers:
+- InstallerSha256: 784A6D22BCFA778D5BB423A7B7ACD50A37AE01D7DD9032954C5158DBD5247A74
+  Architecture: x64
+  InstallerUrl: https://github.com/fredemmott/HTCC/releases/download/v1.2.0/HTCC-v1.2.0.msi
+Scope: user
+ProductCode: '{33F65169-C6EA-47FC-A807-D730DD168044}'
+InstallerLocale: en-US
+PackageIdentifier: FredEmmott.HandTrackedCockpitClicking
+ManifestVersion: 1.9.0
+ReleaseDate: 2024-07-27
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\Hand Tracked Cockpit Clicking'
+ManifestType: installer
+AppsAndFeaturesEntries:
+- ProductCode: '{33F65169-C6EA-47FC-A807-D730DD168044}'
+  DisplayVersion: 1.2.0.344
+  UpgradeCode: '{2F0CD440-8D59-4572-AABE-A7B4E7FFCDCD}'
+

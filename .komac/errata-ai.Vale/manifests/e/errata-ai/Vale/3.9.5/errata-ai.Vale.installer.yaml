@@ -1,0 +1,17 @@
+InstallerLocale: en-US
+NestedInstallerFiles:
+- RelativeFilePath: vale.exe
+PackageVersion: 3.9.5
+Commands:
+- vale
+ManifestType: installer
+ManifestVersion: 1.9.0
+PackageIdentifier: errata-ai.Vale
+NestedInstallerType: portable
+Installers:
+- InstallerSha256: 64C27EC277F1A7755C758E907F341186CE81C26F2F2A4A2691B07C1D7EFED85C
+  Architecture: x64
+  InstallerUrl: https://github.com/errata-ai/vale/releases/download/v3.9.5/vale_3.9.5_Windows_64-bit.zip
+InstallerType: zip
+ReleaseDate: 2025-02-05
+
