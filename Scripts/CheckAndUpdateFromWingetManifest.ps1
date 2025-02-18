@@ -339,26 +339,6 @@ function Find-NewAssetUrlHybrid {
     }
     
     Write-Host "No exact match found. Falling back to pattern-based matching..."
-    foreach ($asset in $assets) {
-        $an = $asset.name
-        $assetExt = [System.IO.Path]::GetExtension($an).ToLowerInvariant()
-        if ($assetExt -ne $oldExt) { continue }
-        $anLower = $an.ToLowerInvariant()
-        switch ($desiredArch) {
-            'x64' {
-                if ($anLower -match '(?i)arm64') { continue }
-                if (-not ($anLower -match '(?i)(x86_64|amd64|\bx64\b)')) { continue }
-            }
-            'x86' {
-                if (-not ($anLower -match '(?i)(x86|32|386)')) { continue }
-            }
-            'arm64' {
-                if (-not ($anLower -match '(?i)arm64')) { continue }
-            }
-        }
-        Write-Host "Fallback match found: $an"
-        return $asset.browser_download_url
-    }
     
     # If no match is found and an OpenAiKey is provided, use GPT fallback.
     if ($OpenAiKey) {
