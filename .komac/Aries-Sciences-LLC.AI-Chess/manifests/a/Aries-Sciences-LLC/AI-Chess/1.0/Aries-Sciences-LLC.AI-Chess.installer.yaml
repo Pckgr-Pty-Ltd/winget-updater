@@ -1,11 +1,11 @@
-PackageVersion: "1.0"
-ManifestType: installer
-PackageIdentifier: Aries-Sciences-LLC.AI-Chess
-ReleaseDate: 2021-12-07
 Installers:
 - Architecture: x64
-  InstallerUrl: https://github.com/Aries-Sciences-LLC/AI-Chess/releases/download/1.0/AI.Chess.Game.Installer.exe
   InstallerSha256: F6C29F70605CBA36120CF2BF0E3D059832D4C239D702B9997CD18AE60DA79F6A
+  InstallerUrl: https://github.com/Aries-Sciences-LLC/AI-Chess/releases/download/1.0/AI.Chess.Game.Installer.exe
+PackageVersion: "1.0"
+PackageIdentifier: Aries-Sciences-LLC.AI-Chess
 ManifestVersion: 1.9.0
+ManifestType: installer
 InstallerType: exe
+ReleaseDate: 2021-12-07
 
