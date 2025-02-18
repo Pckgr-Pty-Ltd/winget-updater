@@ -1,0 +1,15 @@
+InstallerType: zip
+ManifestVersion: 1.9.0
+PackageIdentifier: DNSCrypt.dnscrypt-proxy
+PackageVersion: 2.1.7
+ReleaseDate: 2025-01-11
+Installers:
+- InstallerUrl: https://github.com/DNSCrypt/dnscrypt-proxy/releases/download/2.1.7/dnscrypt-proxy-android_i386-2.1.7.zip
+  Architecture: x86
+  InstallerSha256: C800906CF756FC99EAA9AA1530F5F422DFFA094B2C98672DD408395F16CB355E
+- InstallerUrl: https://github.com/DNSCrypt/dnscrypt-proxy/releases/download/2.1.7/dnscrypt-proxy-android_x86_64-2.1.7.zip
+  Architecture: x64
+  InstallerSha256: 96708D6C7D87F232E958D60C7BDE2F2D642CAE17EBDE258772DF6251DD6E9203
+ManifestType: installer
+NestedInstallerType: portable
+
