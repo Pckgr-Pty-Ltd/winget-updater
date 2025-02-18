@@ -1,0 +1,14 @@
+InstallerType: zip
+ManifestVersion: 1.9.0
+PackageIdentifier: divVerent.AAAAXY
+ManifestType: installer
+NestedInstallerFiles:
+- RelativeFilePath: aaaaxy-windows-amd64.exe
+ReleaseDate: 2025-01-13
+Installers:
+- InstallerUrl: https://github.com/divVerent/aaaaxy/releases/download/v1.5.256/aaaaxy-linux-amd64-v1.5.256.zip
+  Architecture: x64
+  InstallerSha256: A7CCC1BFEB37A0D4C311B9642043AEA048436962657E3C89466815B3CAA65242
+PackageVersion: 1.5.256
+NestedInstallerType: portable
+
