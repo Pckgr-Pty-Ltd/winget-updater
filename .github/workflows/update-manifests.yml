@@ -64,6 +64,7 @@ jobs:
           .\Scripts\CheckAndUpdateFromWingetManifest.ps1
 
       - name: Create Pull Request for Updated Files
+        if: always()
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
