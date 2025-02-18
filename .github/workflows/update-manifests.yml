@@ -62,20 +62,14 @@ jobs:
           # Ensure the update script is executable and run it.
           # The script uses environment variables for sensitive info.
           .\Scripts\CheckAndUpdateFromWingetManifest.ps1
-          
-      - name: Commit and Push Changes
-        if: always()
-        shell: pwsh
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git add last_checked.json .komac
-          if (-not (git diff --cached --quiet)) {
-              git commit -m "Update manifest state files via GitHub Action"
-              git push
-          }
-          else {
-              Write-Host "No changes to commit."
-          }
+
+      - name: Create Pull Request for Updated Files
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Update manifest state files via GitHub Action"
+          title: "Update manifest state files"
+          body: "Automated update of manifest state files (last_checked.json and .komac) by GitHub Action."
+          branch: "update/winget-manifests-${{ github.run_id }}"
+          base: main
+          delete-branch: true
