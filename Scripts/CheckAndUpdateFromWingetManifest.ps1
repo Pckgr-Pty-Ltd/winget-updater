@@ -1,8 +1,8 @@
 Param(
     [string]$WingetIdsFile   = ".\winget_ids.txt",        
-    [string]$GitHubToken     = ${env:PAT_TOKEN},           
+    [string]$GitHubToken     = ${env:PAT_TOKEN},           # GitHub personal access token
     [string]$KomacPath       = "C:\Program Files\Komac\bin\Komac.exe",
-    [string]$LastCheckedFile = ".\last_checked.json",     
+    [string]$LastCheckedFile = ".\last_checked.json",     # store Winget IDs + last-check times
     [int]$SkipHours          = 24                         # skip re-check for 24 hours
 )
 
@@ -193,45 +193,37 @@ function Convert-ToVersionOrNull {
 # New function to check for an open PR for a given package.
 function Get-ExistingPRs {
     param(
-        [Parameter(Mandatory)]
-        [string]$PackageId,
+        [Parameter(Mandatory)][string]$PackageId,
         [string]$GitHubToken
     )
-    $baseUrl = "https://api.github.com/repos/microsoft/winget-pkgs/pulls"
+    # List up to 100 open PRs in the winget-pkgs repo
+    $prUrl = "https://api.github.com/repos/microsoft/winget-pkgs/pulls?state=open&per_page=100"
     $headers = @{
-        "User-Agent" = "WingetUpdater/1.0"
-        "Accept" = "application/vnd.github.v3+json"
+        "User-Agent" = "WingetManifestCheckScript"
     }
-    if ($GitHubToken) { $headers["Authorization"] = "token $GitHubToken" }
-
-    $normalizedId = $PackageId -replace '\.', '-'
-    $pattern = "^update/($([Regex]::Escape($PackageId))|$([Regex]::Escape($normalizedId)))(-|$|_)"
-
+    if ($GitHubToken) {
+        $headers["Authorization"] = "token " + $GitHubToken
+    }
     try {
-        $nextUrl = "${baseUrl}?state=open&per_page=100"
-        do {
-            $response = Invoke-RestMethod -Uri $nextUrl -Headers $headers
-            foreach ($pr in $response) {
-                if ($pr.head.ref -match $pattern) {
-                    Write-Verbose "Found existing PR: $($pr.html_url)"
-                    return $true
-                }
+        $prs = Invoke-RestMethod -Uri $prUrl -Headers $headers -Method GET
+        Start-Sleep -Seconds 1
+        # Build a regex pattern that matches titles like:
+        # "Update version: <PackageId> version <something>" or
+        # "New version: <PackageId> version <something>"
+        $pattern = "^(Update|New) version:\s*" + [Regex]::Escape($PackageId) + "\s+version\s+\S+"
+        foreach ($pr in $prs) {
+            if ($pr.title -match $pattern) {
+                Write-Host "Found open PR with title $($pr.title) matching pattern $pattern"
+                return $true
             }
-            $nextUrl = if ($response.Headers.Link) {
-                ($response.Headers.Link -split ',' | Where-Object { $_ -match '<([^>]+)>;\s*rel="next"' } | 
-                ForEach-Object { $matches[1] }) | Select-Object -First 1
-            }
-            if ($nextUrl) { Start-Sleep -Seconds 2 } # Respect rate limits
-        } while ($nextUrl)
-        
+        }
         return $false
     }
     catch {
-        Write-Warning "PR check failed: $($_.Exception.Message)"
+        Write-Warning ("Failed to list PRs for package " + $PackageId + " " + $_.Exception.Message)
         return $false
     }
 }
-
 
 function Find-NewAssetUrlHybrid {
     param(
