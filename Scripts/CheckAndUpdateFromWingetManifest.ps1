@@ -228,7 +228,7 @@ function Get-ExistingPRs {
 function Find-NewAssetUrlHybrid {
     param(
         [Parameter(Mandatory)] $oldInstaller,          # the old installer object from the old manifest
-        [Parameter(Mandatory)] [Version]$newVersion,    # new version from GitHub
+        [Parameter(Mandatory)] [Version]$newVersion,    # new version from GitHub (as a [Version] object)
         [Parameter(Mandatory)] $assets                 # array of new release assets from GitHub
     )
     # Retrieve basic info from the old installer.
@@ -236,24 +236,23 @@ function Find-NewAssetUrlHybrid {
     $oldFileName = [System.IO.Path]::GetFileName($oldUrl)
     $oldExt = [System.IO.Path]::GetExtension($oldFileName).ToLowerInvariant()
     
-    # Use InstallerVersion if available; otherwise, try to extract it from the file name.
+    # Use InstallerVersion if available; if not, try to extract it from the file name.
     $oldInstallerVersion = $oldInstaller.InstallerVersion
     if (-not $oldInstallerVersion) {
-        $oldInstallerVersion = $oldFileName -replace ".*_v", "" -replace "-.*", ""
+        $oldInstallerVersion = $oldFileName -replace '.*[vV]', '' -replace '[-_].*', ''
     }
     $oldVerString = "$oldInstallerVersion"
     $newVerString = "$newVersion"
     
-    # Normalize the architecture:
+    # Normalize the architecture based on filename hints.
     $arch = $oldInstaller.Architecture
-    # If the manifest says x86 but the file name indicates x86_64, use x64.
-    if ($arch -eq "x86" -and $oldFileName -match "x86_64") {
-        Write-Verbose "Normalizing architecture for $oldFileName 'x86' replaced with 'x64' based on filename."
+    $oldFileNameLower = $oldFileName.ToLowerInvariant()
+    if ($arch -eq "x86" -and $oldFileNameLower -match "x86_64") {
+        Write-Verbose "Normalizing architecture: Changing x86 to x64 based on filename."
         $arch = "x64"
     }
-    # If the manifest says x64 but the file name indicates i386 or 32, use x86.
-    elseif ($arch -eq "x64" -and ($oldFileName -match "i386" -or $oldFileName -match "32")) {
-        Write-Verbose "Normalizing architecture for $oldFileName 'x64' replaced with 'x86' based on filename."
+    elseif ($arch -eq "x64" -and ($oldFileNameLower -match "i386" -or $oldFileNameLower -match "32")) {
+        Write-Verbose "Normalizing architecture: Changing x64 to x86 based on filename."
         $arch = "x86"
     }
     
@@ -272,19 +271,22 @@ function Find-NewAssetUrlHybrid {
         $an = $asset.name
         $assetExt = [System.IO.Path]::GetExtension($an).ToLowerInvariant()
         if ($assetExt -ne $oldExt) { continue }
-        # Require OS markers if the old file name indicates Windows.
-        if ($oldFileName -match 'windows' -and $an -notmatch 'windows') { continue }
+        # Require OS markers if the old file indicates Windows.
+        if ($oldFileNameLower -match 'windows' -and $an.ToLowerInvariant() -notmatch '(?i)windows') { continue }
         
         switch ($arch) {
             'x64' {
-                # For x64, require one of the accepted markers and exclude any "arm" markers.
-                if ($an -notmatch '\b(x86_64|amd64|x64)\b' -or $an -match '\barm\b') { continue }
+                $nameLowerAsset = $an.ToLowerInvariant()
+                # Reject any asset that contains "arm64".
+                if ($nameLowerAsset -match '(?i)arm64') { continue }
+                # Require one of the accepted x64 markers.
+                if ($nameLowerAsset -notmatch '(?i)(x86_64|amd64|\bx64\b)') { continue }
             }
             'x86' {
-                if ($an -notmatch '\b(x86|32|386)\b') { continue }
+                if ($an.ToLowerInvariant() -notmatch '(?i)(x86|32|386)') { continue }
             }
             'arm64' {
-                if ($an -notmatch '\barm64\b') { continue }
+                if ($an.ToLowerInvariant() -notmatch '(?i)arm64') { continue }
             }
         }
         Write-Host "Fallback match found: $an"
@@ -304,15 +306,15 @@ function Fix-KomacManifestsAndSubmit {
         [Parameter(Mandatory)] [string]$WingetId,
         [Parameter(Mandatory)] [version]$NewVersion,
         [Parameter(Mandatory)] [string[]]$InstallerUrls,
-        [Parameter(Mandatory)] $OldInstallers,  # from old manifest
+        [Parameter(Mandatory)] $OldInstallers,  # from the old manifest
         [string]$OutputFolder = ".komac/$WingetId",
         [string]$GitHubToken,
-        [switch]$OpenPr             # if set, pass --open-pr
+        [switch]$OpenPr
     )
     if ($GitHubToken) {
         & $KomacPath token update --token $GitHubToken
     }
-    # STEP 1: Run Komac update in dry-run mode to generate local YAML
+    # STEP 1: Run Komac update in dry-run mode to generate a local YAML manifest.
     $komacUpdateArgs = @(
         "update", $WingetId,
         "--version", "$NewVersion",
@@ -329,27 +331,27 @@ function Fix-KomacManifestsAndSubmit {
         Write-Warning "Komac update (dry-run) failed with code $LASTEXITCODE"
         return "FAILED_TO_CREATE_PR"
     }
-    # STEP 2: Locate the generated installer manifest (search recursively)
+    # STEP 2: Locate the generated installer manifest (search recursively).
     $installerFileObj = Get-ChildItem -Path $OutputFolder -Recurse -Filter *.installer.yaml | Select-Object -First 1
     if (-not $installerFileObj) {
-        Write-Warning "No installer manifest file found in $OutputFolder"
+        Write-Warning "No installer manifest file found under $OutputFolder"
         return "FAILED_TO_CREATE_PR"
     }
     $installerYaml = Get-Content -Path $installerFileObj.FullName -Raw
-    $installerObj  = ConvertFrom-Yaml $installerYaml
+    $installerObj = ConvertFrom-Yaml $installerYaml
 
     if ($installerObj.Installers.Count -lt $OldInstallers.Count) {
         Write-Warning "Old manifest had $($OldInstallers.Count) installers, new manifest has $($installerObj.Installers.Count). Missing architecture entries; skipping update for $WingetId"
         return "FAILED_TO_CREATE_PR"
     }
 
-    # STEP 2A: Force new manifest architecture to match old manifest (index-based)
+    # STEP 2A: Force new manifest architecture to match the old manifest (index-based).
     if ($installerObj.Installers.Count -eq $OldInstallers.Count) {
         for ($i = 0; $i -lt $installerObj.Installers.Count; $i++) {
             $oldArch = $OldInstallers[$i].Architecture
             $newArch = $installerObj.Installers[$i].Architecture
             if ($oldArch -ne $newArch) {
-                Write-Host "Forcing architecture from '$newArch' to '$oldArch' at installer index [$i]"
+                Write-Host "Forcing architecture from '$newArch' to '$oldArch' at installer index $i"
                 $installerObj.Installers[$i].Architecture = $oldArch
             }
         }
@@ -358,12 +360,12 @@ function Fix-KomacManifestsAndSubmit {
         Write-Warning "Installer counts differ; skipping index-based architecture fix."
     }
 
-    # STEP 2B: Rewrite updated YAML to disk
+    # STEP 2B: Write the updated manifest back to disk.
     $updatedYaml = ConvertTo-Yaml $installerObj
     $updatedYaml | Out-File $installerFileObj.FullName -Force -Encoding UTF8
     Write-Host "Architecture fix complete. Updated manifest: $($installerFileObj.FullName)"
 
-    # STEP 3: Submit the updated manifest using Komac submit
+    # STEP 3: Submit the updated manifest using Komac submit.
     $komacSubmitArgs = @("submit", $OutputFolder, "--yes")
     if ($OpenPr) { $komacSubmitArgs += "--open-pr" }
     if ($GitHubToken) {
