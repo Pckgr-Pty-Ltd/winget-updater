@@ -235,14 +235,12 @@ function Find-NewAssetUrlHybrid {
     $oldFileName = [System.IO.Path]::GetFileName($oldUrl)
     $oldExt = [System.IO.Path]::GetExtension($oldFileName).ToLowerInvariant()
     
-    # Extract version from old filename
+    # Extract version from filename if InstallerVersion isn't specified
     $oldInstallerVersion = $oldInstaller.InstallerVersion
     if (-not $oldInstallerVersion) {
-        # Match version after an underscore and before extension
         if ($oldFileName -match '_((\d+\.)+\d+)(?=\.[^.]*$)') {
             $oldInstallerVersion = $matches[1]
         } else {
-            # Fallback to previous method if no match
             $oldInstallerVersion = $oldFileName -replace '.*[vV]', '' -replace '[-_].*', ''
         }
     }
@@ -252,15 +250,12 @@ function Find-NewAssetUrlHybrid {
     # Determine architecture from old installer and filename hints
     $arch = $oldInstaller.Architecture
     $oldFileNameLower = $oldFileName.ToLowerInvariant()
-    if ($arch -eq "x86" -and $oldFileNameLower -match "x86_64") {
-        Write-Verbose "Normalizing architecture: x86 to x64 based on filename."
+    if ($oldFileNameLower -match 'x86_64|amd64|\bx64\b') {
+        Write-Verbose "Normalizing architecture to x64 based on filename."
         $arch = "x64"
-    } elseif ($arch -eq "x64" -and ($oldFileNameLower -match "i386|32")) {
-        Write-Verbose "Normalizing architecture: x64 to x86 based on filename."
+    } elseif ($oldFileNameLower -match 'i386|x86|\b32\b') {
+        Write-Verbose "Normalizing architecture to x86 based on filename."
         $arch = "x86"
-    } elseif ($arch -eq "x64" -and $oldFileNameLower -match "arm64") {
-        Write-Verbose "Normalizing architecture: x64 to arm64 based on filename."
-        $arch = "arm64"
     }
     
     Write-Host "Trying direct substitution for $oldFileName"
@@ -277,53 +272,24 @@ function Find-NewAssetUrlHybrid {
     foreach ($asset in $assets) {
         $an = $asset.name
         $assetExt = [System.IO.Path]::GetExtension($an).ToLowerInvariant()
-        if ($assetExt -ne $oldExt) { 
-            Write-Verbose "Skipping $an due to extension mismatch."
-            continue 
-        }
-        # Check OS markers if old file indicates Windows
-        if ($oldFileNameLower -match 'windows' -and $an.ToLowerInvariant() -notmatch 'windows') {
-            Write-Verbose "Skipping $an due to missing Windows marker."
-            continue 
-        }
+        if ($assetExt -ne $oldExt) { continue }
         
         $anLower = $an.ToLowerInvariant()
-        $archMatched = $false
         switch ($arch) {
             'x64' {
-                # Strictly skip any ARM64 assets
-                if ($anLower -match '(arm64)') {
-                    Write-Verbose "Skipping $an due to ARM64 architecture."
-                    continue
-                }
-                # Require explicit x64 markers (x64, amd64, x86_64)
+                # Require explicit x64 markers (x86_64, amd64, x64)
                 if ($anLower -match '(x86_64|amd64|\bx64\b)') {
-                    $archMatched = $true
-                } else {
-                    Write-Verbose "Skipping $an due to missing x64 markers."
-                    continue
+                    Write-Host "Fallback x64 match found: $an"
+                    return $asset.browser_download_url
                 }
             }
             'x86' {
-                if ($anLower -match '(x86|i386|32)') {
-                    $archMatched = $true
-                } else {
-                    Write-Verbose "Skipping $an due to missing x86 markers."
-                    continue
+                # Require explicit x86 markers (i386, x86, 32)
+                if ($anLower -match '(i386|x86|\b32\b)') {
+                    Write-Host "Fallback x86 match found: $an"
+                    return $asset.browser_download_url
                 }
             }
-            'arm64' {
-                if ($anLower -match 'arm64') {
-                    $archMatched = $true
-                } else {
-                    Write-Verbose "Skipping $an due to missing ARM64 markers."
-                    continue
-                }
-            }
-        }
-        if ($archMatched) {
-            Write-Host "Fallback match found: $an"
-            return $asset.browser_download_url
         }
     }
     Write-Warning "No fallback pattern match for $oldFileName"
@@ -340,7 +306,7 @@ function Fix-KomacManifestsAndSubmit {
         [Parameter(Mandatory)] [string]$WingetId,
         [Parameter(Mandatory)] [version]$NewVersion,
         [Parameter(Mandatory)] [string[]]$InstallerUrls,
-        [Parameter(Mandatory)] $OldInstallers,  # from the old manifest
+        [Parameter(Mandatory)] $OldInstallers,
         [string]$OutputFolder = ".komac/$WingetId",
         [string]$GitHubToken,
         [switch]$OpenPr
@@ -348,7 +314,7 @@ function Fix-KomacManifestsAndSubmit {
     if ($GitHubToken) {
         & $KomacPath token update --token $GitHubToken
     }
-    # STEP 1: Run Komac update in dry-run mode to generate a local YAML manifest.
+    # STEP 1: Run Komac update in dry-run mode
     $komacUpdateArgs = @(
         "update", $WingetId,
         "--version", "$NewVersion",
@@ -365,7 +331,7 @@ function Fix-KomacManifestsAndSubmit {
         Write-Warning "Komac update (dry-run) failed with code $LASTEXITCODE"
         return "FAILED_TO_CREATE_PR"
     }
-    # STEP 2: Locate the generated installer manifest (search recursively).
+    # STEP 2: Locate the generated installer manifest
     $installerFileObj = Get-ChildItem -Path $OutputFolder -Recurse -Filter *.installer.yaml | Select-Object -First 1
     if (-not $installerFileObj) {
         Write-Warning "No installer manifest file found under $OutputFolder"
@@ -374,38 +340,30 @@ function Fix-KomacManifestsAndSubmit {
     $installerYaml = Get-Content -Path $installerFileObj.FullName -Raw
     $installerObj = ConvertFrom-Yaml $installerYaml
 
-    # Check if any valid installers were found
+    # Check for valid installers
     if (-not $installerObj.Installers) {
         Write-Warning "No valid installers found for $WingetId. Cannot proceed."
         return "FAILED_TO_CREATE_PR"
     }
 
-    if ($installerObj.Installers.Count -lt $OldInstallers.Count) {
-        Write-Warning "Old manifest had $($OldInstallers.Count) installers, new manifest has $($installerObj.Installers.Count). Missing architecture entries; skipping update for $WingetId"
-        return "FAILED_TO_CREATE_PR"
-    }
-
-    # STEP 2A: Force new manifest architecture to match the old manifest (index-based).
-    if ($installerObj.Installers.Count -eq $OldInstallers.Count) {
-        for ($i = 0; $i -lt $installerObj.Installers.Count; $i++) {
-            $oldArch = $OldInstallers[$i].Architecture
-            $newArch = $installerObj.Installers[$i].Architecture
-            if ($oldArch -ne $newArch) {
-                Write-Host "Forcing architecture from '$newArch' to '$oldArch' at installer index $i"
-                $installerObj.Installers[$i].Architecture = $oldArch
-            }
+    # STEP 2A: Match architectures between old and new installers (not index-based)
+    foreach ($oldInstaller in $OldInstallers) {
+        $oldArch = $oldInstaller.Architecture
+        # Find the corresponding new installer by architecture
+        $newInstaller = $installerObj.Installers | Where-Object { $_.Architecture -eq $oldArch } | Select-Object -First 1
+        if ($newInstaller) {
+            Write-Host "Forcing architecture '$oldArch' for installer: $($newInstaller.InstallerUrl)"
+            $newInstaller.Architecture = $oldArch
+        } else {
+            Write-Warning "No new installer found for architecture $oldArch"
         }
     }
-    else {
-        Write-Warning "Installer counts differ; skipping index-based architecture fix."
-    }
 
-    # STEP 2B: Write the updated manifest back to disk.
+    # STEP 2B: Write the updated manifest back to disk
     $updatedYaml = ConvertTo-Yaml $installerObj
     $updatedYaml | Out-File $installerFileObj.FullName -Force -Encoding UTF8
-    Write-Host "Architecture fix complete. Updated manifest: $($installerFileObj.FullName)"
 
-    # STEP 3: Submit the updated manifest using Komac submit.
+    # STEP 3: Submit the updated manifest
     $komacSubmitArgs = @("submit", $OutputFolder, "--yes")
     if ($OpenPr) { $komacSubmitArgs += "--open-pr" }
     if ($GitHubToken) {
