@@ -1,0 +1,17 @@
+ManifestType: installer
+InstallerLocale: en-US
+Installers:
+- Architecture: x64
+  InstallerSha256: 5C61FD579E8CBE94F4F38BEA971C788490E6619C01E27EC0055069AC3E33A847
+  InstallerUrl: https://github.com/amnweb/yasb/releases/download/v1.6.0/yasb-1.6.0-win64.msi
+InstallationMetadata: {}
+PackageVersion: 1.6.0
+PackageIdentifier: AmN.yasb
+ManifestVersion: 1.9.0
+ProductCode: '{2DCCDE3B-8DC4-4375-AA03-0620A193F80B}'
+AppsAndFeaturesEntries:
+- ProductCode: '{2DCCDE3B-8DC4-4375-AA03-0620A193F80B}'
+  UpgradeCode: '{3F620CF5-07B5-47FD-8E37-9CA8AD14B608}'
+InstallerType: msi
+ReleaseDate: 2025-02-18
+
