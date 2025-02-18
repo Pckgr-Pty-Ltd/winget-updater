@@ -62,7 +62,9 @@ jobs:
           # Ensure the update script is executable and run it.
           # The script uses environment variables for sensitive info.
           .\Scripts\CheckAndUpdateFromWingetManifest.ps1
+          
       - name: Commit and Push Changes
+        if: always()
         shell: pwsh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -71,10 +73,9 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git add last_checked.json .komac
           if (-not (git diff --cached --quiet)) {
-              git commit -m "Update manifest state files from failed/cancelled update run"
+              git commit -m "Update manifest state files via GitHub Action"
               git push
           }
           else {
               Write-Host "No changes to commit."
           }
-
