@@ -1,0 +1,17 @@
+ManifestType: installer
+AppsAndFeaturesEntries:
+- Publisher: Ente
+  ProductCode: fb682768-51c6-5397-92da-171dc1777808
+  DisplayName: ente 1.7.9
+PackageVersion: 1.7.9
+InstallerType: nullsoft
+ManifestVersion: 1.9.0
+InstallerLocale: en-US
+ReleaseDate: 2025-02-10
+Installers:
+- Architecture: neutral
+  InstallerUrl: https://github.com/ente-io/photos-desktop/releases/download/v1.7.9/ente-1.7.9.exe
+  InstallerSha256: EE7066C631E5D5661E44B1ADE611455365F0A581AB45A1E7CC8CF30C1A2B7C27
+ProductCode: fb682768-51c6-5397-92da-171dc1777808
+PackageIdentifier: ente-io.photos-desktop
+

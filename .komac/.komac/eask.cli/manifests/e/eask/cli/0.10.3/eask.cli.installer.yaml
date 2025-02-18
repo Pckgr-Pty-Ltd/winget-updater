@@ -1,0 +1,18 @@
+PackageVersion: 0.10.3
+ReleaseDate: 2025-01-09
+Installers:
+- InstallerSha256: 8BAEAB3AA4BF2798ABCFD2BEF3765ECA484F7BB56D72F049741E4EB9E99599D6
+  Architecture: x64
+  InstallerUrl: https://github.com/emacs-eask/cli/releases/download/0.10.3/eask_0.10.3_win-x64.zip
+- InstallerSha256: AC912064680774C0430D02FC75C391D05146720121868C2EE76635017802F9C9
+  Architecture: arm64
+  InstallerUrl: https://github.com/emacs-eask/cli/releases/download/0.10.3/eask_0.10.3_win-arm64.zip
+NestedInstallerType: portable
+ManifestType: installer
+InstallerLocale: en-US
+PackageIdentifier: eask.cli
+ManifestVersion: 1.9.0
+NestedInstallerFiles:
+- RelativeFilePath: eask.exe
+InstallerType: zip
+

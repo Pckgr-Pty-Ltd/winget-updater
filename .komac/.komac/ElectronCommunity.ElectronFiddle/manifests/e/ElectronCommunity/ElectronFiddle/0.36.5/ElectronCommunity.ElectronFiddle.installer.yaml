@@ -1,0 +1,22 @@
+InstallerLocale: en-US
+Scope: user
+FileExtensions:
+- html
+- js
+ManifestVersion: 1.9.0
+PackageIdentifier: ElectronCommunity.ElectronFiddle
+PackageVersion: 0.36.5
+UpgradeBehavior: install
+Installers:
+- InstallerSha256: 4B76DCC37D137FBD4689BD888FCB24F73CABF7037566BF16C1E03A9FD9244A84
+  Architecture: x86
+  InstallerUrl: https://github.com/electron/fiddle/releases/download/v0.36.5/electron-fiddle-0.36.5-win32-ia32-setup.exe
+- InstallerSha256: B49A3E9287E69E4D1C463A9BCE19379DED93C21774DA14948D037E424FDC50D0
+  Architecture: x64
+  InstallerUrl: https://github.com/electron/fiddle/releases/download/v0.36.5/electron-fiddle-0.36.5-win32-x64-setup.exe
+InstallModes:
+- silent
+InstallerType: exe
+ReleaseDate: 2024-12-13
+ManifestType: installer
+

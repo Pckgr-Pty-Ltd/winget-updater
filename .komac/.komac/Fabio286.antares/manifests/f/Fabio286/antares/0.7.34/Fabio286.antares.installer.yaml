@@ -1,0 +1,22 @@
+Platform:
+- Windows.Desktop
+UpgradeBehavior: install
+PackageVersion: 0.7.34
+InstallerType: nullsoft
+Installers:
+- InstallerSha256: 2E6F02FAA2F6B5DF950365986C2305C8E82CD15FD668ABC22133527F9C518B1C
+  Architecture: x64
+  InstallerUrl: https://github.com/antares-sql/antares/releases/download/v0.7.34/Antares-0.7.34-win_x64.exe
+Scope: user
+ProductCode: e7a04db8-920b-508a-98a7-6f3f34d0793c
+InstallerLocale: en-US
+InstallModes:
+- silent
+PackageIdentifier: Fabio286.antares
+ReleaseDate: 2025-02-14
+ManifestType: installer
+AppsAndFeaturesEntries:
+- ProductCode: e7a04db8-920b-508a-98a7-6f3f34d0793c
+  DisplayName: Antares 0.7.34
+ManifestVersion: 1.9.0
+

@@ -1,0 +1,22 @@
+# Created with komac v2.11.0
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.9.0.schema.json
+
+PackageIdentifier: DownloadHelper.VdhCoApp
+PackageVersion: 2.0.19
+InstallerLocale: en-US
+InstallerType: nullsoft
+Scope: machine
+ProductCode: DownloadHelper CoApp
+ReleaseDate: 2024-02-19
+AppsAndFeaturesEntries:
+- DisplayName: DownloadHelper CoApp
+  Publisher: ACLAP
+  ProductCode: DownloadHelper CoApp
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles(x86)%\DownloadHelper CoApp'
+Installers:
+- Architecture: x86
+  InstallerUrl: https://github.com/aclap-dev/vdhcoapp/releases/download/v2.0.19/vdhcoapp-win7-i686-installer.exe
+  InstallerSha256: E206B812A73FD8336BB1BB38EE1A1C1F6F605227442CA728090B18B62889FCF1
+ManifestType: installer
+ManifestVersion: 1.9.0

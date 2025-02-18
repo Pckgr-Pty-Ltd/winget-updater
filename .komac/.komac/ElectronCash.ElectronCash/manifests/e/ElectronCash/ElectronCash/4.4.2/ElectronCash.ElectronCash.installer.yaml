@@ -1,0 +1,24 @@
+InstallerLocale: en-US
+Scope: machine
+ProductCode: Electron Cash
+ManifestVersion: 1.9.0
+PackageIdentifier: ElectronCash.ElectronCash
+PackageVersion: 4.4.2
+UpgradeBehavior: install
+Installers:
+- InstallerSha256: 1F0325EB6BAA049E6ADA58383A27A82E9B641F2B6270363D2A9E91770CDED1C3
+  Architecture: neutral
+  InstallerUrl: https://github.com/Electron-Cash/Electron-Cash/releases/download/4.4.2/Electron-Cash-4.4.2-setup.exe
+Platform:
+- Windows.Desktop
+AppsAndFeaturesEntries:
+- ProductCode: Electron Cash
+InstallModes:
+- interactive
+- silent
+InstallerType: nullsoft
+ReleaseDate: 2024-12-06
+ManifestType: installer
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles(x86)%\Electron Cash'
+

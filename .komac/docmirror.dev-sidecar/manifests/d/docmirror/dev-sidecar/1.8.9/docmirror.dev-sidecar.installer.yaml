@@ -1,0 +1,19 @@
+# Created with komac v2.11.0
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.9.0.schema.json
+
+PackageIdentifier: docmirror.dev-sidecar
+PackageVersion: 1.8.9
+InstallerLocale: en-US
+InstallerType: nullsoft
+Scope: machine
+ProductCode: b54923aa-fda9-5ff9-bb60-46d74e93ec70
+ReleaseDate: 2024-11-07
+AppsAndFeaturesEntries:
+- DisplayName: dev-sidecar 1.8.9
+  ProductCode: b54923aa-fda9-5ff9-bb60-46d74e93ec70
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/docmirror/dev-sidecar/releases/download/v1.8.9/DevSidecar-1.8.9-node16.exe
+  InstallerSha256: 938B233931AEC3A1E0FC64566B5D35B07C9559864A9707C40E5ADA8FACE7BAFF
+ManifestType: installer
+ManifestVersion: 1.9.0

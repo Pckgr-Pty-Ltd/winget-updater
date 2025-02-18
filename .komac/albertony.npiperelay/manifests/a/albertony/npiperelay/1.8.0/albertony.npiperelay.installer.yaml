@@ -1,0 +1,17 @@
+ManifestType: installer
+NestedInstallerFiles:
+- RelativeFilePath: npiperelay.exe
+InstallerType: zip
+ManifestVersion: 1.9.0
+NestedInstallerType: portable
+PackageVersion: 1.8.0
+Installers:
+- InstallerSha256: 92DCC8713578FCC1BE90BC7CE7A753C7E648CEF0FAEBCCD450D62A58725B33AB
+  InstallerUrl: https://github.com/albertony/npiperelay/releases/download/v1.8.0/npiperelay_windows_386.zip
+  Architecture: x86
+- InstallerSha256: 079BE5515BCC150BF774170E182033F5E289A7BDFA10E514D6BF86FD0456DA20
+  InstallerUrl: https://github.com/albertony/npiperelay/releases/download/v1.8.0/npiperelay_windows_amd64.zip
+  Architecture: x64
+PackageIdentifier: albertony.npiperelay
+ReleaseDate: 2025-02-13
+
