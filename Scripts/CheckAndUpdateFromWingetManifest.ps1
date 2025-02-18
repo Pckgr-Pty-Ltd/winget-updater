@@ -227,33 +227,38 @@ function Get-ExistingPRs {
 
 function Find-NewAssetUrlHybrid {
     param(
-        [Parameter(Mandatory)] $oldInstaller,          # the old installer object from the old manifest
-        [Parameter(Mandatory)] [Version]$newVersion,    # new version from GitHub (as a [Version] object)
-        [Parameter(Mandatory)] $assets                 # array of new release assets from GitHub
+        [Parameter(Mandatory)] $oldInstaller,
+        [Parameter(Mandatory)] [Version]$newVersion,
+        [Parameter(Mandatory)] $assets
     )
-    # Retrieve basic info from the old installer.
     $oldUrl = $oldInstaller.InstallerUrl
     $oldFileName = [System.IO.Path]::GetFileName($oldUrl)
     $oldExt = [System.IO.Path]::GetExtension($oldFileName).ToLowerInvariant()
     
-    # Use InstallerVersion if available; if not, try to extract it from the file name.
     $oldInstallerVersion = $oldInstaller.InstallerVersion
     if (-not $oldInstallerVersion) {
-        $oldInstallerVersion = $oldFileName -replace '.*[vV]', '' -replace '[-_].*', ''
+        # Improved regex to capture version after an underscore and before extension
+        if ($oldFileName -match '_((\d+\.)+\d+)(?=\.[^.]*$)') {
+            $oldInstallerVersion = $matches[1]
+        } else {
+            $oldInstallerVersion = $oldFileName -replace '.*[vV]', '' -replace '[-_].*', ''
+        }
     }
     $oldVerString = "$oldInstallerVersion"
     $newVerString = "$newVersion"
     
-    # Normalize the architecture based on filename hints.
     $arch = $oldInstaller.Architecture
     $oldFileNameLower = $oldFileName.ToLowerInvariant()
+    # Check for architecture mismatches in filename
     if ($arch -eq "x86" -and $oldFileNameLower -match "x86_64") {
-        Write-Verbose "Normalizing architecture: Changing x86 to x64 based on filename."
+        Write-Verbose "Normalizing architecture: x86 to x64 based on filename."
         $arch = "x64"
-    }
-    elseif ($arch -eq "x64" -and ($oldFileNameLower -match "i386" -or $oldFileNameLower -match "32")) {
-        Write-Verbose "Normalizing architecture: Changing x64 to x86 based on filename."
+    } elseif ($arch -eq "x64" -and ($oldFileNameLower -match "i386|32")) {
+        Write-Verbose "Normalizing architecture: x64 to x86 based on filename."
         $arch = "x86"
+    } elseif ($arch -eq "x64" -and $oldFileNameLower -match "arm64") {
+        Write-Verbose "Normalizing architecture: x64 to arm64 based on filename."
+        $arch = "arm64"
     }
     
     Write-Host "Trying direct substitution for $oldFileName"
@@ -271,22 +276,20 @@ function Find-NewAssetUrlHybrid {
         $an = $asset.name
         $assetExt = [System.IO.Path]::GetExtension($an).ToLowerInvariant()
         if ($assetExt -ne $oldExt) { continue }
-        # Require OS markers if the old file indicates Windows.
-        if ($oldFileNameLower -match 'windows' -and $an.ToLowerInvariant() -notmatch '(?i)windows') { continue }
+        if ($oldFileNameLower -match 'windows' -and $an.ToLowerInvariant() -notmatch 'windows') { continue }
         
+        $anLower = $an.ToLowerInvariant()
         switch ($arch) {
             'x64' {
-                $nameLowerAsset = $an.ToLowerInvariant()
-                # Reject any asset that contains "arm64".
-                if ($nameLowerAsset -match '(?i)arm64') { continue }
-                # Require one of the accepted x64 markers.
-                if ($nameLowerAsset -notmatch '(?i)(x86_64|amd64|\bx64\b)') { continue }
+                # Skip ARM64 assets and require x64 markers
+                if ($anLower -match 'arm64') { continue }
+                if ($anLower -notmatch '(x86_64|amd64|\bx64\b)') { continue }
             }
             'x86' {
-                if ($an.ToLowerInvariant() -notmatch '(?i)(x86|32|386)') { continue }
+                if ($anLower -notmatch '(x86|32|386)') { continue }
             }
             'arm64' {
-                if ($an.ToLowerInvariant() -notmatch '(?i)arm64') { continue }
+                if ($anLower -notmatch 'arm64') { continue }
             }
         }
         Write-Host "Fallback match found: $an"
