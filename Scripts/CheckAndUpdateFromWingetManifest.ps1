@@ -524,7 +524,7 @@ foreach ($wingetId in $wingetIds) {
     foreach ($oldInstaller in $oldManifestObj.Installers) {
         $urlMatch = Find-NewAssetUrlHybrid `
             -oldInstaller $oldInstaller `
-            -newWingetVer $latestVersion `
+            -newWingetVersion $latestVersion `
             -assets $latestRelease.assets
         if ($urlMatch) {
             $newInstallerUrls += $urlMatch
