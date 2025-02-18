@@ -592,7 +592,7 @@ foreach ($wingetId in $wingetIds) {
         $urlMatch = Find-NewAssetUrlHybrid `
             -oldInstaller $oldInstaller `
             -newVersion $latestVersion `
-            -assets $latestRelease.assets
+            -assets $latestRelease.assets `
             -OpenAiKey $gptKey
         if ($urlMatch) {
             $newInstallerUrls += $urlMatch
