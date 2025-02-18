@@ -3,6 +3,7 @@ name: Update Winget Manifests
 # Grant write permission to repository contents only.
 permissions:
   contents: write
+  pull-requests: write
 
 on:
   schedule:
