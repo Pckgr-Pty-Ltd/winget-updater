@@ -197,36 +197,40 @@ function Get-ExistingPRs {
         [string]$PackageId,
         [string]$GitHubToken
     )
-    # List up to 100 open PRs in winget-pkgs
-    $prUrl = "https://api.github.com/repos/microsoft/winget-pkgs/pulls?state=open&per_page=100"
+    $baseUrl = "https://api.github.com/repos/microsoft/winget-pkgs/pulls"
     $headers = @{
-        "User-Agent" = "WingetManifestCheckScript"
+        "User-Agent" = "WingetUpdater/1.0"
+        "Accept" = "application/vnd.github.v3+json"
     }
-    if ($GitHubToken) {
-        $headers["Authorization"] = "token " + $GitHubToken
-    }
+    if ($GitHubToken) { $headers["Authorization"] = "token $GitHubToken" }
+
+    $normalizedId = $PackageId -replace '\.', '-'
+    $pattern = "^update/($([Regex]::Escape($PackageId))|$([Regex]::Escape($normalizedId)))(-|$|_)"
+
     try {
-        $prs = Invoke-RestMethod -Uri $prUrl -Headers $headers -Method GET
-        Start-Sleep -Seconds 1
-        # Normalize PackageId by replacing periods with dashes
-        $normalizedPackageId = $PackageId -replace '\.', '-'
-        # Build a regex pattern that matches either the raw PackageId or the normalized one
-        $pattern = "^update/(" + [Regex]::Escape($PackageId) + "|" + [Regex]::Escape($normalizedPackageId) + ")(-.*)?$"
-        foreach ($pr in $prs) {
-            if ($pr.head.ref -match $pattern) {
-                Write-Host "Found open PR with head ref $($pr.head.ref) matching pattern $pattern"
-                return $true
+        $nextUrl = "${baseUrl}?state=open&per_page=100"
+        do {
+            $response = Invoke-RestMethod -Uri $nextUrl -Headers $headers
+            foreach ($pr in $response) {
+                if ($pr.head.ref -match $pattern) {
+                    Write-Verbose "Found existing PR: $($pr.html_url)"
+                    return $true
+                }
             }
-        }
+            $nextUrl = if ($response.Headers.Link) {
+                ($response.Headers.Link -split ',' | Where-Object { $_ -match '<([^>]+)>;\s*rel="next"' } | 
+                ForEach-Object { $matches[1] }) | Select-Object -First 1
+            }
+            if ($nextUrl) { Start-Sleep -Seconds 2 } # Respect rate limits
+        } while ($nextUrl)
+        
         return $false
     }
     catch {
-        Write-Warning ("Failed to list PRs for package " + $PackageId + " " + $_.Exception.Message)
+        Write-Warning "PR check failed: $($_.Exception.Message)"
         return $false
     }
 }
-
-
 
 
 function Find-NewAssetUrlHybrid {
