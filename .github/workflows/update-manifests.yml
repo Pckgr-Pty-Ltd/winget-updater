@@ -1,13 +1,13 @@
 name: Update Winget Manifests
 
+permissions:
+  contents: write
+  workflows: write
+
 on:
   schedule:
     - cron: '0 0 * * *'         # Runs daily at midnight UTC
   workflow_dispatch:            # Allows manual triggering
-
-permissions:
-  contents: write
-  workflows: write
 
 jobs:
   update:
@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Copy required files from Scripts folder
         shell: pwsh
