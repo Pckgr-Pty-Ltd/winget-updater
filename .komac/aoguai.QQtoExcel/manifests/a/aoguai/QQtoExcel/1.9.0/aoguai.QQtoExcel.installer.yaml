@@ -1,0 +1,19 @@
+FileExtensions:
+- txt
+- xls
+- xlsx
+PackageVersion: 1.9.0
+NestedInstallerFiles:
+- RelativeFilePath: QQtoExcel/QQtoExcel.exe
+ManifestType: installer
+UpgradeBehavior: install
+PackageIdentifier: aoguai.QQtoExcel
+ReleaseDate: 2024-07-02
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/aoguai/QQtoExcel/releases/download/v1.9.0/QQtoExcel_windows_refs.tags.v1.9.0.zip
+  InstallerSha256: EA8DC4FC276BDE901679B38464B4525633C7C965FB5EEC52DDE3961A7A8160FF
+NestedInstallerType: portable
+ManifestVersion: 1.9.0
+InstallerType: zip
+

@@ -1,0 +1,20 @@
+ManifestVersion: 1.9.0
+PackageVersion: "4.15"
+InstallerType: inno
+Installers:
+- InstallerSha256: E72F2274D2971E41C94F13C30AE692F6F7842DE3C7310144DAA4276193D40195
+  Architecture: x64
+  InstallerUrl: https://github.com/FreeFem/FreeFem-sources/releases/download/v4.15/FreeFem++-4.15-win64.exe
+Scope: machine
+ProductCode: FreeFem++-win64-4.15_is1
+InstallerLocale: en-US
+PackageIdentifier: FreeFem.FreeFem
+ReleaseDate: 2024-12-11
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\FreeFem++'
+ManifestType: installer
+AppsAndFeaturesEntries:
+- ProductCode: FreeFem++-win64-4.14_is1
+  DisplayName: FreeFem++ version 4.14 (win 64 bits)
+ElevationRequirement: elevatesSelf
+

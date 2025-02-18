@@ -1,0 +1,23 @@
+# Created with komac v2.11.0
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.9.0.schema.json
+
+PackageIdentifier: Exercism.CLI
+PackageVersion: 3.5.4
+PackageLocale: en-US
+Publisher: Exercism
+PublisherUrl: https://github.com/exercism
+PublisherSupportUrl: https://github.com/exercism/cli/issues
+PackageName: Exercism CLI
+PackageUrl: https://github.com/exercism/cli
+License: MIT
+LicenseUrl: https://github.com/exercism/cli/blob/HEAD/LICENSE
+ShortDescription: A Go based command line tool for exercism.io.
+Tags:
+- community-contributions-paused
+ReleaseNotes: |-
+  To install, follow the interactive installation instructions at https://exercism.io/cli-walkthrough
+  Changelog
+  - 24504cc feat: add uiua test command (#1183)
+ReleaseNotesUrl: https://github.com/exercism/cli/releases/tag/v3.5.4
+ManifestType: defaultLocale
+ManifestVersion: 1.9.0
