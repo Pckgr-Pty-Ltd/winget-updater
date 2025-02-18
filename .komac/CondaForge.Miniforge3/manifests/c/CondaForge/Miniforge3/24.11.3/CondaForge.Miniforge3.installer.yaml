@@ -1,0 +1,37 @@
+UpgradeBehavior: install
+AppsAndFeaturesEntries:
+- DisplayName: Miniforge3 24.11.3-0 (Python 3.12.8 64-bit)
+  DisplayVersion: 24.11.3-0
+ReleaseDate: 2025-01-20
+ManifestType: installer
+InstallerLocale: en-US
+InstallerType: nullsoft
+PackageVersion: 24.11.3
+Commands:
+- conda
+- mamba
+- pip
+- pip3
+- python
+- pythonw
+Installers:
+- InstallerSha256: 4A17DB28F7599C61BA0EC537F73882B746CDE262D7AC8A4865E82AF2F5FBA126
+  Scope: user
+  Architecture: x64
+  InstallerUrl: https://github.com/conda-forge/miniforge/releases/download/24.11.3-0/Miniforge3-24.11.3-0-Windows-x86_64.exe
+  RequireExplicitUpgrade: true
+  InstallerSwitches:
+    Custom: /S /JustMe /AddToPath=0 /RegisterPython=0
+- InstallerSha256: 4A17DB28F7599C61BA0EC537F73882B746CDE262D7AC8A4865E82AF2F5FBA126
+  Scope: machine
+  Architecture: x64
+  InstallerUrl: https://github.com/conda-forge/miniforge/releases/download/24.11.3-0/Miniforge3-24.11.3-0-Windows-x86_64.exe
+  InstallerSwitches:
+    Custom: /S /AllUsers /AddToPath=0 /RegisterPython=0
+  ElevationRequirement: elevationRequired
+ProductCode: Miniforge3 24.11.3-0 (Python 3.12.8 64-bit)
+PackageIdentifier: CondaForge.Miniforge3
+InstallModes:
+- silent
+ManifestVersion: 1.9.0
+
