@@ -1,0 +1,14 @@
+InstallerType: zip
+PackageVersion: 0.8.9
+PackageIdentifier: fselect.fselect
+ReleaseDate: 2025-02-05
+ManifestType: installer
+ManifestVersion: 1.9.0
+NestedInstallerFiles:
+- RelativeFilePath: fselect.exe
+NestedInstallerType: portable
+Installers:
+- InstallerSha256: E4C3D7F75200B0290979056FB3E2DF19AF0D5228BBFFC47889A22CDA177E82E3
+  Architecture: x64
+  InstallerUrl: https://github.com/jhspetersson/fselect/releases/download/0.8.9/fselect-x86_64-win.zip
+

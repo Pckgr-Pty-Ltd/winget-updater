@@ -1,0 +1,63 @@
+# Created with komac v2.11.0
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.9.0.schema.json
+
+PackageIdentifier: docmirror.dev-sidecar
+PackageVersion: 1.8.9
+PackageLocale: en-US
+Publisher: Greper
+PublisherUrl: https://github.com/docmirror
+PublisherSupportUrl: https://github.com/docmirror/dev-sidecar/issues
+Author: docmirror
+PackageName: dev-sidecar
+PackageUrl: https://github.com/docmirror/dev-sidecar
+License: MPL-2.0
+LicenseUrl: https://github.com/docmirror/dev-sidecar/blob/HEAD/LICENSE
+CopyrightUrl: https://github.com/docmirror/dev-sidecar/blob/master/LICENSE
+ShortDescription: proxy tool for github
+Tags:
+- electron
+- fastgit
+- git
+- github
+- internet
+- mitmproxy
+- proxy
+ReleaseNotes: |-
+  一、更新内容：
+  【新特性】
+  - 彩蛋功能：可配置某些域名为 禁用，禁止这些域名使用梯子，即使这些域名收录在 pac.txt 内 1f3786a 784bc05
+  - 缓存拦截器：对响应码 300 ~ 303 也生效，同时添加 cacheMinStautsCode: 默认200 和 cacheMaxStatusCode: 默认303 参数，可配置化响应码范围，并添加 cacheExcludeStatusCodeList 参数，可指定部分响应码不使用缓存 8a2b114 0840831 35faea4
+  - 增强 responseReplace 拦截器，同名响应头会一起替换或移除掉 f7e5d58
+  【BUG修复】
+  - Windows操作系统，开着DS应用重启电脑后无法上网的问题修复（原因：系统代理未关闭） #377
+  【优化】
+  - 样式优化：IP测速超过 200 ms 的，显示为橙色 8dc5cfc 2d008a1 10d75a4
+  - 当代理请求使用DNS时，添加响应头 DS-DNS: ${dns.name} a1c8ee0
+  - 日志优化
+  【内置文件更新】
+  - pac.txt（GFW列表）: 无更新
+  - domestic-domain-allowlist.txt（国内域名白名单）: 2024/10/14 版本 -> 2024/11/07 版本
+  【Github Actions】
+  - test-and-upload.yml 在PR提交时也会执行
+  二、共享远程配置调整（影响版本 >= 1.8.1）
+  【此次远程配置调整后的作用】
+  - 加速 Github站点 的静态资源的访问速度，同时调整缓存策略，详情见 Issue #379
+  - Pixiv站点 可以使用默认模式直连访问了，关闭了 Issue #233
+  【查看远程配置文件变更内容】
+  - Gitee b10c679 ... b79fb5c
+  三、安装前请仔细阅读安装说明
+  各平台安装说明
+  四、贡献者列表
+  非常感谢以下朋友们的贡献。
+  - @wangliang181230
+  - @starknt : 新贡献者，贡献了PR #377
+  - @lanyue2024 : 新贡献者，这个版本的大功臣，哈哈
+    - 分享了 Github站点 静态资源的加速访问方案，详情见 #379
+    - 分享了 Pixiv站点 直连的方案，详情见 #233 comment-2428596689
+  五、Full Changelog（ 查看源代码与 1.8.8 版本的区别 ）
+  v1.8.8...v1.8.9
+  六、里程碑：
+  点击 1.8.9 Milestone 查看该版本合并的PR和关闭的Issue。
+ReleaseNotesUrl: https://github.com/docmirror/dev-sidecar/releases/tag/v1.8.9
+ManifestType: defaultLocale
+ManifestVersion: 1.9.0

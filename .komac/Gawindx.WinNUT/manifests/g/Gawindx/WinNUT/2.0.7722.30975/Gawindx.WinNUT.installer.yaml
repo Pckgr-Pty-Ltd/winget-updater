@@ -1,0 +1,19 @@
+PackageVersion: 2.0.7722.30975
+InstallerType: msi
+Installers:
+- InstallerSha256: AFE7BB9F696ACA17FC2C4BF16DCFD4A70221F8114D987ACF71D51D1C4F3EEF4C
+  Architecture: neutral
+  InstallerUrl: https://github.com/gawindx/WinNUT-Client/releases/download/v2.0.7722.30975/WinNUT-Setup.msi
+Scope: user
+ProductCode: '{27BA937E-88CF-46BD-9BDA-2426BDE4BA49}'
+InstallerLocale: und
+PackageIdentifier: Gawindx.WinNUT
+ManifestVersion: 1.9.0
+ReleaseDate: 2021-12-07
+InstallationMetadata: {}
+ManifestType: installer
+AppsAndFeaturesEntries:
+- ProductCode: '{27BA937E-88CF-46BD-9BDA-2426BDE4BA49}'
+  DisplayVersion: 2.0.7722
+  UpgradeCode: '{7EA17151-76E7-4E29-8F6A-621C1B4144C2}'
+

@@ -1,0 +1,24 @@
+UpgradeBehavior: install
+ManifestVersion: 1.9.0
+PackageVersion: 5.2.2
+InstallerType: inno
+Installers:
+- InstallerSha256: 8AA085886A6B7D9232D31CF9E65FF65BAB6B34CA5DBE49CCFC37B8C149C4811C
+  Architecture: x86
+  InstallerUrl: https://github.com/mhogomchungu/media-downloader/releases/download/5.2.2/MediaDownloaderQt5-5.2.2.setup.exe
+Scope: machine
+ProductCode: '{6DD595EF-ECA2-481B-B008-CB7302603A0D}_is1'
+InstallerLocale: en-US
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+PackageIdentifier: FrancisBanyikwa.MediaDownloader
+ReleaseDate: 2025-02-08
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\Media Downloader'
+ManifestType: installer
+AppsAndFeaturesEntries:
+- ProductCode: '{6DD595EF-ECA2-481B-B008-CB7302603A0D}_is1'
+ElevationRequirement: elevatesSelf
+
