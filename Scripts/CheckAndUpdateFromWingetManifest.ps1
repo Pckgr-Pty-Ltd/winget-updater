@@ -414,7 +414,7 @@ foreach ($wingetId in $wingetIds) {
         Write-Host "No Winget record for $wingetId"
     }
 
-    # STEP 2: Get the old manifest from winget-pkgs repo
+    # STEP 2: Retrieve the old manifest from winget-pkgs repo
     $oldManifestYaml = Get-InstallerManifestFromWingetPkgs -PackageId $wingetId -GitHubToken $GitHubToken
     if (-not $oldManifestYaml) {
         Write-Host "No installer manifest found for $wingetId. Skipping."
@@ -426,7 +426,7 @@ foreach ($wingetId in $wingetIds) {
         $oldManifestObj = ConvertFrom-Yaml $oldManifestYaml
     }
     catch {
-        Write-Warning "Failed to parse old manifest for  $($_.Exception.Message)"
+        Write-Warning "Failed to parse old manifest for $wingetId. $_"
         $lastCheckedMap[$wingetId] = (Get-Date)
         Save-LastChecked $lastCheckedMap $LastCheckedFile
         continue
@@ -437,17 +437,26 @@ foreach ($wingetId in $wingetIds) {
         Save-LastChecked $lastCheckedMap $LastCheckedFile
         continue
     }
+
+    # New check: If the version string does not contain a dot, skip this package
+    if ($oldManifestObj.PackageVersion -notmatch '\.') {
+        Write-Host "Skipping $wingetId because manifest version '$($oldManifestObj.PackageVersion)' is not in a valid format."
+        $lastCheckedMap[$wingetId] = (Get-Date)
+        Save-LastChecked $lastCheckedMap $LastCheckedFile
+        continue
+    }
+
     [Version]$manifestVersionFromRepo = [Version]$oldManifestObj.PackageVersion
 
-    # Use installed Winget version if it exists and is higher than the repo manifest version
+    # Use the installed Winget version if available and higher than manifest version
     if ($existingWingetVersion -and $existingWingetVersion -gt $manifestVersionFromRepo) {
-        Write-Host "Installed Winget version ($existingWingetVersion) differs from manifest version ($manifestVersionFromRepo)."
+        Write-Host "Installed version ($existingWingetVersion) is higher than manifest version ($manifestVersionFromRepo)."
         $oldWingetVersion = $existingWingetVersion
     }
     else {
         $oldWingetVersion = $manifestVersionFromRepo
     }
-    Write-Host "Old Winget version used for comparison: $oldWingetVersion"
+    Write-Host "Old version used for comparison: $oldWingetVersion"
 
     # STEP 3: Parse GH repo from an old installer URL
     $ownerRepo = $null
