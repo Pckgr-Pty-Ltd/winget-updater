@@ -374,7 +374,7 @@ function Fix-KomacManifestsAndSubmit {
             $newArch.ToLower() -eq $oldArch.ToLower()
         } | Select-Object -First 1
         if ($matchingNew) {
-            Write-Host "Forcing architecture for $WingetId: Setting new installer ($($matchingNew.InstallerUrl)) architecture to $oldArch"
+            Write-Host "Forcing architecture for $WingetId Setting new installer ($($matchingNew.InstallerUrl)) architecture to $oldArch"
             $matchingNew.Architecture = $oldArch
         }
         else {
