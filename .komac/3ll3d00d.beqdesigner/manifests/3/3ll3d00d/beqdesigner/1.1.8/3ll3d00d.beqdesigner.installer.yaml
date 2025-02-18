@@ -1,0 +1,20 @@
+ManifestType: installer
+InstallerType: portable
+ManifestVersion: 1.9.0
+PackageVersion: 1.1.8
+Installers:
+- Scope: user
+  InstallerUrl: https://github.com/3ll3d00d/beqdesigner/releases/download/1.1.8/beqdesigner_2022Server.exe
+  InstallerSwitches:
+    Custom: /CURRENTUSER
+  Architecture: x64
+  InstallerSha256: 36887B68813B369F631E1BCA93FDCBF8957431D9121F3708BE0459FBBBA31DB8
+- Scope: machine
+  InstallerUrl: https://github.com/3ll3d00d/beqdesigner/releases/download/1.1.8/beqdesigner_2022Server.exe
+  InstallerSwitches:
+    Custom: /ALLUSERS
+  Architecture: x64
+  InstallerSha256: 36887B68813B369F631E1BCA93FDCBF8957431D9121F3708BE0459FBBBA31DB8
+PackageIdentifier: 3ll3d00d.beqdesigner
+ReleaseDate: 2024-08-04
+

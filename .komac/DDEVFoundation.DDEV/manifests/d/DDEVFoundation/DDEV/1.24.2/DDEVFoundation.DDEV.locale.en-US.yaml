@@ -1,0 +1,124 @@
+# Created with komac v2.11.0
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.9.0.schema.json
+
+PackageIdentifier: DDEVFoundation.DDEV
+PackageVersion: 1.24.2
+PackageLocale: en-US
+Publisher: DDEV Foundation
+PublisherUrl: https://github.com/ddev
+PublisherSupportUrl: https://github.com/ddev/ddev/issues
+PackageName: DDEV
+PackageUrl: https://github.com/ddev/ddev
+License: Apache-2.0
+LicenseUrl: https://github.com/ddev/ddev/blob/HEAD/LICENSE
+ShortDescription: Docker-based local PHP+Node.js web development environments
+Tags:
+- backdrop
+- craftcms
+- ddev
+- development
+- docker
+- drupal
+- laravel
+- linux
+- local-development
+- macos
+- magento
+- magento2
+- mariadb
+- moodle
+- nodejs
+- php
+ReleaseNotes: |-
+  Installation
+  See the installation instructions for details, but it's easy:
+  - macOS: brew install ddev/ddev/ddev or just brew upgrade ddev.
+  - Linux or WSL2: Use apt install ddev or apt upgrade ddev see apt/yum installation.
+  - Traditional Windows: Use choco upgrade -y ddev, or download the ddev_windows_installer below.
+  - Consider ddev delete images or ddev delete images --all after upgrading to free up disk space used by previous docker image versions. This does no harm.
+  - Consider ddev config --auto to update your projects to current configuration.
+  Highlights:
+  - Support for MySQL 8.4: DDEV now uses bitnami/mysql as the base image for mysql:8.x.
+  - Improved argument handling for ddev composer create: The ddev composer create-project alias has been added for better usability.
+  - Global DDEV commands available inside the web container: Commands like ddev xdebug toggle can now be run directly within the web container, e.g., simply use xdebug toggle.
+  - New ddev mariadb command: The ddev mysql command remains available for MariaDB users, but you can now also use ddev mariadb. (MariaDB is moving away from having mysql in the names of its commands.)
+  Breaking Changes:
+  - ddev config location restriction: You can no longer run ddev config from the parent directory of a project, preventing accidental setups in incorrect locations.
+  Behavior Changes:
+  - Subdirectory support for ddev config: You can now run ddev config in the subdirectories of an existing project, aligning it with other DDEV commands.
+  - Improved database output: The environment variable PAGER="less -SFX" has been added to both the web and db containers for cleaner database output. You can modify or disable this behavior by setting export DDEV_PAGER="" outside of DDEV. Thanks to @tyler36.
+  Bug Fixes:
+  - OpenSSH certificates for ddev auth ssh: Fixed missing OpenSSH certificates when using ddev auth ssh.
+  - ddev pull acquia fix for multiple databases, thanks to @charginghawk.
+  - A fix for Drupal 7 settings.ddev.php prevents problems with Mutagen not being able to update settings.php after doing a Drupal installation. Thanks to @eporama.
+  - The nginx-site.conf was not being properly updated for projects of type drupal and drupal11, causing problems during update.php.
+  Minor Updates:
+  - PHP 8.3.16 and 8.4.3.
+  - A dummy ddev command is available inside the web container to help users understand the context they're working in.
+  - Laravel Installer quickstart.
+  - Drupal CMS quickstart, thanks to @rpkoller.
+  - CiviCRM Standalone quickstart, thanks to @gitressa.
+  - Repository update: The master branch of the ddev/ddev repository has been renamed to main.
+  - Quickstarts in docs can now have automated tests, and the Drupal, Backdrop, WordPress, and TYPO3 examples already do, thanks to @rpkoller.
+  - CI status added to Amplitude instrumentation, so we can exclude/count usages when projects are run in CI. Thanks to @IndraGunawan.
+  What's Changed
+  - test: Add configuration verification tests for mariadb and mysql by @rfay in #6831
+  - docs: buildkite lima setup needs --mount-writable by @rfay in #6833
+  - docs: how to add unsupported PHP versions without ddev config, fixes #6835 by @stasadev in #6836
+  - docs: Remove run-ddev-on-old-mac from faq by @rfay in #6843
+  - fix: don't copy Dockerfiles to *imageBuild folder, add examples to assets, fixes #6757 by @stasadev in #6810
+  - fix: mount OpenSSH certificate for auth ssh, fixes #6832 by @stasadev in #6837
+  - build: reorganize ddev-webserver packages, add vim alternative, fixes #6840 by @wazum in #6839
+  - feat: accept all args in ddev composer create, add create-project alias, fixes #6766 by @stasadev in #6784
+  - feat: Add pager to database output by @tyler36 in #6842
+  - fix: add CI to instrumentation tags by @IndraGunawan in #6834
+  - fix: Use bitnami/mysql as base for mysql:8.x images, and support MySQL 8.4, fixes #6241, fixes #6511 by @rfay in #6589
+  - build: bump go-pretty and x/crypto, fixes #6844 by @rfay in #6849
+  - fix: remove nfs setup script from install_ddev.sh [skip ci] by @rfay in #6855
+  - docs: add Laravel Installer quickstart by @stasadev in #6850
+  - test: Use linkspector instead of markdown-link-check, fixes #6859 by @rfay in #6860
+  - docs: bump mkdocs/readthedocs dependencies for python 3.13 by @stasadev in #6862
+  - docs: Update mkdocs installation as docker doesn't work [skip ci] by @rfay in #6864
+  - docs: Add link to hostnames article on ddev.com by @rfay in #6863
+  - docs: Add a quickstart for drupal cms by @rpkoller in #6829
+  - docs: add CiviCRM Standalone to quickstart.md by @gitressa in #6846
+  - docs: Add database management examples including how to create empty database by @gitressa in #6848
+  - build: new ddev mariadb command, adjust ~/.my.cnf to always use root, hide some Docker build warnings, fixes #6462 by @stasadev in #6851
+  - test: Minor updates to linux-setup.sh by @rfay in #6869
+  - test: get more disk space on hosted runner, switch to ubuntu 24.04, fixes #6865 by @rfay in #6866
+  - build: dependabot complaint about net/html by @rfay in #6867
+  - test: Add bats test coverage for backdrop quickstart, for #6222 by @rfay in #6868
+  - docs: add setup step for macOS test runners (full disk access) [skip ci] by @rfay in #6871
+  - docs: Update maintained date to 2025 in README [skip ci] by @rfay in #6877
+  - fix: Make xhprof-prepend.php mount writable, for #3782 by @rfay in #6873
+  - docs: Add funding.json to apply for funding via floss.fund [skip ci] by @rfay in #6878
+  - docs: Stop checking stopwords 'just' and 'simply' [skip ci] by @rfay in #6881
+  - refactor: rename branch master to main, fixes #6476 by @stasadev in #6876
+  - fix: In acquia.yaml, specify default site source for ddev pull acquia. by @charginghawk in #6874
+  - feat: disable ddev config in parent folders of a project, but allow it in subfolders, fixes #6783, fixes #5493 by @stasadev in #6852
+  - fix: Fix Acquia push, Minor cleanup in provider integrations [skip buildkite] by @rfay in #6883
+  - fix: DB container: Remove MYSQL_PWD, use ARG in mysql/mariadb Dockerfile, remove OPTIMIZE TABLES, fixes #6886 by @rfay in #6887
+  - test: Quickstart tests for TYPO3 quickstart by @rpkoller in #6895
+  - test: Use new ddev/test-typo3 repo for automated testing of typo3 by @rfay in #6896
+  - docs: replace GOOS and GOARCH for a DDEV_ alternative, for #6752 by @stasadev in #6901
+  - docs: Improve windows buildkite setup workflow by @rfay in #6889
+  - docs: change the quickstart repo for typo3 to test-typo3 by @rpkoller in #6904
+  - feat: override PAGER with DDEV_PAGER env variable, for #6842 by @stasadev in #6900
+  - refactor: remove outdated move-issue config , fixes #6899 by @tyler36 in #6906
+  - test: Improve WP quickstart and add wordpress bats tests by @rpkoller in #6897
+  - test: Add bats test coverage for Drupal Core and Drupal CMS quickstarts by @rpkoller in #6893
+  - fix: provide a dummy ddev command inside container, allow web commands there, fixes #6574 by @rfay in #6902
+  - build: bump docker-compose to 2.32.4 by @rfay in #6905
+  - test: add force flag to the remove cmd and a fixed dl link to the latest version of Drupal CMS by @rpkoller in #6907
+  - fix: remove noise from docker-compose on build and reformat ddev start output, for #6905 by @stasadev in #6909
+  - test: some tests should skip skippable testsites by @rfay in #6914
+  - fix: update Drupal 7 settings.ddev.php and settings.php to match Drupal 7.103 by @eporama in #6913
+  - fix: nginx-site-drupal11.conf wasn't being installed, fixes #6910 by @rfay in #6911
+  - build: bump images to v1.24.2 for release by @stasadev in #6915
+  New Contributors
+  - @charginghawk made their first contribution in #6874
+  - @eporama made their first contribution in #6913
+  Full Changelog: v1.24.1...v1.24.2
+ReleaseNotesUrl: https://github.com/ddev/ddev/releases/tag/v1.24.2
+ManifestType: defaultLocale
+ManifestVersion: 1.9.0

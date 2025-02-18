@@ -1,0 +1,18 @@
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.DotNet.DesktopRuntime.8
+PackageIdentifier: 2dust.v2rayN.Pre-release
+NestedInstallerType: portable
+NestedInstallerFiles:
+- RelativeFilePath: v2rayN-With-Core/v2rayUpgrade.exe
+InstallerType: zip
+ManifestType: installer
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/2dust/v2rayN/releases/download/7.8.3/v2rayN-linux-64.zip
+  InstallerSha256: CB36C7F2B9739D0BA9A27745EB0FA5597BC77837FBAAD4BFC108E8AD4053CAEC
+UpgradeBehavior: deny
+ManifestVersion: 1.9.0
+PackageVersion: 7.8.3
+ReleaseDate: 2025-02-12
+
