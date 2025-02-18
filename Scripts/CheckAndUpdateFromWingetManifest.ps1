@@ -228,53 +228,62 @@ function Get-ExistingPRs {
 function Find-NewAssetUrlHybrid {
     param(
         [Parameter(Mandatory)] $oldInstaller,          # the old installer object from the old manifest
-        [Parameter(Mandatory)] [Version]$oldWingetVer, # e.g. 1.0.220
-        [Parameter(Mandatory)] [Version]$newWingetVer, # e.g. 1.0.221
+        [Parameter(Mandatory)] [Version]$oldWingetVer,  # e.g. "1.0.220"
+        [Parameter(Mandatory)] [Version]$newWingetVer,  # e.g. "1.0.221"
         [Parameter(Mandatory)] $assets                 # array of new release assets from GitHub
     )
     # Get basic info from the old installer
-    $oldUrl  = $oldInstaller.InstallerUrl
-    $oldName = [System.IO.Path]::GetFileName($oldUrl)
-    $oldExt  = [System.IO.Path]::GetExtension($oldName).ToLowerInvariant()
-    $arch    = $oldInstaller.Architecture  # e.g. "x86", "x64", "arm64"
-    $os = $null
-    if ($oldName -match 'windows') { $os = 'windows' }
-    elseif ($oldName -match 'darwin') { $os = 'darwin' }
-    elseif ($oldName -match 'linux') { $os = 'linux' }
-    $oldNoJdk = ($oldName -match 'nojdk')
+    $oldUrl     = $oldInstaller.InstallerUrl
+    $oldFileName= [System.IO.Path]::GetFileName($oldUrl)
+    $oldExt     = [System.IO.Path]::GetExtension($oldFileName).ToLowerInvariant()
+    $arch       = $oldInstaller.Architecture  # e.g. "x86", "x64", "arm64"
+    $os         = $null
+    if ($oldFileName -match 'windows') { $os = 'windows' }
+    elseif ($oldFileName -match 'darwin') { $os = 'darwin' }
+    elseif ($oldFileName -match 'linux') { $os = 'linux' }
+    $oldNoJdk   = ($oldFileName -match 'nojdk')
     $oldVerString = "$oldWingetVer"  # e.g. "1.0.220"
     $newVerString = "$newWingetVer"  # e.g. "1.0.221"
 
-    Write-Host "`nTrying direct substitution for $oldName"
-    $candidateName = $oldName -replace [Regex]::Escape($oldVerString), $newVerString
-    Write-Host "  Candidate new name: $candidateName"
+    Write-Host "Trying direct substitution for $oldFileName"
+    $candidateName = $oldFileName -replace [Regex]::Escape($oldVerString), $newVerString
+    Write-Host "Candidate new name: $candidateName"
     foreach ($asset in $assets) {
         if ($asset.name -eq $candidateName) {
-            Write-Host "  Found exact filename match: $($asset.name)"
+            Write-Host "Exact filename match found: $($asset.name)"
             return $asset.browser_download_url
         }
     }
 
-    Write-Host "  No exact match found. Falling back to pattern-based matching..."
+    Write-Host "No exact match found. Falling back to pattern-based matching..."
     foreach ($asset in $assets) {
-        $an       = $asset.name
+        $an = $asset.name
         $assetExt = [System.IO.Path]::GetExtension($an).ToLowerInvariant()
         if ($assetExt -ne $oldExt) { continue }
         if ($os -eq 'windows' -and $an -notmatch 'windows') { continue }
         if ($os -eq 'darwin'  -and $an -notmatch 'darwin')  { continue }
         if ($os -eq 'linux'   -and $an -notmatch 'linux')   { continue }
+        
         switch ($arch) {
-            'x64'   { if ($an -notmatch 'x86_64|amd64|64') { continue } }
-            'x86'   { if ($an -notmatch 'x86|32|386')      { continue } }
-            'arm64' { if ($an -notmatch 'arm64')           { continue } }
+            'x64' {
+                # Require one of the accepted x64 markers and ensure it does not mention arm
+                if ($an -notmatch '\b(x86_64|amd64|x64)\b' -or $an -match 'arm') { continue }
+            }
+            'x86' {
+                if ($an -notmatch '\b(x86|32|386)\b') { continue }
+            }
+            'arm64' {
+                if ($an -notmatch '\barm64\b') { continue }
+            }
         }
+        
         $newNoJdk = ($an -match 'nojdk')
         if ($oldNoJdk -and -not $newNoJdk) { continue }
         if (-not $oldNoJdk -and $newNoJdk) { continue }
-        Write-Host "  Found fallback match: $an"
+        Write-Host "Fallback match found: $an"
         return $asset.browser_download_url
     }
-    Write-Warning "No fallback pattern match for $oldName"
+    Write-Warning "No fallback pattern match for $oldFileName"
     return $null
 }
 
@@ -289,16 +298,15 @@ function Fix-KomacManifestsAndSubmit {
         [Parameter(Mandatory)] [string]$WingetId,
         [Parameter(Mandatory)] [version]$NewVersion,
         [Parameter(Mandatory)] [string[]]$InstallerUrls,
-        [Parameter(Mandatory)] $OldInstallers,  # from old manifest
+        [Parameter(Mandatory)] $OldInstallers,  # from the old manifest
         [string]$OutputFolder = ".komac/$WingetId",
         [string]$GitHubToken,
-        [switch]$OpenPr
+        [switch]$OpenPr             # if set, pass --open-pr
     )
     if ($GitHubToken) {
         & $KomacPath token update --token $GitHubToken
     }
-
-    # STEP 1: Run Komac update in dry-run mode (local YAML)
+    # STEP 1: Run Komac update in dry-run mode (local YAML generation)
     $komacUpdateArgs = @(
         "update", $WingetId,
         "--version", "$NewVersion",
@@ -309,24 +317,23 @@ function Fix-KomacManifestsAndSubmit {
         $komacUpdateArgs += "--urls"
         $komacUpdateArgs += $url
     }
-    Write-Host "==> Komac (dry-run) => $komacUpdateArgs"
+    Write-Host "Komac dry-run arguments: $komacUpdateArgs"
     & $KomacPath @komacUpdateArgs
     if ($LASTEXITCODE -ne 0) {
         Write-Warning "Komac update (dry-run) failed with code $LASTEXITCODE"
         return "FAILED_TO_CREATE_PR"
     }
-
     # STEP 2: Locate the generated installer manifest (search recursively)
     $installerFileObj = Get-ChildItem -Path $OutputFolder -Recurse -Filter *.installer.yaml | Select-Object -First 1
     if (-not $installerFileObj) {
-        Write-Warning "No *.installer.yaml found under $OutputFolder"
+        Write-Warning "No installer manifest file found in $OutputFolder"
         return "FAILED_TO_CREATE_PR"
     }
     $installerYaml = Get-Content -Path $installerFileObj.FullName -Raw
-    $installerObj  = ConvertFrom-Yaml $installerYaml
+    $installerObj = ConvertFrom-Yaml $installerYaml
 
     if ($installerObj.Installers.Count -lt $OldInstallers.Count) {
-        Write-Warning "Old manifest had $($OldInstallers.Count) installers, new manifest has $($installerObj.Installers.Count). Missing arch => skipping update for $WingetId."
+        Write-Warning "Old manifest had $($OldInstallers.Count) installers, new manifest has $($installerObj.Installers.Count). Missing architecture entries; skipping update for $WingetId."
         return "FAILED_TO_CREATE_PR"
     }
 
@@ -345,10 +352,10 @@ function Fix-KomacManifestsAndSubmit {
         Write-Warning "Installer counts differ; skipping index-based architecture fix."
     }
 
-    # STEP 2B: Rewrite updated YAML to disk
+    # STEP 2B: Write the updated manifest back to disk
     $updatedYaml = ConvertTo-Yaml $installerObj
     $updatedYaml | Out-File $installerFileObj.FullName -Force -Encoding UTF8
-    Write-Host "Architecture fix complete. Updated: $($installerFileObj.FullName)"
+    Write-Host "Architecture fix complete. Updated manifest: $($installerFileObj.FullName)"
 
     # STEP 3: Submit the updated manifest using Komac submit
     $komacSubmitArgs = @("submit", $OutputFolder, "--yes")
@@ -357,7 +364,7 @@ function Fix-KomacManifestsAndSubmit {
         $komacSubmitArgs += "--token"
         $komacSubmitArgs += $GitHubToken
     }
-    Write-Host "==> Komac submit => $komacSubmitArgs"
+    Write-Host "Komac submit arguments: $komacSubmitArgs"
     & $KomacPath @komacSubmitArgs
     if ($LASTEXITCODE -ne 0) {
         Write-Warning "Komac submit failed with code $LASTEXITCODE"
