@@ -1,0 +1,22 @@
+name: Auto Merge Winget Update PRs
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    if: >
+      ${{ 
+         github.event.pull_request.labels &&
+         contains(join(github.event.pull_request.labels.*.name, ','), 'winget-update')
+      }}
+    steps:
+      - name: Merge Pull Request
+        uses: peter-evans/merge-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          merge-method: squash
+          commit-title: "Auto-merge winget update: ${{ github.event.pull_request.title }}"
+          commit-message: "Merged automatically by GitHub Actions."

@@ -64,7 +64,6 @@ jobs:
           .\Scripts\CheckAndUpdateFromWingetManifest.ps1
 
       - name: Create Pull Request for Updated Files
-        if: always()
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -73,4 +72,5 @@ jobs:
           body: "Automated update of manifest state files (last_checked.json and .komac) by GitHub Action."
           branch: "update/winget-manifests-${{ github.run_id }}"
           base: main
+          labels: "winget-update"
           delete-branch: true
