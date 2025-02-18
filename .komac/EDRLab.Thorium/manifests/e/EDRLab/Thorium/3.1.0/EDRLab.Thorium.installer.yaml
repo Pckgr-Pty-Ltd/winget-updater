@@ -1,0 +1,22 @@
+InstallerType: nullsoft
+InstallerLocale: en-US
+ReleaseDate: 2025-02-18
+ManifestVersion: 1.9.0
+Scope: user
+ManifestType: installer
+PackageIdentifier: EDRLab.Thorium
+InstallModes:
+- silent
+Installers:
+- InstallerSha256: 8DB0829AAAB2B24DF2B2CFCD833A84CFE3DB0DE87177A9F5669EE896AABE2DB2
+  Architecture: x64
+  InstallerUrl: https://github.com/edrlab/thorium-reader/releases/download/v3.1.0/Thorium.Setup.3.1.0.exe
+ProductCode: 13998dff-ad91-57f4-b530-aa7ad6d4fea5
+UpgradeBehavior: install
+AppsAndFeaturesEntries:
+- DisplayName: Thorium 3.1.0
+  ProductCode: 13998dff-ad91-57f4-b530-aa7ad6d4fea5
+Platform:
+- Windows.Desktop
+PackageVersion: 3.1.0
+

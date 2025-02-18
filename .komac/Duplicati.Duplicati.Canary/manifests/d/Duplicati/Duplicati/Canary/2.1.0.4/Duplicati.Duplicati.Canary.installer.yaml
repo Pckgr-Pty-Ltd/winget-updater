@@ -1,0 +1,28 @@
+InstallerLocale: en-US
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\Duplicati Agent'
+ReleaseDate: 2025-01-31
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSha256: D04EC2C9E055CDA03F9A2083BC3ADAB151DDCCB0F17EEEB210F0638494B7D457
+  Architecture: arm64
+  InstallerUrl: https://github.com/duplicati/duplicati/releases/download/v2.1.0.4_stable_2025-01-31/duplicati-2.1.0.4_stable_2025-01-31-win-arm64-agent.msi
+Scope: machine
+ManifestType: installer
+PackageIdentifier: Duplicati.Duplicati.Canary
+Protocols:
+- http
+- https
+InstallerType: wix
+ProductCode: '{6E31D943-533E-4BC7-B762-F83186F1A8A8}'
+UpgradeBehavior: install
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+AppsAndFeaturesEntries:
+- UpgradeCode: '{BC5A1C94-2BF2-4273-9D8F-780D162CB30E}'
+  DisplayName: Duplicati Agent
+  ProductCode: '{6E31D943-533E-4BC7-B762-F83186F1A8A8}'
+PackageVersion: 2.1.0.4
+

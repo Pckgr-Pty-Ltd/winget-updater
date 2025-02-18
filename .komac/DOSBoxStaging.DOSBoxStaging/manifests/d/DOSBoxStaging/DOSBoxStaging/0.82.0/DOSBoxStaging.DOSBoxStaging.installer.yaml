@@ -1,0 +1,29 @@
+InstallerType: inno
+ReleaseDate: 2024-10-26
+ManifestVersion: 1.9.0
+ManifestType: installer
+PackageIdentifier: DOSBoxStaging.DOSBoxStaging
+InstallerLocale: en-US
+Installers:
+- InstallerSwitches:
+    Custom: /CURRENTUSER
+  InstallerUrl: https://github.com/dosbox-staging/dosbox-staging/releases/download/v0.82.0/dosbox-staging-windows-x64-v0.82.0-setup.exe
+  Architecture: x64
+  InstallerSha256: FA041173E55FBA9873BE0A85734A09A3F54B466C95FF8F1B8AA1A84CD3347729
+  Scope: user
+- InstallerSwitches:
+    Custom: /ALLUSERS
+  InstallerUrl: https://github.com/dosbox-staging/dosbox-staging/releases/download/v0.82.0/dosbox-staging-windows-x64-v0.82.0-setup.exe
+  InstallationMetadata:
+    DefaultInstallLocation: '%ProgramFiles%\DOSBox Staging'
+  Architecture: x64
+  InstallerSha256: FA041173E55FBA9873BE0A85734A09A3F54B466C95FF8F1B8AA1A84CD3347729
+  Scope: machine
+ProductCode: '{587471B7-02F6-4F25-8D00-70006790653C}_is1'
+UpgradeBehavior: install
+AppsAndFeaturesEntries:
+- DisplayVersion: 0.82.0-9df43
+  ProductCode: '{587471B7-02F6-4F25-8D00-70006790653C}_is1'
+ElevationRequirement: elevatesSelf
+PackageVersion: 0.82.0
+
