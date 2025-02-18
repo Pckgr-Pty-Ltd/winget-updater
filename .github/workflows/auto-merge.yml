@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    if: ${{ github.event.label.name == 'winger-update' }}
+    if: ${{ github.event.label.name == 'winget-update' }}
     runs-on: ubuntu-latest
     steps:
       - name: Merge Pull Request
