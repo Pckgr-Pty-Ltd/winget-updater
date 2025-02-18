@@ -1,0 +1,23 @@
+# Created with komac v2.11.0
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.9.0.schema.json
+
+PackageIdentifier: DDEVFoundation.DDEV
+PackageVersion: 1.24.2
+InstallerLocale: en-US
+InstallerType: nullsoft
+Scope: machine
+ProductCode: DDEV
+ReleaseDate: 2025-01-20
+AppsAndFeaturesEntries:
+- ProductCode: DDEV
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\DDEV'
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/ddev/ddev/releases/download/v1.24.2/ddev_windows_amd64_installer.v1.24.2.exe
+  InstallerSha256: A3B4BFE6E4896066188F6F32EE2FC73F0EE3136DA0A0A585CDF6351DD15AC064
+- Architecture: arm64
+  InstallerUrl: https://github.com/ddev/ddev/releases/download/v1.24.2/ddev_windows_arm64_installer.v1.24.2.exe
+  InstallerSha256: E5E57127E232DD8F275C1254E4EB8E0BA2B0C9D5526AE01FF86242A1ACAE940C
+ManifestType: installer
+ManifestVersion: 1.9.0
