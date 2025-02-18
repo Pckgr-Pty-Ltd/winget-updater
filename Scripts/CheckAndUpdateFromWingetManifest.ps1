@@ -228,7 +228,6 @@ function Get-ExistingPRs {
 
 function GenerateNewAssetUrlWithGPT {
     param(
-        [Parameter(Mandatory=$true)][string]$WingetId,
         [Parameter(Mandatory=$true)][string]$OldInstallerUrl,
         [Parameter(Mandatory=$true)][string]$NewVersion,
         [Parameter(Mandatory=$true)][string]$OpenAiKey
@@ -241,7 +240,6 @@ Do not include any extra text.
 "@
     
     $userPrompt = @"
-Winget ID: $WingetId
 Old Installer URL: $OldInstallerUrl
 New version: $NewVersion
 Please output only the updated installer URL.
@@ -343,7 +341,7 @@ function Find-NewAssetUrlHybrid {
     # If no match is found and an OpenAiKey is provided, use GPT fallback.
     if ($OpenAiKey) {
         Write-Host "No asset match found via direct or pattern-based matching. Using GPT fallback for $oldFileName."
-        $gptUrl = GenerateNewAssetUrlWithGPT -WingetId $oldInstaller.PackageIdentifier -OldInstallerUrl $oldUrl -NewVersion $newVerString -OpenAiKey $OpenAiKey
+        $gptUrl = GenerateNewAssetUrlWithGPT -OldInstallerUrl $oldUrl -NewVersion $newVerString -OpenAiKey $OpenAiKey
         if ($gptUrl) {
             Write-Host "GPT fallback returned URL: $gptUrl"
             return $gptUrl
