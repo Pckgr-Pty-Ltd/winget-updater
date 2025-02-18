@@ -1,0 +1,20 @@
+AppsAndFeaturesEntries:
+- DisplayVersion: 5.56.9
+  UpgradeCode: '{6A52C22C-74F0-4CC3-B723-B73A21DB9149}'
+  ProductCode: '{54C780D1-3B01-40B1-8045-D19E6CA24221}'
+ProductCode: '{54C780D1-3B01-40B1-8045-D19E6CA24221}'
+Scope: machine
+PackageIdentifier: AutomatedLab.AutomatedLab
+ManifestType: installer
+ReleaseDate: 2025-01-26
+PackageVersion: 5.56.0
+ManifestVersion: 1.9.0
+InstallerLocale: en-US
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/AutomatedLab/AutomatedLab/releases/download/5.56.0/AutomatedLab.msi
+  InstallerSha256: 124F059DC30FA68475C2DE171F8BBC8084FD671933B3C158F391AE7C6F0731F0
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\WindowsPowerShell\Modules'
+InstallerType: wix
+
