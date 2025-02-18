@@ -228,22 +228,35 @@ function Get-ExistingPRs {
 function Find-NewAssetUrlHybrid {
     param(
         [Parameter(Mandatory)] $oldInstaller,          # the old installer object from the old manifest
-        [Parameter(Mandatory)] [Version]$oldWingetVer,  # e.g. "1.0.220"
-        [Parameter(Mandatory)] [Version]$newWingetVer,  # e.g. "1.0.221"
+        [Parameter(Mandatory)] [Version]$newVersion,    # new version from GitHub
         [Parameter(Mandatory)] $assets                 # array of new release assets from GitHub
     )
-    # Get basic info from the old installer
-    $oldUrl      = $oldInstaller.InstallerUrl
+    # Retrieve basic info from the old installer.
+    $oldUrl = $oldInstaller.InstallerUrl
     $oldFileName = [System.IO.Path]::GetFileName($oldUrl)
-    $oldExt      = [System.IO.Path]::GetExtension($oldFileName).ToLowerInvariant()
-    $arch        = $oldInstaller.Architecture  # expected architecture, e.g. "x64", "x86", "arm64"
+    $oldExt = [System.IO.Path]::GetExtension($oldFileName).ToLowerInvariant()
     
-    # For our purposes we assume Windows installers.
-    $os = "windows"
-    $oldNoJdk   = ($oldFileName -match 'nojdk')
-    $oldVerString = "$oldWingetVer"
-    $newVerString = "$newWingetVer"
-
+    # Use InstallerVersion if available; otherwise, try to extract it from the file name.
+    $oldInstallerVersion = $oldInstaller.InstallerVersion
+    if (-not $oldInstallerVersion) {
+        $oldInstallerVersion = $oldFileName -replace ".*_v", "" -replace "-.*", ""
+    }
+    $oldVerString = "$oldInstallerVersion"
+    $newVerString = "$newVersion"
+    
+    # Normalize the architecture:
+    $arch = $oldInstaller.Architecture
+    # If the manifest says x86 but the file name indicates x86_64, use x64.
+    if ($arch -eq "x86" -and $oldFileName -match "x86_64") {
+        Write-Verbose "Normalizing architecture for $oldFileName 'x86' replaced with 'x64' based on filename."
+        $arch = "x64"
+    }
+    # If the manifest says x64 but the file name indicates i386 or 32, use x86.
+    elseif ($arch -eq "x64" -and ($oldFileName -match "i386" -or $oldFileName -match "32")) {
+        Write-Verbose "Normalizing architecture for $oldFileName 'x64' replaced with 'x86' based on filename."
+        $arch = "x86"
+    }
+    
     Write-Host "Trying direct substitution for $oldFileName"
     $candidateName = $oldFileName -replace [Regex]::Escape($oldVerString), $newVerString
     Write-Host "Candidate new name: $candidateName"
@@ -253,17 +266,18 @@ function Find-NewAssetUrlHybrid {
             return $asset.browser_download_url
         }
     }
-
+    
     Write-Host "No exact match found. Falling back to pattern-based matching..."
     foreach ($asset in $assets) {
         $an = $asset.name
         $assetExt = [System.IO.Path]::GetExtension($an).ToLowerInvariant()
         if ($assetExt -ne $oldExt) { continue }
-        # Check operating system: require 'windows' if the old file contains it.
-        if ($os -eq 'windows' -and $an -notmatch 'windows') { continue }
+        # Require OS markers if the old file name indicates Windows.
+        if ($oldFileName -match 'windows' -and $an -notmatch 'windows') { continue }
+        
         switch ($arch) {
             'x64' {
-                # For x64, require a match for x86_64, amd64, or x64 as whole words; disallow any "arm"
+                # For x64, require one of the accepted markers and exclude any "arm" markers.
                 if ($an -notmatch '\b(x86_64|amd64|x64)\b' -or $an -match '\barm\b') { continue }
             }
             'x86' {
@@ -272,11 +286,7 @@ function Find-NewAssetUrlHybrid {
             'arm64' {
                 if ($an -notmatch '\barm64\b') { continue }
             }
-            default { }
         }
-        $newNoJdk = ($an -match 'nojdk')
-        if ($oldNoJdk -and -not $newNoJdk) { continue }
-        if (-not $oldNoJdk -and $newNoJdk) { continue }
         Write-Host "Fallback match found: $an"
         return $asset.browser_download_url
     }
