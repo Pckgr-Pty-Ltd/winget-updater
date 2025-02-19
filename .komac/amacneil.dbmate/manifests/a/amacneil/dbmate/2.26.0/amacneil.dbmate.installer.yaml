@@ -1,0 +1,13 @@
+Installers:
+- InstallerSha256: 222F610376C4793939F842A0701B3B6F5CE300E18549E14842F0B7C16DD0EA58
+  InstallerUrl: https://github.com/amacneil/dbmate/releases/download/v2.26.0/dbmate-windows-amd64.exe
+  Architecture: x64
+Commands:
+- dbmate
+ManifestType: installer
+PackageVersion: 2.26.0
+ReleaseDate: 2025-02-19
+InstallerType: portable
+PackageIdentifier: amacneil.dbmate
+ManifestVersion: 1.9.0
+
