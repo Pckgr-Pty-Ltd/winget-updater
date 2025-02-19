@@ -3,7 +3,7 @@ Param(
     [string]$GitHubToken     = ${env:PAT_TOKEN},           # GitHub personal access token
     [string]$KomacPath       = "C:\Program Files\Komac\bin\Komac.exe",
     [string]$LastCheckedFile = ".\last_checked.json",     # store Winget IDs + last-check times
-    [int]$SkipHours          = 24,
+    [int]$SkipHours          = 48,
     [string]$gptKey          = ${env:OPENAI_KEY}
 )
 
@@ -252,7 +252,7 @@ Please output only the updated installer URL.
     }
     
     $body = @{
-        "model" = "o3-mini"
+        "model" = "gpt-4o-mini"
         "messages" = @(
             @{
                 "role"    = "system"
@@ -288,67 +288,30 @@ Please output only the updated installer URL.
 
 function Find-NewAssetUrlHybrid {
     param(
-        [Parameter(Mandatory)] $oldInstaller,          # Old installer object from the previous manifest
-        [Parameter(Mandatory)] [Version]$newVersion,    # New version from GitHub (as a [Version] object)
-        [Parameter(Mandatory)] $assets,                 # Array of new release assets from GitHub
-        [string]$OpenAiKey = $null                     # Optional OpenAI API key for GPT fallback
+        [Parameter(Mandatory)] $oldInstaller,
+        [Parameter(Mandatory)] [Version]$newVersion,
+        [Parameter(Mandatory)] $assets,
+        [string]$OpenAiKey = $null
     )
-    # Get basic info from the old installer.
+    # Basic info extraction
     $oldUrl = $oldInstaller.InstallerUrl
     $oldFileName = [System.IO.Path]::GetFileName($oldUrl)
-    $oldExt = [System.IO.Path]::GetExtension($oldFileName).ToLowerInvariant()
-    
-    # Extract the old version from the InstallerVersion property if available;
-    # otherwise, try to extract it from the file name.
-    $oldInstallerVersion = $oldInstaller.InstallerVersion
-    if (-not $oldInstallerVersion) {
-        if ($oldFileName -match '_v?((\d+\.)+\d+)') {
-            $oldInstallerVersion = $matches[1]
-        }
-        else {
-            $oldInstallerVersion = $oldFileName -replace '.*[vV]', '' -replace '[-_].*', ''
-        }
-    }
-    if (-not $oldInstallerVersion) {
-        Write-Warning "Cannot determine old version from $oldFileName"
-        return $null
-    }
-    $oldVerString = $oldInstallerVersion
     $newVerString = $newVersion.ToString()
-    
-    # Determine the desired architecture from the old manifest.
-    $desiredArch = $oldInstaller.Architecture.ToLowerInvariant()
-    $oldFileNameLower = $oldFileName.ToLowerInvariant()
-    if ($oldFileNameLower -match 'x86_64|amd64|\bx64\b') {
-        $desiredArch = "x64"
-    }
-    elseif ($oldFileNameLower -match 'i386|x86|\b32\b') {
-        $desiredArch = "x86"
-    }
-    
-    Write-Host "Trying direct substitution for $oldFileName"
-    $candidateName = $oldFileName -replace [Regex]::Escape($oldVerString), $newVerString
-    Write-Host "Candidate new name: $candidateName"
-    foreach ($asset in $assets) {
-        if ($asset.name -eq $candidateName) {
-            Write-Host "Exact filename match found: $($asset.name)"
-            return $asset.browser_download_url
-        }
-    }
-    
-    Write-Host "No exact match found. Falling back to pattern-based matching..."
-    
-    # If no match is found and an OpenAiKey is provided, use GPT fallback.
+
+    Write-Host "Using GPT for generating new asset URL for $oldFileName."
+
+    # Directly call GPT fallback to generate the new URL
     if ($OpenAiKey) {
-        Write-Host "No asset match found via direct or pattern-based matching. Using GPT fallback for $oldFileName."
         $gptUrl = GenerateNewAssetUrlWithGPT -OldInstallerUrl $oldUrl -NewVersion $newVerString -OpenAiKey $OpenAiKey
         if ($gptUrl) {
-            Write-Host "GPT fallback returned URL: $gptUrl"
+            Write-Host "GPT returned URL: $gptUrl"
             return $gptUrl
+        } else {
+            Write-Warning "GPT did not return a valid URL."
         }
     }
     
-    Write-Warning "No suitable asset found for $oldFileName"
+    Write-Warning "No suitable asset found for $oldFileName."
     return $null
 }
 
