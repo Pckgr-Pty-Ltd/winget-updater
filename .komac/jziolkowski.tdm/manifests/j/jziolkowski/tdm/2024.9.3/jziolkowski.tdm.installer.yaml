@@ -1,0 +1,13 @@
+ReleaseDate: 2024-09-15
+ManifestType: installer
+PackageIdentifier: jziolkowski.tdm
+PackageVersion: 2024.9.3
+Commands:
+- tdmgr
+InstallerType: portable
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSha256: 75B6E4443AD506581830D0AD04F984CA46DCCBD34D9C5E0A7504B4E62F81700F
+  InstallerUrl: https://github.com/jziolkowski/tdm/releases/download/v2024.9.3/tdmgr_2024.9.3.exe
+  Architecture: neutral
+

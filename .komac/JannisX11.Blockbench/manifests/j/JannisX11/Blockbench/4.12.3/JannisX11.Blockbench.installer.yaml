@@ -1,0 +1,22 @@
+ReleaseDate: 2025-02-19
+AppsAndFeaturesEntries:
+- ProductCode: f73268a5-4451-5bb0-b2b7-a92a16ee01d9
+  DisplayName: Blockbench 4.12.3
+PackageIdentifier: JannisX11.Blockbench
+Scope: user
+InstallerLocale: en-US
+ManifestVersion: 1.9.0
+InstallModes:
+- silent
+UpgradeBehavior: install
+InstallerType: nullsoft
+FileExtensions:
+- bbmodel
+ProductCode: f73268a5-4451-5bb0-b2b7-a92a16ee01d9
+PackageVersion: 4.12.3
+ManifestType: installer
+Installers:
+- InstallerSha256: 1B19FDECDB9203B0C703760C7FC78656D557029F32289BF63343B8242352249B
+  InstallerUrl: https://github.com/JannisX11/blockbench/releases/download/v4.12.3/Blockbench_4.12.3.exe
+  Architecture: x64
+

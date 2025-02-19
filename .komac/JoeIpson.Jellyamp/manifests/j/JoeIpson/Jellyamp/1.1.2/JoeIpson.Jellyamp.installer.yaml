@@ -1,0 +1,16 @@
+ManifestVersion: 1.9.0
+ReleaseDate: 2024-12-16
+ManifestType: installer
+PackageIdentifier: JoeIpson.Jellyamp
+PackageVersion: 1.1.2
+Installers:
+- InstallerSha256: 1993F6517616B1F34C947D5DC134F4527CDBD418A7AA518F278C964F68759D50
+  InstallerUrl: https://github.com/m0ngr31/jellyamp/releases/download/v1.1.2/jellyamp-1.1.2-install.exe
+  Architecture: x64
+InstallerLocale: en-US
+InstallerType: nullsoft
+ProductCode: 67973d14-c4a4-57c9-a4de-fd35afc33763
+AppsAndFeaturesEntries:
+- ProductCode: 67973d14-c4a4-57c9-a4de-fd35afc33763
+  DisplayName: Jellyamp 1.1.2
+

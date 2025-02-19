@@ -1,0 +1,18 @@
+ReleaseDate: 2025-02-02
+ManifestType: installer
+PackageIdentifier: InvisibleMan.InvisibleManXRay
+PackageVersion: 3.2.5
+Installers:
+- InstallerSha256: 8D6D1D1C8F360D66380CE7F30C520BBB2CB18C354FB72376A7AC531101C5C9A5
+  InstallerUrl: https://github.com/InvisibleManVPN/InvisibleMan-XRayClient/releases/download/v3.2.5/InvisibleManXRay-x86.zip
+  Architecture: x86
+- InstallerSha256: E41306A32375E23CB2F81F60230E165075D336F0A5682DD57AEF75CBE802F183
+  InstallerUrl: https://github.com/InvisibleManVPN/InvisibleMan-XRayClient/releases/download/v3.2.5/InvisibleManXRay-x64.zip
+  Architecture: x64
+UpgradeBehavior: install
+InstallerType: zip
+ManifestVersion: 1.9.0
+NestedInstallerFiles:
+- RelativeFilePath: Invisible Man XRay.exe
+NestedInstallerType: portable
+

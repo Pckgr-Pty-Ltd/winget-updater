@@ -1,0 +1,28 @@
+ManifestType: installer
+AppsAndFeaturesEntries:
+- ProductCode: c4f32257-64b6-5008-a0f9-c3f0b2c3fbc2
+  DisplayName: Loop Email 7.4.6
+ReleaseDate: 2024-12-04
+PackageIdentifier: InTheLoop.LoopEmail
+InstallerType: nullsoft
+InstallerLocale: en-US
+ManifestVersion: 1.9.0
+InstallerSwitches:
+  Upgrade: --updated
+UpgradeBehavior: install
+ProductCode: c4f32257-64b6-5008-a0f9-c3f0b2c3fbc2
+PackageVersion: 7.4.6
+Installers:
+- InstallerSwitches:
+    Custom: /CURRENTUSER
+  InstallerSha256: CDDE26E154F5FD2636DC861CAA4B82812A535C073B54227C6EAE2DC5FD228A5A
+  InstallerUrl: https://github.com/4thOffice/loopinupdater/releases/download/v7.4.6/Loop-Email-Setup-7.4.6.exe
+  Scope: user
+  Architecture: x64
+- InstallerSwitches:
+    Custom: /ALLUSERS
+  InstallerSha256: CDDE26E154F5FD2636DC861CAA4B82812A535C073B54227C6EAE2DC5FD228A5A
+  InstallerUrl: https://github.com/4thOffice/loopinupdater/releases/download/v7.4.6/Loop-Email-Setup-7.4.6.exe
+  Scope: machine
+  Architecture: x64
+

@@ -1,0 +1,17 @@
+ReleaseDate: 2024-04-16
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.VCRedist.2015+.x64
+ManifestType: installer
+PackageIdentifier: jayhuang75.med
+PackageVersion: 0.6.4
+Installers:
+- InstallerSha256: 72DB20E1CD330404B4F24A173DC6215700CC61EFB9B717702943C1A5C34AE6D0
+  InstallerUrl: https://github.com/jayhuang75/rust-cli-med/releases/download/0.6.4/med-0.6.4-x86_64-windows-msvc.zip
+  Architecture: x64
+InstallerType: zip
+ManifestVersion: 1.9.0
+NestedInstallerFiles:
+- RelativeFilePath: med.exe
+NestedInstallerType: portable
+

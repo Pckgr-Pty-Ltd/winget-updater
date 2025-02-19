@@ -1,0 +1,17 @@
+ReleaseDate: 2024-12-21
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.DotNet.DesktopRuntime.8
+ManifestType: installer
+PackageIdentifier: JosephFinney.Text-Grab
+PackageVersion: 4.7.0
+Commands:
+- text-grab
+InstallerLocale: en-US
+InstallerType: portable
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSha256: 4E2B13D030529530713242EE171D5AB02B83CDB39BFEC33F6CB937EA380BA4AF
+  InstallerUrl: https://github.com/TheJoeFin/Text-Grab/releases/download/v4.7.0/Text-Grab.exe
+  Architecture: neutral
+

@@ -1,0 +1,22 @@
+ManifestType: installer
+AppsAndFeaturesEntries:
+- ProductCode: '{4DD165FE-137C-4742-AA8C-584A84FEF17B}'
+  DisplayVersion: 1.0.0.0
+  UpgradeCode: '{45C08DE6-4C20-45BA-922D-24FE01D35B3C}'
+  DisplayName: max backup
+ReleaseDate: 2023-12-03
+PackageIdentifier: KellyElton.Max.Backup
+Scope: machine
+InstallerLocale: en-US
+ManifestVersion: 1.9.0
+UpgradeBehavior: uninstallPrevious
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\.\max'
+InstallerType: wix
+ProductCode: '{4DD165FE-137C-4742-AA8C-584A84FEF17B}'
+PackageVersion: 0.1.6.0
+Installers:
+- InstallerSha256: 484D9894B82B2EF1122382B8617F47B1C2A41D2C1D9EC3299A94B75CA1878F05
+  InstallerUrl: https://github.com/kellyelton/MaxBackup/releases/download/0.1.6.0/Max.Installer.Package.msi
+  Architecture: x64
+

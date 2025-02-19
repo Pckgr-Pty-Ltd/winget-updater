@@ -1,0 +1,15 @@
+ReleaseDate: 2025-02-03
+ManifestType: installer
+PackageIdentifier: JustArchiNET.ArchiSteamFarm
+PackageVersion: 6.1.2.3
+Installers:
+- InstallerSha256: AF2030CEAB4B45D1545D3EB6BD7796752101D9804AA174BDA806185F28AEC129
+  InstallerUrl: https://github.com/JustArchiNET/ArchiSteamFarm/releases/download/6.1.2.3/ASF-win-x64.zip
+  Architecture: x64
+UpgradeBehavior: install
+InstallerType: zip
+ManifestVersion: 1.9.0
+NestedInstallerFiles:
+- RelativeFilePath: ArchiSteamFarm.exe
+NestedInstallerType: portable
+

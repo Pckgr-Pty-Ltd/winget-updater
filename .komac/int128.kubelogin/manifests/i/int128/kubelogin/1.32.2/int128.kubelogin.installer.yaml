@@ -1,0 +1,14 @@
+ReleaseDate: 2025-01-31
+ManifestType: installer
+PackageIdentifier: int128.kubelogin
+PackageVersion: 1.32.2
+Installers:
+- InstallerSha256: 8A399DCFBFA94435CB12F439067B9AEC452DFF693FCD7F13D288F429F9451B55
+  InstallerUrl: https://github.com/int128/kubelogin/releases/download/v1.32.2/kubelogin_windows_amd64.zip
+  Architecture: x64
+InstallerType: zip
+ManifestVersion: 1.9.0
+NestedInstallerFiles:
+- RelativeFilePath: kubelogin.exe
+NestedInstallerType: portable
+

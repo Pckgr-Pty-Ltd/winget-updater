@@ -1,0 +1,31 @@
+ElevationRequirement: elevatesSelf
+ReleaseDate: 2025-02-12
+AppsAndFeaturesEntries:
+- ProductCode: Conan Package Manager_is1
+PackageIdentifier: JFrog.Conan
+Scope: machine
+InstallerLocale: en-US
+ManifestVersion: 1.9.0
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+Platform:
+- Windows.Desktop
+InstallerSwitches:
+  Custom: /ALLUSERS
+UpgradeBehavior: install
+InstallationMetadata:
+  DefaultInstallLocation: '{code:DefDirRoot}\Conan'
+InstallerType: inno
+ManifestType: installer
+ProductCode: Conan Package Manager_is1
+PackageVersion: 2.12.2
+Installers:
+- InstallerSha256: BCE86E96D749D5AE1D3BD82075E60685DEE38DB8CB5F1D31638B5C5B2B5298EF
+  InstallerUrl: https://github.com/conan-io/conan/releases/download/2.12.2/conan-2.12.2-windows-i686-installer.exe
+  Architecture: x86
+- InstallerSha256: B3B2754FC2B9AAA99092334E26535E67F1EBFDDCCD7ABB6BFD645CFF6F52867D
+  InstallerUrl: https://github.com/conan-io/conan/releases/download/2.12.2/conan-2.12.2-windows-x86_64-installer.exe
+  Architecture: x64
+
