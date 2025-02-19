@@ -1,0 +1,15 @@
+NestedInstallerType: portable
+InstallerType: zip
+ManifestType: installer
+PackageVersion: 2.29.0
+NestedInstallerFiles:
+- RelativeFilePath: SmartSystemMenu.exe
+Installers:
+- InstallerSha256: 42B6C3378255B8893A3FE6301F610BE48E96DA920F0A9583BFB17DD8842AE70D
+  InstallerUrl: https://github.com/AlexanderPro/SmartSystemMenu/releases/download/v2.29.0/SmartSystemMenu_v2.29.0.zip
+  Architecture: neutral
+ReleaseDate: 2025-01-08
+InstallerLocale: en-US
+PackageIdentifier: AlexanderPro.SmartSystemMenu
+ManifestVersion: 1.9.0
+
