@@ -1,0 +1,13 @@
+ReleaseDate: 2023-04-02
+PackageVersion: 0.0.9
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSha256: 9B9E2A506CDD9AA750A67CE8744111A5F194DEB8F413DE946E154C714957849E
+  Architecture: neutral
+  InstallerUrl: https://github.com/ElisaMin/Heizi-Flashing-Tools/releases/download/0.0.9/HeiziFlashTools-lzma-0.0.9.exe
+PackageIdentifier: Heizi.HeiziFlashTools
+InstallerSwitches:
+  Silent: /qn
+ManifestType: installer
+InstallerType: exe
+

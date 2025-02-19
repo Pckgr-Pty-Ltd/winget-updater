@@ -1,0 +1,17 @@
+ReleaseDate: 2025-02-07
+NestedInstallerType: portable
+PackageIdentifier: flyingpie.windows-terminal-quake.prerelease
+PackageVersion: 2.0.13
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSha256: 964795921FDE6729A811D434433DEF15F81862B31276ECA50C7D0E56D9523C39
+  Architecture: x64
+  InstallerUrl: https://github.com/flyingpie/windows-terminal-quake/releases/download/v2.0.13/win-x64_self-contained.zip
+ManifestType: installer
+NestedInstallerFiles:
+- PortableCommandAlias: wtq
+  RelativeFilePath: wtq.exe
+Commands:
+- wtq
+InstallerType: zip
+

@@ -1,0 +1,14 @@
+ReleaseDate: 2024-12-03
+NestedInstallerType: portable
+PackageIdentifier: GoHarbor.Harbor
+PackageVersion: 0.0.2
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSha256: EA7D97D1CA40CBB4445A83A121033BA418771F3E373C7F2553E56383B66A0B28
+  Architecture: x64
+  InstallerUrl: https://github.com/goharbor/harbor-cli/releases/download/v0.0.2/harbor_0.0.2_windows_amd64.zip
+NestedInstallerFiles:
+- RelativeFilePath: harbor.exe
+ManifestType: installer
+InstallerType: zip
+

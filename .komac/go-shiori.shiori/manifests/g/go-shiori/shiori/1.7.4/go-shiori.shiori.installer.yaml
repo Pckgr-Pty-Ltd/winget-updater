@@ -1,0 +1,16 @@
+ReleaseDate: 2025-01-03
+PackageIdentifier: go-shiori.shiori
+PackageVersion: 1.7.4
+Installers:
+- InstallerSha256: 2EEFF230F24D204C0858A1570A9D9217F1A8CBD7EA248C72972DEC51CB93B936
+  Architecture: x64
+  InstallerUrl: https://github.com/go-shiori/shiori/releases/download/v1.7.4/shiori_Windows_x86_64_1.7.4.zip
+UpgradeBehavior: uninstallPrevious
+NestedInstallerFiles:
+- RelativeFilePath: shiori.exe
+ManifestVersion: 1.9.0
+InstallerLocale: en-US
+NestedInstallerType: portable
+ManifestType: installer
+InstallerType: zip
+

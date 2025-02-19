@@ -1,0 +1,19 @@
+InstallerType: msi
+InstallerLocale: en-US
+PackageVersion: 1.0.3.0
+Scope: user
+InstallationMetadata:
+  DefaultInstallLocation: runtimes
+ReleaseDate: 2022-10-14
+AppsAndFeaturesEntries:
+- ProductCode: '{5CD4F431-CEE2-45B3-AD60-A120BCDC0DBC}'
+  UpgradeCode: '{713331A2-8317-4635-91A8-B1AC06C2794D}'
+ManifestVersion: 1.9.0
+ManifestType: installer
+ProductCode: '{5CD4F431-CEE2-45B3-AD60-A120BCDC0DBC}'
+PackageIdentifier: FleetingClarityStudios.QuickFixMyPic
+Installers:
+- InstallerSha256: 2313EB3A54DE8D6FA78BC39964F4505FC5A63A15EC501237B0D78A99596D00C7
+  Architecture: x64
+  InstallerUrl: https://github.com/Echostorm44/QuickFixMyPic/releases/download/1.0.3.0/SetupQuickFixMyPic.msi
+

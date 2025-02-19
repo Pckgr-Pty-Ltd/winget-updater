@@ -1,0 +1,28 @@
+InstallerType: wix
+InstallerLocale: en-US
+PackageVersion: 2.44.1694
+Scope: user
+InstallationMetadata:
+  DefaultInstallLocation: '%AppData%\Google\IAP Desktop'
+ReleaseDate: 2025-01-06
+AppsAndFeaturesEntries:
+- ProductCode: '{F4E160B1-E33A-44C1-A4CC-1817373F4992}'
+  DisplayVersion: 2.44.1696
+  Publisher: Google LLC
+  UpgradeCode: '{8077382C-6B47-11EA-BC55-0242AC130003}'
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+Platform:
+- Windows.Desktop
+ManifestVersion: 1.9.0
+UpgradeBehavior: install
+ManifestType: installer
+ProductCode: '{F4E160B1-E33A-44C1-A4CC-1817373F4992}'
+PackageIdentifier: Google.IAPDesktop
+Installers:
+- InstallerSha256: 9812D94F1926E6E323BBEB0911E78AE2B1B5C2A5D75FC20580D3F04B6CA793A0
+  Architecture: x64
+  InstallerUrl: https://github.com/GoogleCloudPlatform/iap-desktop/releases/download/2.44.1694/IapDesktop.msi
+

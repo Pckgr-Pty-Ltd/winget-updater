@@ -1,0 +1,18 @@
+ReleaseDate: 2025-01-12
+InstallationMetadata:
+  DefaultInstallLocation: C:\Games\Etterna
+ProductCode: Etterna
+PackageVersion: 0.74.3
+Installers:
+- InstallerSha256: E93EAEE0A45C3B7F477B4A4E176AAF0B971AFF27038AA712431ED0F94103F2CB
+  Architecture: x86
+  InstallerUrl: https://github.com/etternagame/etterna/releases/download/v0.74.3/Etterna-0.74.3-win32.exe
+- InstallerSha256: 313AF0967E2D6544A42352D98CA6B198449787C18F31807B161945D7D5F447F1
+  Architecture: x64
+  InstallerUrl: https://github.com/etternagame/etterna/releases/download/v0.74.3/Etterna-0.74.3-win64.exe
+ManifestVersion: 1.9.0
+InstallerLocale: en-US
+PackageIdentifier: EtternaProject.EtternaGame
+ManifestType: installer
+InstallerType: nullsoft
+

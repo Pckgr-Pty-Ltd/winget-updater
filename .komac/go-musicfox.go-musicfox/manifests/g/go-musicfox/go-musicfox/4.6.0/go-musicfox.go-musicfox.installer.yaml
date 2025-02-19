@@ -1,0 +1,21 @@
+ReleaseDate: 2024-12-01
+PackageIdentifier: go-musicfox.go-musicfox
+PackageVersion: 4.6.0
+Installers:
+- NestedInstallerFiles:
+  - RelativeFilePath: go-musicfox_4.6.0_windows_amd64/musicfox.exe
+  InstallerSha256: 57E81086F9E14C511CF42FD5858CBCEA0B092F2EC81144313C1127B46CD2542F
+  Architecture: x64
+  InstallerUrl: https://github.com/go-musicfox/go-musicfox/releases/download/v4.6.0/go-musicfox_4.6.0_windows_amd64.zip
+- NestedInstallerFiles:
+  - RelativeFilePath: go-musicfox_4.6.0_windows_arm64/musicfox.exe
+  InstallerSha256: 2C35D1007555339D38CBF079E85E969B28AA439064C90051C96BA571815BE3D3
+  Architecture: arm64
+  InstallerUrl: https://github.com/go-musicfox/go-musicfox/releases/download/v4.6.0/go-musicfox_4.6.0_windows_arm64.zip
+UpgradeBehavior: uninstallPrevious
+ManifestVersion: 1.9.0
+InstallerLocale: en-US
+NestedInstallerType: portable
+ManifestType: installer
+InstallerType: zip
+

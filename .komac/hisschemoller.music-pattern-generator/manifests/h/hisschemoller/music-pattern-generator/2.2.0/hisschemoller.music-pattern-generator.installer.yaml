@@ -1,0 +1,26 @@
+InstallerType: inno
+InstallerLocale: en-US
+PackageVersion: 2.2.0
+FileExtensions:
+- json
+Scope: machine
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\Music Pattern Generator'
+ReleaseDate: 2021-12-08
+AppsAndFeaturesEntries:
+- ProductCode: '{718598CA-086C-4A28-94B6-90CBCDDE771E}_is1'
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+ElevationRequirement: elevatesSelf
+ManifestVersion: 1.9.0
+UpgradeBehavior: install
+ManifestType: installer
+ProductCode: '{718598CA-086C-4A28-94B6-90CBCDDE771E}_is1'
+PackageIdentifier: hisschemoller.music-pattern-generator
+Installers:
+- InstallerSha256: 745658486F06E822D2098DED58CBAEC216FD8E6041A4D3C8BCAB31E521A26FAA
+  Architecture: x86
+  InstallerUrl: https://github.com/hisschemoller/music-pattern-generator/releases/download/v2.2.0/mpg_2_2_installer_win.exe
+

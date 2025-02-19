@@ -1,0 +1,20 @@
+InstallerType: inno
+InstallerLocale: en-US
+PackageVersion: 1.8.1
+Scope: machine
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\SiriKali'
+ReleaseDate: 2025-01-22
+AppsAndFeaturesEntries:
+- ProductCode: '{677BCC48-2AC2-4CBC-B826-A94324C26988}_is1'
+ElevationRequirement: elevatesSelf
+ManifestVersion: 1.9.0
+UpgradeBehavior: install
+ManifestType: installer
+ProductCode: '{677BCC48-2AC2-4CBC-B826-A94324C26988}_is1'
+PackageIdentifier: FrancisBanyikwa.SiriKali
+Installers:
+- InstallerSha256: 3C7996521970C08A4EDCC4DDAC39C19F91990FF00886DA5AB3D6A4E5CB93A074
+  Architecture: x86
+  InstallerUrl: https://github.com/mhogomchungu/sirikali/releases/download/1.8.1/SiriKaliQt6-1.8.1.setup.exe
+

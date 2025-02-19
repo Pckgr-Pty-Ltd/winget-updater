@@ -1,0 +1,17 @@
+ReleaseDate: 2024-11-23
+ProductCode: 5a23a500-53c7-5e39-adc4-89e573684217
+PackageVersion: 1.5.3
+Installers:
+- InstallerSha256: 2A374BB06B4F89360420075D197BD30920098312BFA03B4FBC9097CD5E38409B
+  Architecture: x64
+  InstallerUrl: https://github.com/headwindsim/installer/releases/download/v1.5.3/Headwind_Installer_Setup.exe
+ManifestVersion: 1.9.0
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- ProductCode: 5a23a500-53c7-5e39-adc4-89e573684217
+  DisplayName: Headwind Simulations Installer 1.5.3
+  Publisher: Headwind Simulations
+PackageIdentifier: Headwindsim.HeadwindInstaller
+ManifestType: installer
+InstallerType: nullsoft
+
