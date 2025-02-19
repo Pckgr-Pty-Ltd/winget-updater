@@ -1,0 +1,17 @@
+ReleaseDate: 2025-02-18
+ProductCode: 7a3fafb3-08da-5996-9f18-6fa76e23171d
+PackageVersion: 0.12.4
+Installers:
+- InstallerSha256: A8F18B4D6339E5CB1061F761762ECC3CE4AD07FF946133911D48F7E1DFFF7001
+  Architecture: x64
+  InstallerUrl: https://github.com/fupdec/mediaChips/releases/download/v0.12.4-beta/mediaChips.v0.12.4.Windows.Installer.exe
+ManifestVersion: 1.9.0
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- ProductCode: 7a3fafb3-08da-5996-9f18-6fa76e23171d
+  DisplayName: MediaChips 0.12.4
+  Publisher: Vitaliy Krivoshei
+PackageIdentifier: fupdec.mediaChips
+ManifestType: installer
+InstallerType: nullsoft
+

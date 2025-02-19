@@ -1,0 +1,13 @@
+ReleaseDate: 2025-02-07
+PackageVersion: 0.9.0
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSha256: 5CE8F579AC23E73E37ED741F55DF9D5AB30AFFA0E07CE8D5E2DFD5BD1C95E39D
+  Architecture: x64
+  InstallerUrl: https://github.com/gittuf/gittuf/releases/download/v0.9.0/gittuf_0.9.0_windows_amd64.exe
+ManifestType: installer
+PackageIdentifier: gittuf.gittuf
+Commands:
+- gittuf
+InstallerType: portable
+

@@ -1,0 +1,13 @@
+ReleaseDate: 2025-01-15
+PackageVersion: 1.1.2
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSha256: 7FC382D6AD3CEEBE421DA65843E5F6AA1C30D36FBF0A6B30C7D263F35DFDD05D
+  Architecture: x64
+  InstallerUrl: https://github.com/echocat/watch/releases/download/v1.1.2/watch-windows-amd64.exe
+ManifestType: installer
+PackageIdentifier: echocat.watch
+Commands:
+- watch
+InstallerType: portable
+

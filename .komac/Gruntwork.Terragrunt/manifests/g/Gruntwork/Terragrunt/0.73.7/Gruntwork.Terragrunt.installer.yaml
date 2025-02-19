@@ -1,0 +1,20 @@
+ReleaseDate: 2025-02-18
+NestedInstallerType: portable
+PackageIdentifier: Gruntwork.Terragrunt
+PackageVersion: 0.73.7
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSha256: 4E04EFA39BF7F4717A21822734F2FC1303ABEBB42D8498BDF1831B975B12CEBC
+  Architecture: x86
+  InstallerUrl: https://github.com/gruntwork-io/terragrunt/releases/download/v0.73.7/terragrunt_windows_386.exe
+- InstallerSha256: 576BF6AF050619486B2BA416EFB6BA84274E963FB5DD2A04724406A432591D3D
+  Architecture: x64
+  InstallerUrl: https://github.com/gruntwork-io/terragrunt/releases/download/v0.73.7/terragrunt_windows_amd64.exe
+ManifestType: installer
+NestedInstallerFiles:
+- PortableCommandAlias: terragrunt
+  RelativeFilePath: terragrunt.exe
+Commands:
+- terragrunt
+InstallerType: portable
+

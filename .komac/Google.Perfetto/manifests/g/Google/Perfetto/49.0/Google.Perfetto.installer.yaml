@@ -1,0 +1,15 @@
+ReleaseDate: 2025-01-06
+NestedInstallerType: portable
+PackageIdentifier: Google.Perfetto
+PackageVersion: "49.0"
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSha256: BBD9ADE28127FA7CD96E9F24BFE2B386E252059F02EF5471B4711587C4361E5D
+  Architecture: x64
+  InstallerUrl: https://github.com/google/perfetto/releases/download/v49.0/windows-amd64.zip
+NestedInstallerFiles:
+- PortableCommandAlias: perfetto
+  RelativeFilePath: windows-amd64\perfetto.exe
+ManifestType: installer
+InstallerType: zip
+

@@ -1,0 +1,17 @@
+ReleaseDate: 2025-02-01
+NestedInstallerType: portable
+PackageIdentifier: dremin.RetroBar
+PackageVersion: 1.18.56
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSha256: 4BBE0ACF567619A8CAFAAD637E804DD62160B4B849D01B5C2946D15A12B68AB4
+  Architecture: x64
+  InstallerUrl: https://github.com/dremin/RetroBar/releases/download/v1.18.56/RetroBar.64-bit.zip
+NestedInstallerFiles:
+- RelativeFilePath: RetroBar.exe
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.DotNet.DesktopRuntime.6
+ManifestType: installer
+InstallerType: zip
+

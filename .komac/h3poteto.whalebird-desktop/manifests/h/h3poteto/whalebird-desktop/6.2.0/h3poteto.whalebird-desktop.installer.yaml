@@ -1,0 +1,32 @@
+InstallerType: nullsoft
+InstallerLocale: en-US
+PackageVersion: 6.2.0
+ReleaseDate: 2025-01-08
+AppsAndFeaturesEntries:
+- ProductCode: d77a112a-8e72-57ad-b6c1-1933ae3b6877
+  DisplayName: Whalebird 6.2.0
+  Publisher: Akira Fukushima
+InstallModes:
+- interactive
+- silent
+Platform:
+- Windows.Desktop
+ManifestVersion: 1.9.0
+UpgradeBehavior: install
+ManifestType: installer
+ProductCode: d77a112a-8e72-57ad-b6c1-1933ae3b6877
+PackageIdentifier: h3poteto.whalebird-desktop
+Installers:
+- Architecture: x64
+  Scope: user
+  InstallerUrl: https://github.com/h3poteto/whalebird-desktop/releases/download/v6.2.0/Whalebird-6.2.0-win-x64.exe
+  InstallerSwitches:
+    Custom: /CURRENTUSER
+  InstallerSha256: FF6D6F23CBAA33B4F43F8122FD351FA40AE1014B2FAE57D784AC66B5BA75A46D
+- Architecture: x64
+  Scope: machine
+  InstallerUrl: https://github.com/h3poteto/whalebird-desktop/releases/download/v6.2.0/Whalebird-6.2.0-win-x64.exe
+  InstallerSwitches:
+    Custom: /ALLUSERS
+  InstallerSha256: FF6D6F23CBAA33B4F43F8122FD351FA40AE1014B2FAE57D784AC66B5BA75A46D
+

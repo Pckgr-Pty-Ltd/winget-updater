@@ -1,0 +1,13 @@
+ReleaseDate: 2025-02-05
+PackageVersion: 2.14.1
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSha256: 457A16C081F018943CF3692E5EB68EFB6307A1BF1E7F924FC6CC660E5E23A45C
+  Architecture: x64
+  InstallerUrl: https://github.com/GoogleContainerTools/skaffold/releases/download/v2.14.1/skaffold-windows-amd64.exe
+ManifestType: installer
+PackageIdentifier: Google.ContainerTools.Skaffold
+Commands:
+- skaffold
+InstallerType: portable
+
