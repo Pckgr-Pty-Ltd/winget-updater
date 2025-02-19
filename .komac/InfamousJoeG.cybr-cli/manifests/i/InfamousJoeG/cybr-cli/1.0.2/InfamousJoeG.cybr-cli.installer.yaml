@@ -1,0 +1,21 @@
+ManifestVersion: 1.9.0
+ReleaseDate: 2024-01-24
+ManifestType: installer
+PackageIdentifier: InfamousJoeG.cybr-cli
+PackageVersion: 1.0.2
+Installers:
+- InstallerSha256: 2BE5D15A8096FA7BE6100BF6246EEFF64BE3E6456E97217EDCE433DE116CD7EC
+  InstallerUrl: https://github.com/infamousjoeg/cybr-cli/releases/download/v1.0.2-release/cybr-cli_1.0.2-release_windows_amd64.zip
+  Architecture: x64
+- InstallerSha256: 34379946C3D78E08CE7009E69895DFD6ABF4B345E1D9C19CA1DCE5569B2E1F02
+  InstallerUrl: https://github.com/infamousjoeg/cybr-cli/releases/download/v1.0.2-release/cybr-cli_1.0.2-release_windows_arm64.zip
+  Architecture: arm64
+InstallerLocale: en-US
+InstallerType: zip
+FileExtensions:
+- json
+- yaml
+NestedInstallerFiles:
+- RelativeFilePath: cybr.exe
+NestedInstallerType: portable
+

@@ -1,0 +1,13 @@
+ReleaseDate: 2024-08-22
+ManifestType: installer
+PackageIdentifier: ignatandrei.MakeBookCLI
+PackageVersion: 8.2024.822.523
+Commands:
+- MakeBookCLI
+InstallerType: portable
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSha256: 1916F63A5F40D0243DA024B2B64B54A266B743F19FE5DDBD620B3B11265AB3FE
+  InstallerUrl: https://github.com/ignatandrei/makeBook/releases/download/v8.2024.822.523/MakeBookCLI.exe
+  Architecture: neutral
+

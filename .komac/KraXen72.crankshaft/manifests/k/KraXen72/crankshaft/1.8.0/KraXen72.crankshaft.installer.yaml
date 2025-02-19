@@ -1,0 +1,19 @@
+ManifestVersion: 1.9.0
+ReleaseDate: 2023-06-20
+ManifestType: installer
+PackageIdentifier: KraXen72.crankshaft
+PackageVersion: 1.8.0
+Installers:
+- InstallerSha256: 6FA82DB56E5F667B30A32C119ACC160336CFB81F8E746006697D069AFA9F325B
+  InstallerUrl: https://github.com/KraXen72/crankshaft/releases/download/1.8.0/crankshaft-setup-win-ia32.exe
+  Architecture: x86
+- InstallerSha256: 6C7948F515A55E659B48F47E8242DDC4E4E7B2B01F209976B031035F76A5EEB9
+  InstallerUrl: https://github.com/KraXen72/crankshaft/releases/download/1.8.0/crankshaft-setup-win-x64.exe
+  Architecture: x64
+InstallerLocale: en-US
+InstallerType: nullsoft
+ProductCode: d5389f1f-98c4-5624-b2f4-2fd96405c258
+AppsAndFeaturesEntries:
+- ProductCode: d5389f1f-98c4-5624-b2f4-2fd96405c258
+  DisplayName: crankshaft 1.8.0
+

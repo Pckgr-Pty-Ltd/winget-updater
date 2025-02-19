@@ -1,0 +1,19 @@
+ManifestType: installer
+AppsAndFeaturesEntries:
+- ProductCode: '{2001A884-F41B-4957-9BE6-68DF0BB45D37}_is1'
+  Publisher: neroist
+ReleaseDate: 2024-03-14
+PackageIdentifier: Jasmine.Nova
+Scope: machine
+InstallerLocale: en-US
+ManifestVersion: 1.9.0
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%/Nova'
+InstallerType: inno
+ProductCode: '{2001A884-F41B-4957-9BE6-68DF0BB45D37}_is1'
+PackageVersion: 1.7.0
+Installers:
+- InstallerSha256: A0869F7402D30567E7C41D3E46E4123856D8098E47FB7D499C42367C193DC961
+  InstallerUrl: https://github.com/neroist/Nova/releases/download/1.7.0/Nova-Installer.exe
+  Architecture: x86
+

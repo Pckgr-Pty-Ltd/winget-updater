@@ -1,0 +1,30 @@
+ReleaseDate: 2025-02-19
+AppsAndFeaturesEntries:
+- ProductCode: 41a4ccd8-bcc0-5710-9eee-0e164da68057
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.VCRedist.2015+.x64
+PackageIdentifier: kangfenmao.CherryStudio
+InstallerType: nullsoft
+InstallerLocale: en-US
+ManifestVersion: 1.9.0
+InstallerSwitches:
+  Upgrade: --updated
+UpgradeBehavior: install
+ManifestType: installer
+ProductCode: 41a4ccd8-bcc0-5710-9eee-0e164da68057
+PackageVersion: 0.9.27
+Installers:
+- InstallerSwitches:
+    Custom: /currentuser
+  InstallerSha256: F25F929EF970B61223DFCB0D83EB689C703584CBDC0D7EED4A7FA539B3964E38
+  InstallerUrl: https://github.com/CherryHQ/cherry-studio/releases/download/v0.9.27/Cherry-Studio-0.9.27-setup.exe
+  Scope: user
+  Architecture: x64
+- InstallerSwitches:
+    Custom: /allusers
+  InstallerSha256: F25F929EF970B61223DFCB0D83EB689C703584CBDC0D7EED4A7FA539B3964E38
+  InstallerUrl: https://github.com/CherryHQ/cherry-studio/releases/download/v0.9.27/Cherry-Studio-0.9.27-setup.exe
+  Scope: machine
+  Architecture: x64
+

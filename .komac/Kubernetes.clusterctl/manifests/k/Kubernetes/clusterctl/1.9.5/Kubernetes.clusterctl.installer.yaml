@@ -1,0 +1,13 @@
+ReleaseDate: 2025-02-18
+ManifestType: installer
+PackageIdentifier: Kubernetes.clusterctl
+PackageVersion: 1.9.5
+Commands:
+- clusterctl
+InstallerType: portable
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSha256: 84466796DA018F74BD74336E0FDB6C11DF2BF6B87B8F0D6A9ED21E59C9596939
+  InstallerUrl: https://github.com/kubernetes-sigs/cluster-api/releases/download/v1.9.5/clusterctl-windows-amd64.exe
+  Architecture: x64
+

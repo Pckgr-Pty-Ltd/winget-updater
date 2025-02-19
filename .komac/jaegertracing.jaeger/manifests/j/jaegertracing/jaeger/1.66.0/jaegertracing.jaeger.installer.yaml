@@ -1,0 +1,15 @@
+ReleaseDate: 2025-02-06
+ManifestType: installer
+PackageIdentifier: jaegertracing.jaeger
+PackageVersion: 1.66.0
+Installers:
+- InstallerSha256: A9D055FCFDA645956FB6068DDCA2B4EC21F20A2659371F4694CC5BCBCDAB9E6B
+  InstallerUrl: https://github.com/jaegertracing/jaeger/releases/download/v1.66.0/jaeger-1.66.0-windows-amd64.zip
+  Architecture: x64
+InstallerType: zip
+ManifestVersion: 1.9.0
+NestedInstallerFiles:
+- PortableCommandAlias: jaeger-all-in-one
+  RelativeFilePath: jaeger-1.66.0-windows-amd64/jaeger-all-in-one.exe
+NestedInstallerType: portable
+

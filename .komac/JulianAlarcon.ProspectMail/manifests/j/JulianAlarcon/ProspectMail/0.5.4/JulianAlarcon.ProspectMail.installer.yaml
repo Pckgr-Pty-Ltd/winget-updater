@@ -1,0 +1,26 @@
+ReleaseDate: 2024-08-14
+ManifestType: installer
+PackageIdentifier: JulianAlarcon.ProspectMail
+PackageVersion: 0.5.4
+Installers:
+- AppsAndFeaturesEntries:
+  - ProductCode: 35cd4318-c810-5178-85ba-8c7f6fe21813
+    DisplayName: Prospect Mail 0.5.4
+  InstallerSha256: 8C7CD2A01DFB8AF21AAF07CBD123CD84CAF2AA593BE81B34D73AEBEB72234650
+  InstallerUrl: https://github.com/julian-alarcon/prospect-mail/releases/download/v0.5.4/Prospect-Mail-Setup-0.5.4.exe
+  InstallerType: nullsoft
+  ProductCode: 35cd4318-c810-5178-85ba-8c7f6fe21813
+  Architecture: x64
+- AppsAndFeaturesEntries:
+  - ProductCode: '{192E9D78-BBA1-41DB-8AE2-F9ECE362A6AA}'
+    UpgradeCode: '{04C3673C-48E0-5011-9EE3-EAF9F0BEB39D}'
+  InstallerSha256: BEF0A81FC842DC046E0977856D5B0B65A64010C83F59CF48AD34334C7B4F0B10
+  InstallationMetadata:
+    DefaultInstallLocation: '%ProgramFiles%\prospect-mail'
+  InstallerUrl: https://github.com/julian-alarcon/prospect-mail/releases/download/v0.5.4/Prospect-Mail-0.5.4.msi
+  InstallerType: wix
+  ProductCode: '{192E9D78-BBA1-41DB-8AE2-F9ECE362A6AA}'
+  Architecture: x64
+InstallerLocale: en-US
+ManifestVersion: 1.9.0
+

@@ -1,0 +1,19 @@
+ManifestType: installer
+AppsAndFeaturesEntries:
+- ProductCode: '{6948A9B5-8782-4146-A45C-0BAF1C941852}'
+  UpgradeCode: '{42567F59-2F27-4E5B-A900-9141DC2DD929}'
+ReleaseDate: 2023-01-29
+PackageIdentifier: JimRadford.SuperPuTTY
+Scope: machine
+InstallerLocale: en-US
+ManifestVersion: 1.9.0
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles(x86)%\SuperPuTTY'
+InstallerType: wix
+ProductCode: '{6948A9B5-8782-4146-A45C-0BAF1C941852}'
+PackageVersion: 1.5.0.0
+Installers:
+- InstallerSha256: 883AAA1520A58BE53CC253A3936B2A8D54BEA08FA07CDABC35272C92AA730163
+  InstallerUrl: https://github.com/jimradford/superputty/releases/download/1.5.0.0/SuperPuttySetup-1.5.0.0.msi
+  Architecture: x86
+
