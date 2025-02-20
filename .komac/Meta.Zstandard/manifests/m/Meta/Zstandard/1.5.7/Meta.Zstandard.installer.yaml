@@ -1,0 +1,16 @@
+Installers:
+- Architecture: x86
+  InstallerSha256: 9BC4D51E83286F132C18DEF6399A3802A8C36260EA02B3DC595FBAA08E65A198
+  InstallerUrl: https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-v1.5.7-win32.zip
+- Architecture: x64
+  InstallerSha256: F5D69E0FA1013D7E5014B3F55B55282FCF5AC76B2BE8B89601BA039EEDAD4688
+  InstallerUrl: https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-v1.5.7-win64.zip
+ManifestVersion: 1.9.0
+PackageIdentifier: Meta.Zstandard
+PackageVersion: 1.5.7
+InstallerType: zip
+NestedInstallerType: portable
+ReleaseDate: 2025-02-20
+UpgradeBehavior: uninstallPrevious
+ManifestType: installer
+

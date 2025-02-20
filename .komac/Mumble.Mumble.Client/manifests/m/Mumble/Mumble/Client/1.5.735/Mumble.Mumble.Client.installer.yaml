@@ -1,0 +1,29 @@
+PackageIdentifier: Mumble.Mumble.Client
+ManifestType: installer
+InstallerLocale: en-US
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+AppsAndFeaturesEntries:
+- ProductCode: '{757A3637-D6EE-4621-B2C6-3943980DAE6B}'
+  UpgradeCode: '{D269FC55-4F2C-4285-9AA9-4D034AF305C4}'
+InstallerType: wix
+ReleaseDate: 2024-12-06
+PackageVersion: 1.5.735
+Scope: machine
+UpgradeBehavior: install
+Platform:
+- Windows.Desktop
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\Mumble\client'
+ManifestVersion: 1.9.0
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.VCRedist.2015+.x64
+Installers:
+- Architecture: x64
+  InstallerSha256: 2778BEAC1A7970814372F6B688645CB67A831F52D79E008201461769FADC20BB
+  InstallerUrl: https://github.com/mumble-voip/mumble/releases/download/v1.5.735/mumble_client-1.5.735.x64.msi
+ProductCode: '{757A3637-D6EE-4621-B2C6-3943980DAE6B}'
+

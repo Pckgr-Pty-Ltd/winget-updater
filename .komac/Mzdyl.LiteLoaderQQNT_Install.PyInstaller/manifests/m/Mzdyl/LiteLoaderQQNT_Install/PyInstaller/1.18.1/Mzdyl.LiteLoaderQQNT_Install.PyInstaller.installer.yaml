@@ -1,0 +1,19 @@
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+ManifestVersion: 1.9.0
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Tencent.QQ.NT
+PackageIdentifier: Mzdyl.LiteLoaderQQNT_Install.PyInstaller
+PackageVersion: 1.18.1
+InstallerType: portable
+ReleaseDate: 2024-11-05
+UpgradeBehavior: install
+ManifestType: installer
+Installers:
+- Architecture: x64
+  InstallerSha256: 0D3FE12E23A513334C3CC5C45D05B0FE9CEC7E11D02078F5E67200E9B8BE3C6D
+  InstallerUrl: https://github.com/Mzdyl/LiteLoaderQQNT_Install/releases/download/1.18.1/install_windows.exe
+

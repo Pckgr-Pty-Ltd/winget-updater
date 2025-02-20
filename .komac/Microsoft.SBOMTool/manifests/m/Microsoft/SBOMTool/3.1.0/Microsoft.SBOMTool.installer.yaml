@@ -1,0 +1,13 @@
+Installers:
+- Architecture: x64
+  InstallerSha256: E0DE5CE4DDD23F204D13C52F21C5227300AAC3FB08D0EFC443B7C1AEE9C0A1EA
+  InstallerUrl: https://github.com/microsoft/sbom-tool/releases/download/v3.1.0/sbom-tool-win-x64.exe
+ManifestVersion: 1.9.0
+Commands:
+- sbom
+PackageIdentifier: Microsoft.SBOMTool
+PackageVersion: 3.1.0
+InstallerType: portable
+ReleaseDate: 2025-02-04
+ManifestType: installer
+

@@ -1,0 +1,16 @@
+Installers:
+- Architecture: x64
+  InstallerSha256: F5CF661E36F45FB0ED2B08905FC65FEE509409F1E49DA81C7AA9E87FDEE1CAD6
+  InstallerUrl: https://github.com/MarshallChang/Manyi-transformer/releases/download/v1.2.0/Manyi-Transformer-Setup-1.2.0.exe
+ManifestVersion: 1.9.0
+PackageIdentifier: MarshallChang.ManyiTransformer
+PackageVersion: 1.2.0
+InstallerType: nullsoft
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- ProductCode: b08d0e3b-dc82-5672-99d8-8cc379ce5480
+  DisplayName: Manyi Transformer 1.2.0
+ProductCode: b08d0e3b-dc82-5672-99d8-8cc379ce5480
+ManifestType: installer
+ReleaseDate: 2023-07-31
+

@@ -1,0 +1,22 @@
+PackageIdentifier: Microsoft.IronPython.3
+ManifestType: installer
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- DisplayVersion: 3.4.2.1000
+  UpgradeCode: '{664CD4F7-5C34-441E-B3D0-DBA395E9414F}'
+  DisplayName: IronPython 3.4.2
+  Publisher: .NET Foundation
+  ProductCode: '{7638EFAB-E48D-4085-A232-B23DA5FD1567}'
+InstallerType: wix
+ReleaseDate: 2024-12-19
+Scope: machine
+PackageVersion: 3.4.2
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\IronPython 3.4'
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x64
+  InstallerSha256: 5BA1F2F163544880D48F6A19B2C518EC7742BE0C92C3CEE96AF96CED2CF5374B
+  InstallerUrl: https://github.com/IronLanguages/ironpython3/releases/download/v3.4.2/IronPython-3.4.2.msi
+ProductCode: '{7638EFAB-E48D-4085-A232-B23DA5FD1567}'
+

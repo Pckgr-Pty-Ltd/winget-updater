@@ -1,0 +1,16 @@
+Installers:
+- Architecture: x64
+  InstallerSha256: 5C7491CA66FF4052BD756F68021A5CC1742D40974AF4CB4D684B164C0C6DB1A1
+  InstallerUrl: https://github.com/mvdicarlo/postybirb-plus/releases/download/v3.1.55/postybirb-plus-setup-3.1.55.exe
+ManifestVersion: 1.9.0
+PackageIdentifier: MichaelDiCarlo.PostyBirb+
+PackageVersion: 3.1.55
+InstallerType: nullsoft
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- ProductCode: caa559a3-e745-546c-923c-94a7ab26447f
+  DisplayName: PostyBirb+ 3.1.55
+ProductCode: caa559a3-e745-546c-923c-94a7ab26447f
+ManifestType: installer
+ReleaseDate: 2025-01-31
+

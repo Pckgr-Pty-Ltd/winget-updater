@@ -1,0 +1,16 @@
+Installers:
+- Architecture: x64
+  InstallerSha256: 94A954A300E84810E025FD9740891802A9A261C9F3AA88007569DA2605277ADE
+  InstallerUrl: https://github.com/moneymanagerex/moneymanagerex/releases/download/v1.9.0/mmex-1.9.0-win64.exe
+ManifestVersion: 1.9.0
+PackageIdentifier: moneymanagerex.moneymanagerex
+PackageVersion: 1.9.0
+InstallerType: nullsoft
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\Money Manager EX'
+InstallerLocale: en-US
+ManifestType: installer
+ProductCode: Money Manager EX
+Scope: machine
+ReleaseDate: 2025-02-07
+

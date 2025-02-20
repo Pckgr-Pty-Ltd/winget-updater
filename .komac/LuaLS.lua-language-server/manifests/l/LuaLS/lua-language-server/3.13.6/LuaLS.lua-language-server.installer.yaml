@@ -1,0 +1,19 @@
+Installers:
+- Architecture: x86
+  InstallerSha256: 65512174085EF948C70467FF28E10BC017C93CF9913501D9B3AFA16C7B0CA730
+  InstallerUrl: https://github.com/LuaLS/lua-language-server/releases/download/3.13.6/lua-language-server-3.13.6-win32-ia32.zip
+- Architecture: x64
+  InstallerSha256: 91263646CD27CD9215FF00DBA3046274ACF3191F1295899E9BE7BB2C5D9E86F7
+  InstallerUrl: https://github.com/LuaLS/lua-language-server/releases/download/3.13.6/lua-language-server-3.13.6-win32-x64.zip
+ManifestVersion: 1.9.0
+PackageIdentifier: LuaLS.lua-language-server
+PackageVersion: 3.13.6
+InstallerType: zip
+NestedInstallerType: portable
+InstallerLocale: en-US
+UpgradeBehavior: uninstallPrevious
+NestedInstallerFiles:
+- RelativeFilePath: bin/lua-language-server.exe
+ManifestType: installer
+ReleaseDate: 2025-02-06
+

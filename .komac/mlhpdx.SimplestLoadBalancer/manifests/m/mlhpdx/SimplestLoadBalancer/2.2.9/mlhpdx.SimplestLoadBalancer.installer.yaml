@@ -1,0 +1,32 @@
+PackageIdentifier: mlhpdx.SimplestLoadBalancer
+ManifestType: installer
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- DisplayName: SimplestLoadBalancer
+  UpgradeCode: '{192FB35C-E77A-4244-AB13-E0F090AD95A1}'
+  Publisher: mlhpdx
+  ProductCode: '{D92AC923-C56E-4F95-94B1-2F1D2F9F4B85}'
+InstallerType: wix
+ReleaseDate: 2025-01-23
+Scope: machine
+PackageVersion: 2.2.9
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\SimplestLoadBalancer'
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/mlhpdx/SimplestLoadBalancer/releases/download/2.2.9/SimplestLoadBalancer-2.2.9-win-x64.msi
+  InstallerSha256: 596CB67AE584E59882C8A7BCE57BBD4A9994D87635921E6BAE57C019E8702DBF
+  AppsAndFeaturesEntries:
+  - ProductCode: '{C9AD27A6-CC27-4B31-A1A1-3E3A5AFD7BA9}'
+    UpgradeCode: '{192FB35C-E77A-4244-AB13-E0F090AD95A1}'
+  ProductCode: '{C9AD27A6-CC27-4B31-A1A1-3E3A5AFD7BA9}'
+- Architecture: arm64
+  InstallerUrl: https://github.com/mlhpdx/SimplestLoadBalancer/releases/download/2.2.9/SimplestLoadBalancer-2.2.9-win-arm64.msi
+  InstallerSha256: A857E88E26F30BDFD4BC46671DF676396C4E30ECA9F732C82750EC9E9877719F
+  AppsAndFeaturesEntries:
+  - ProductCode: '{FFA04D9C-ED69-4802-B6EF-3097166D33EA}'
+    UpgradeCode: '{192FB35C-E77A-4244-AB13-E0F090AD95A1}'
+  ProductCode: '{FFA04D9C-ED69-4802-B6EF-3097166D33EA}'
+ProductCode: '{D92AC923-C56E-4F95-94B1-2F1D2F9F4B85}'
+

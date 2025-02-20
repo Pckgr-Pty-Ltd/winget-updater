@@ -1,0 +1,26 @@
+PackageIdentifier: LRCLIB.LRCGET
+ManifestType: installer
+InstallerLocale: en-US
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+AppsAndFeaturesEntries:
+- ProductCode: LRCGET
+  Publisher: lrclib
+InstallerType: nullsoft
+ReleaseDate: 2025-01-24
+UpgradeBehavior: install
+PackageVersion: 0.9.3
+InstallationMetadata:
+  DefaultInstallLocation: placeholder\LRCGET
+ManifestVersion: 1.9.0
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.EdgeWebView2Runtime
+ProductCode: LRCGET
+Installers:
+- Architecture: x64
+  InstallerSha256: B4E26054C05666C2C4162B7E4561ED0A4156CDF90E41369BFC5B1DE5AE7A02F8
+  InstallerUrl: https://github.com/tranxuanthang/lrcget/releases/download/0.9.3/LRCGET_0.9.3_x64-setup.exe
+
