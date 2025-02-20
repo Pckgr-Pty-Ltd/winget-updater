@@ -2,7 +2,7 @@ Param(
     [string]$WingetIdsFile   = ".\winget_ids.txt",        
     [string]$GitHubToken     = ${env:PAT_TOKEN},           # GitHub personal access token
     [string]$KomacPath       = "C:\Program Files\Komac\bin\Komac.exe",
-    [string]$LastCheckedFile = ".\last_checked.json",     # store Winget IDs + last-check times
+    [string]$LastCheckedFile = ".\last_checked.json",      # store Winget IDs + last-check times
     [int]$SkipHours          = 120,
     [string]$gptKey          = ${env:OPENAI_KEY}
 )
@@ -85,50 +85,8 @@ function Save-LastChecked {
 ##############################################################################
 
 # -------------------------------------------------------------------------
-# NEW: Normalizes a version string to "Major.Minor.Build.Revision".
-# E.g. "v1.5.0" => 1.5.0.0, "2.1" => 2.1.0.0, "1.5.0-beta" => 1.5.0.0, etc.
+# Helper: retrieve the current version from Winget
 # -------------------------------------------------------------------------
-function Convert-ToVersionOrNull {
-    param(
-        [Parameter(Mandatory)][string]$TagName
-    )
-
-    # Trim leading/trailing whitespace, remove leading 'v'
-    $clean = $TagName.Trim().TrimStart('v')
-
-    # Remove any non-numeric, non-dot characters (like '-beta', etc.)
-    $clean = $clean -replace '[^0-9\.]', ''
-
-    # Split into up to 4 parts
-    $parts = $clean.Split('.', 4)
-
-    $intParts = @()
-    foreach ($p in $parts) {
-        $parsed = 0
-        if ([int]::TryParse($p, [ref]$parsed)) {
-            $intParts += $parsed
-        }
-        else {
-            $intParts += 0
-        }
-    }
-
-    # Pad to 4 parts with zeroes
-    while ($intParts.Count -lt 4) {
-        $intParts += 0
-    }
-
-    # Construct version object or return $null on error
-    try {
-        return [Version]::new($intParts[0], $intParts[1], $intParts[2], $intParts[3])
-    }
-    catch {
-        Write-Warning "Failed to parse version from string '$TagName'."
-        return $null
-    }
-}
-
-
 function Get-CurrentWingetVersion {
     param(
         [Parameter(Mandatory)] [string]$WingetID
@@ -144,6 +102,9 @@ function Get-CurrentWingetVersion {
     }
 }
 
+# -------------------------------------------------------------------------
+# Helper: search for an installer manifest in winget-pkgs GitHub repo
+# -------------------------------------------------------------------------
 function Get-InstallerManifestFromWingetPkgs {
     param(
         [Parameter(Mandatory)] [string]$PackageId,
@@ -189,10 +150,17 @@ function Get-VersionFromPath {
     $split = $Path -split '/'
     if ($split.Count -lt 2) { return $null }
     $verString = $split[$split.Count - 2]
-    # Use the same normalizing logic to keep it consistent
-    return Convert-ToVersionOrNull $verString
+    try {
+        return [Version]$verString
+    }
+    catch {
+        return $null
+    }
 }
 
+# -------------------------------------------------------------------------
+# Helper: parse GitHub repo from an old installer URL
+# -------------------------------------------------------------------------
 function ParseOwnerRepoFromGitHubUrl {
     param([string]$Url)
     if ($Url -notmatch 'https://github.com/([^/]+)/([^/]+)/releases/download') {
@@ -201,6 +169,9 @@ function ParseOwnerRepoFromGitHubUrl {
     return "$($matches[1])/$($matches[2])"
 }
 
+# -------------------------------------------------------------------------
+# Helper: retrieve the "latest" release from GitHub
+# -------------------------------------------------------------------------
 function Get-GitHubLatestRelease {
     param(
         [Parameter(Mandatory)] [string]$OwnerRepo,
@@ -218,26 +189,41 @@ function Get-GitHubLatestRelease {
     }
 }
 
-# New function to check for an open PR for a given package.
+# -------------------------------------------------------------------------
+# Helper: Convert GH tag to [Version], if possible
+# -------------------------------------------------------------------------
+function Convert-ToVersionOrNull {
+    param([Parameter(Mandatory)][string]$TagName)
+
+    $raw = $TagName.Trim().TrimStart('v')
+    # remove non-numeric suffixes (like -beta1)
+    $clean = $raw -replace '^([\d\.]+).*', '$1'
+    if (-not $clean) { return $null }
+
+    try {
+        return [Version]$clean
+    }
+    catch {
+        return $null
+    }
+}
+
+# -------------------------------------------------------------------------
+# Check if an open PR for this package already exists
+# -------------------------------------------------------------------------
 function Get-ExistingPRs {
     param(
         [Parameter(Mandatory)][string]$PackageId,
         [string]$GitHubToken
     )
-    # List up to 100 open PRs in the winget-pkgs repo
     $prUrl = "https://api.github.com/repos/microsoft/winget-pkgs/pulls?state=open&per_page=100"
-    $headers = @{
-        "User-Agent" = "WingetManifestCheckScript"
-    }
+    $headers = @{ "User-Agent" = "WingetManifestCheckScript" }
     if ($GitHubToken) {
         $headers["Authorization"] = "token " + $GitHubToken
     }
     try {
         $prs = Invoke-RestMethod -Uri $prUrl -Headers $headers -Method GET
         Start-Sleep -Seconds 1
-        # Build a regex pattern that matches titles like:
-        # "Update version: <PackageId> version <something>" or
-        # "New version: <PackageId> version <something>"
         $pattern = "^(Update|New) version:\s*" + [Regex]::Escape($PackageId) + "\s+version\s+\S+"
         foreach ($pr in $prs) {
             if ($pr.title -match $pattern) {
@@ -254,9 +240,8 @@ function Get-ExistingPRs {
 }
 
 ##############################################################################
-# GPT-Related Helper Functions (truncated for brevity in this snippet)
-# ...
-
+# GPT-RELATED FUNCTIONS (unchanged)
+##############################################################################
 function GenerateNewAssetUrlWithGPT {
     param(
         [Parameter(Mandatory=$true)][string]$OldInstallerUrl,
@@ -266,8 +251,76 @@ function GenerateNewAssetUrlWithGPT {
         [Parameter(Mandatory=$true)][string]$OpenAiKey
     )
 
-    # (GPT logic unchanged — omitted for brevity)
-    # ...
+    # Convert the release assets into a text list
+    $assetsListText = $AllAssets | ForEach-Object {
+        "- Name: $($_.name), URL: $($_.browser_download_url)"
+    } | Out-String
+
+    $systemMessage = @"
+You are a PowerShell assistant that updates installer URLs for Winget package manifests.
+Given:
+ - The old installer URL
+ - The old installer architecture
+ - The new version number
+ - A list of all available GitHub release assets (filename + URL)
+
+You should decide which single download URL from the list best matches the old architecture
+and is appropriate for the new version. Output only that direct download URL or the word 'none'
+if no suitable asset can be determined.
+No extra explanations, just a single line with the chosen URL or 'none'.
+"@
+
+    $userPrompt = @"
+Old Installer URL: $OldInstallerUrl
+Old Installer Architecture: $OldArchitecture
+New version: $NewVersion
+List of available GitHub release assets:
+$assetsListText
+
+Please output only the single best matching installer URL for the new version (or 'none' if no match is found).
+"@
+
+    $openAiUrl = "https://api.openai.com/v1/chat/completions"
+    $headers = @{
+        "Content-Type"  = "application/json"
+        "Authorization" = "Bearer $OpenAiKey"
+    }
+    
+    $body = @{
+        "model"    = "gpt-4o-mini" 
+        "messages" = @(
+            @{
+                "role"    = "system"
+                "content" = $systemMessage
+            },
+            @{
+                "role"    = "user"
+                "content" = $userPrompt
+            }
+        )
+    } | ConvertTo-Json -Depth 5
+    
+    try {
+        $response = Invoke-RestMethod -Uri $openAiUrl -Method POST -Headers $headers -Body $body
+        if ($response.choices) {
+            $output = $response.choices[0].message.content.Trim()
+            if ($output -match '^https?://') {
+                return $output
+            }
+            elseif ($output -eq 'none') {
+                return $null
+            }
+            else {
+                Write-Warning "GPT output is not a valid URL or 'none': $output"
+                return $null
+            }
+        }
+    }
+    catch {
+        Write-Warning "GPT API call failed: $($_.Exception.Message)"
+        return $null
+    }
+    return $null
 }
 
 function Find-NewAssetUrlHybrid {
@@ -284,7 +337,6 @@ function Find-NewAssetUrlHybrid {
     Write-Host "Using GPT to determine new asset URL for architecture [$arch]."
 
     if ($OpenAiKey) {
-        # Call GPT with extended context
         $gptUrl = GenerateNewAssetUrlWithGPT `
             -OldInstallerUrl $oldUrl `
             -OldArchitecture $arch `
@@ -315,7 +367,7 @@ function Fix-KomacManifestsAndSubmit {
         [Parameter(Mandatory)] [string]$WingetId,
         [Parameter(Mandatory)] [version]$NewVersion,
         [Parameter(Mandatory)] [string[]]$InstallerUrls,
-        [Parameter(Mandatory)] $OldInstallers,
+        [Parameter(Mandatory)] $OldInstallers,  # Array of installer objects
         [string]$OutputFolder = ".komac/$WingetId",
         [string]$GitHubToken,
         [switch]$OpenPr
@@ -351,7 +403,7 @@ function Fix-KomacManifestsAndSubmit {
         return "FAILED_TO_CREATE_PR"
     }
 
-    # STEP 2A: For each old installer entry, force the new manifest entry to have the same architecture
+    # STEP 2A: For each old installer entry, force the new manifest to have the same architecture
     foreach ($oldInst in $OldInstallers) {
         $oldArch = $oldInst.Architecture
         $matchingNew = $manifestObj.Installers | Where-Object {
@@ -390,6 +442,43 @@ function Fix-KomacManifestsAndSubmit {
 }
 
 ##############################################################################
+# NEW: Trailing Zero Helpers (Only difference is trailing .0 => treat as same)
+##############################################################################
+function Remove-TrailingZerosFromVersionString {
+    param(
+        [Parameter(Mandatory)][string]$VersionString
+    )
+
+    # 1) Basic cleanup: remove leading v, remove all non-[0-9|.] from the end
+    $raw = $VersionString.Trim().TrimStart('v')
+    $raw = $raw -replace '[^0-9\.]', ''
+
+    if (-not $raw) {
+        return $VersionString  # if empty, just return original
+    }
+
+    # 2) Split into parts
+    $parts = $raw.Split('.', [System.StringSplitOptions]::RemoveEmptyEntries)
+
+    # 3) Remove trailing "0" as long as there's more than 1 part
+    while ($parts.Count -gt 1 -and $parts[$parts.Count - 1] -eq '0') {
+        $parts = $parts[0..($parts.Count - 2)]
+    }
+
+    return $parts -join '.'
+}
+
+function AreVersionsEqualIgnoringTrailingZeros {
+    param(
+        [Parameter(Mandatory)][string]$Version1,
+        [Parameter(Mandatory)][string]$Version2
+    )
+    $v1 = Remove-TrailingZerosFromVersionString $Version1
+    $v2 = Remove-TrailingZerosFromVersionString $Version2
+    return ($v1 -eq $v2)
+}
+
+##############################################################################
 # 5. Main Loop
 ##############################################################################
 foreach ($wingetId in $wingetIds) {
@@ -417,22 +506,23 @@ foreach ($wingetId in $wingetIds) {
     
     # STEP 1: Get the current version from Winget
     $existingWingetVerString = Get-CurrentWingetVersion -WingetID $wingetId
-    $existingWingetVersion = $null
+    [Version]$existingWingetVersion = $null
     if ($existingWingetVerString) {
-        # Normalize the version
-        $existingWingetVersion = Convert-ToVersionOrNull $existingWingetVerString
-        if ($existingWingetVersion) {
-            Write-Host "Winget thinks $wingetId has version $existingWingetVersion"
+        try {
+            $existingWingetVersion = [Version]$existingWingetVerString
         }
-        else {
+        catch {
             Write-Host "Winget version '$existingWingetVerString' not parseable. Continuing without installed version."
         }
+    }
+    if ($existingWingetVersion) {
+        Write-Host "Winget thinks $wingetId has version $existingWingetVersion"
     }
     else {
         Write-Host "No Winget record for $wingetId"
     }
 
-    # STEP 2: Retrieve the old manifest from winget-pkgs repo
+    # STEP 2: Retrieve the old manifest
     $oldManifestYaml = Get-InstallerManifestFromWingetPkgs -PackageId $wingetId -GitHubToken $GitHubToken
     if (-not $oldManifestYaml) {
         Write-Host "No installer manifest found for $wingetId. Skipping."
@@ -456,16 +546,18 @@ foreach ($wingetId in $wingetIds) {
         continue
     }
 
-    # Normalize the old manifest's version
-    $manifestVersionFromRepo = Convert-ToVersionOrNull $oldManifestObj.PackageVersion
-    if (-not $manifestVersionFromRepo) {
-        Write-Host "Skipping $wingetId because manifest version '$($oldManifestObj.PackageVersion)' is not parseable."
+    [Version]$manifestVersionFromRepo = $null
+    try {
+        $manifestVersionFromRepo = [Version]$oldManifestObj.PackageVersion
+    }
+    catch {
+        Write-Host "Manifest version '$($oldManifestObj.PackageVersion)' not parseable. Skipping $wingetId."
         $lastCheckedMap[$wingetId] = (Get-Date)
         Save-LastChecked $lastCheckedMap $LastCheckedFile
         continue
     }
 
-    # Decide which "old version" to compare: installed (if higher) or manifest
+    # Decide which old version to compare: installed if higher, else manifest
     if ($existingWingetVersion -and $existingWingetVersion -gt $manifestVersionFromRepo) {
         Write-Host "Installed version ($existingWingetVersion) is higher than manifest version ($manifestVersionFromRepo)."
         $oldWingetVersion = $existingWingetVersion
@@ -501,8 +593,7 @@ foreach ($wingetId in $wingetIds) {
         Save-LastChecked $lastCheckedMap $LastCheckedFile
         continue
     }
-
-    # OPTIONAL: skip if release has no assets
+    # (Optional) skip if no assets
     if (-not $latestRelease.assets -or $latestRelease.assets.Count -eq 0) {
         Write-Host "No GitHub release assets found (latest tag is $($latestRelease.tag_name)). Skipping."
         $lastCheckedMap[$wingetId] = (Get-Date)
@@ -510,7 +601,6 @@ foreach ($wingetId in $wingetIds) {
         continue
     }
 
-    # Normalize the tag into a 4-part version
     $latestVersion = Convert-ToVersionOrNull $latestRelease.tag_name
     if (-not $latestVersion) {
         Write-Host "Cannot parse numeric version from GH tag '$($latestRelease.tag_name)' for $wingetId. Skipping."
@@ -527,15 +617,25 @@ foreach ($wingetId in $wingetIds) {
         Save-LastChecked $lastCheckedMap $LastCheckedFile
         continue
     }
+
+    # NEW: if ignoring trailing .0 they are effectively the same, skip update
+    if (AreVersionsEqualIgnoringTrailingZeros "$($oldWingetVersion.ToString())" "$($latestVersion.ToString())") {
+        Write-Host "GitHub version $latestVersion differs only by trailing zeros from $oldWingetVersion. Skipping."
+        $lastCheckedMap[$wingetId] = (Get-Date)
+        Save-LastChecked $lastCheckedMap $LastCheckedFile
+        continue
+    }
+
     if ($latestVersion -le $oldWingetVersion) {
         Write-Host "No new version detected. Old: $oldWingetVersion vs. GH: $latestVersion for $wingetId. Skipping."
         $lastCheckedMap[$wingetId] = (Get-Date)
         Save-LastChecked $lastCheckedMap $LastCheckedFile
         continue
     }
+
     Write-Host "Newer version detected: $latestVersion."
 
-    # STEP 6: For each installer in the old manifest, find a matching new asset URL from the GH release assets.
+    # STEP 6: For each installer in the old manifest, find a matching new asset URL
     $newInstallerUrls = @()
     $missingCount = 0
     foreach ($oldInstaller in $oldManifestObj.Installers) {
@@ -561,7 +661,7 @@ foreach ($wingetId in $wingetIds) {
     }
     Write-Host "Found $($newInstallerUrls.Count) new installer URL(s) for $wingetId"
 
-    # STEP 7: Call Komac to update, fix manifest architecture, and submit PR
+    # STEP 7: Call Komac to update, fix manifest architecture, submit PR
     $updateResult = Fix-KomacManifestsAndSubmit `
         -KomacPath $KomacPath `
         -WingetId $wingetId `
