@@ -1,0 +1,23 @@
+ManifestVersion: 1.9.0
+Commands:
+- gup
+PackageIdentifier: nao1215.gup
+UpgradeBehavior: install
+ManifestType: installer
+InstallerType: zip
+Installers:
+- InstallerUrl: https://github.com/nao1215/gup/releases/download/v0.27.6/gup_0.27.6_windows_386.zip
+  Architecture: x86
+  InstallerSha256: 1033F3BCD1AE157B4E8E77615569D65764A720063B136B23FB66A905DE62E800
+- InstallerUrl: https://github.com/nao1215/gup/releases/download/v0.27.6/gup_0.27.6_windows_amd64.zip
+  Architecture: x64
+  InstallerSha256: 38D7DCE0023102E6474160AE7FD7277612982936A53CACA7BD2B53213E8FE4AA
+- InstallerUrl: https://github.com/nao1215/gup/releases/download/v0.27.6/gup_0.27.6_windows_arm64.zip
+  Architecture: arm64
+  InstallerSha256: 684D768D002D9E7474D22197F3C0E5BBA69442DD5FCB5B5D9F02D7A4AA121C10
+NestedInstallerType: portable
+PackageVersion: 0.27.6
+ReleaseDate: 2025-01-14
+NestedInstallerFiles:
+- RelativeFilePath: gup.exe
+

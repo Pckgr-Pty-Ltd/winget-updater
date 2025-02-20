@@ -1,0 +1,20 @@
+ReleaseDate: 2025-02-03
+ManifestVersion: 1.9.0
+ProductCode: NoRiskClient
+AppsAndFeaturesEntries:
+- ProductCode: NoRiskClient
+InstallerType: nullsoft
+PackageVersion: 0.5.22
+PackageIdentifier: NoRiskClient.Launcher
+InstallerLocale: en-US
+Installers:
+- InstallerUrl: https://github.com/NoRiskClient/noriskclient-launcher/releases/download/v0.5.22/NoRiskClient-Windows-setup.exe
+  Architecture: x64
+  InstallerSha256: 8459AF8E8C124B6675D3886EE00B8BD142A627CD76DA89FDDFE830CCB94FB899
+ManifestType: installer
+UpgradeBehavior: install
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+

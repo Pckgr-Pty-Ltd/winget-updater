@@ -1,0 +1,22 @@
+ReleaseDate: 2025-01-27
+ManifestVersion: 1.9.0
+ProductCode: '{9B940681-F881-45F9-ACBD-9D3527D159EF}'
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.DotNet.DesktopRuntime.8
+AppsAndFeaturesEntries:
+- UpgradeCode: '{14564974-DA58-4917-8A0D-590043F589C2}'
+  ProductCode: '{9B940681-F881-45F9-ACBD-9D3527D159EF}'
+InstallerType: wix
+PackageVersion: 2.8.5
+PackageIdentifier: Notro.SkEditor
+InstallerLocale: en-US
+Installers:
+- InstallerUrl: https://github.com/SkEditorTeam/SkEditor/releases/download/v2.8.5/SkEditorInstaller.msi
+  Architecture: x64
+  InstallerSha256: 26E0B4AFD644D94F7A0E284B0F20386A903BA8956F52A3BB5A475295CB331A4D
+ManifestType: installer
+Scope: machine
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\.\SkEditor'
+

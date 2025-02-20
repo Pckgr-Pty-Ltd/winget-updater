@@ -1,0 +1,11 @@
+ManifestVersion: 1.9.0
+InstallerType: portable
+Installers:
+- InstallerUrl: https://github.com/NDXCode/Eclipse-Flash-Tool/releases/download/v1.10/Eclipse.Flash.Tool-v1.10-x86.exe
+  Architecture: x86
+  InstallerSha256: 21579D60810FF35F2B16E81D7E4E1CB1E61D2C7438B9C80DC24E64467A151DD9
+PackageIdentifier: NDXCode.EclipseFlashTool
+PackageVersion: "1.10"
+ReleaseDate: 2024-08-15
+ManifestType: installer
+

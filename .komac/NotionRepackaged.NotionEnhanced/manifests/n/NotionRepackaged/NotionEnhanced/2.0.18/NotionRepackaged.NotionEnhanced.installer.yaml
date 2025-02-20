@@ -1,0 +1,27 @@
+InstallerLocale: en-US
+ManifestVersion: 1.9.0
+PackageIdentifier: NotionRepackaged.NotionEnhanced
+AppsAndFeaturesEntries:
+- ProductCode: 59a5db67-d528-5cad-9dc9-4012b8118e47
+  DisplayName: Notion Enhanced 2.0.18-1
+  DisplayVersion: 2.0.18-1
+ReleaseDate: 2021-12-31
+InstallerType: nullsoft
+Installers:
+- InstallerSha256: 72DA3BF4D83462D57A54715814C0B8B1EF9A50739E7461381EA6A595256516EE
+  InstallerUrl: https://github.com/notion-enhancer/notion-repackaged/releases/download/v2.0.18-1/Notion-Enhanced-Setup-2.0.18-1.exe
+  Architecture: x64
+  Scope: user
+  InstallerSwitches:
+    Custom: /CurrentUser
+- InstallerSha256: 72DA3BF4D83462D57A54715814C0B8B1EF9A50739E7461381EA6A595256516EE
+  InstallerUrl: https://github.com/notion-enhancer/notion-repackaged/releases/download/v2.0.18-1/Notion-Enhanced-Setup-2.0.18-1.exe
+  Architecture: x64
+  Scope: machine
+  InstallerSwitches:
+    Custom: /AllUsers
+UpgradeBehavior: install
+PackageVersion: 2.0.18
+ProductCode: 59a5db67-d528-5cad-9dc9-4012b8118e47
+ManifestType: installer
+
