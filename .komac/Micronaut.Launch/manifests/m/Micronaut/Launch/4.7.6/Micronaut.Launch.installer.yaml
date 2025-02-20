@@ -1,0 +1,14 @@
+Installers:
+- Architecture: x64
+  InstallerSha256: 121C6674DB359E83D003DF35E4CEF4C28739F1DEFC156D29B69BC128452E873D
+  InstallerUrl: https://github.com/micronaut-projects/micronaut-starter/releases/download/v4.7.6/mn-win-amd64-v4.7.6.zip
+ManifestVersion: 1.9.0
+PackageIdentifier: Micronaut.Launch
+PackageVersion: 4.7.6
+InstallerType: zip
+NestedInstallerType: portable
+ReleaseDate: 2025-02-12
+NestedInstallerFiles:
+- RelativeFilePath: mn-win-amd64-v4.7.6/bin/mn.exe
+ManifestType: installer
+

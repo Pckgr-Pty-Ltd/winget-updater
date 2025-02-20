@@ -1,0 +1,14 @@
+Installers:
+- Architecture: x64
+  InstallerSha256: 549ACFFEFBD101C303A5DD2F1D2A463F16165BBA381231DCAB6655D1BECE48AD
+  InstallerUrl: https://github.com/Azure/aks-engine-azurestack/releases/download/v0.80.3/aks-engine-azurestack-v0.80.3-windows-amd64.zip
+ManifestVersion: 1.9.0
+PackageIdentifier: Microsoft.Azure.aks-engine-azurestack
+PackageVersion: 0.80.3
+InstallerType: zip
+NestedInstallerType: portable
+ReleaseDate: 2025-02-06
+NestedInstallerFiles:
+- RelativeFilePath: aks-engine-azurestack-v0.80.3-windows-amd64/aks-engine-azurestack.exe
+ManifestType: installer
+

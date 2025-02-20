@@ -1,0 +1,29 @@
+PackageIdentifier: Mumble.Mumble.Server
+ManifestType: installer
+InstallerLocale: en-US
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+AppsAndFeaturesEntries:
+- ProductCode: '{5B53121F-AAB6-41A1-A886-25332F583C0E}'
+  UpgradeCode: '{03E9476F-0F75-4661-BFC9-A9DAEB23D3A0}'
+InstallerType: wix
+ReleaseDate: 2024-12-06
+PackageVersion: 1.5.735
+Scope: machine
+UpgradeBehavior: install
+Platform:
+- Windows.Desktop
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\Mumble\server'
+ManifestVersion: 1.9.0
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.VCRedist.2015+.x64
+Installers:
+- Architecture: x64
+  InstallerSha256: 03AFD91A4B467FE09F7EBA54D5DA5B0B2523DAD0DDE4E2972F1F495E92302A69
+  InstallerUrl: https://github.com/mumble-voip/mumble/releases/download/v1.5.735/mumble_server-1.5.735.x64.msi
+ProductCode: '{5B53121F-AAB6-41A1-A886-25332F583C0E}'
+

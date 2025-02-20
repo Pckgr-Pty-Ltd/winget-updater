@@ -1,0 +1,22 @@
+PackageIdentifier: MysteriumNetwork.Mysterium
+ManifestType: installer
+InstallerLocale: en-US
+InstallModes:
+- silent
+AppsAndFeaturesEntries:
+- ProductCode: 61bc0e33-8fdb-5d71-92e1-b8e7f5047812
+  DisplayName: MysteriumDark 10.17.10
+InstallerType: nullsoft
+ReleaseDate: 2024-12-12
+PackageVersion: 10.17.10
+Scope: machine
+UpgradeBehavior: install
+Platform:
+- Windows.Desktop
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x64
+  InstallerSha256: DAB21A4D5241222CDD1C8FB2D43E41BBD77EC931583C438E3A029590532A507E
+  InstallerUrl: https://github.com/mysteriumnetwork/mysterium-vpn-desktop/releases/download/10.17.10/MysteriumDark-Setup-10.17.10.exe
+ProductCode: 61bc0e33-8fdb-5d71-92e1-b8e7f5047812
+

@@ -1,0 +1,36 @@
+PackageIdentifier: MicaForEveryone.MicaForEveryone
+ManifestType: installer
+AppsAndFeaturesEntries:
+- DisplayName: WindowsAppRuntime.1.6
+  DisplayVersion: 6000.373.1641.0
+  Publisher: Microsoft Corporation
+InstallerType: msix
+ReleaseDate: 2025-01-30
+PackageVersion: 2.0.0.0
+UpgradeBehavior: install
+Platform:
+- Windows.Universal
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\WindowsApps\Microsoft.WindowsAppRuntime.1.6_6000.373.1641.0_x64__8wekyb3d8bbwe'
+ManifestVersion: 1.9.0
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.DotNet.DesktopRuntime.3_1
+MinimumOSVersion: 10.0.17763.0
+PackageFamilyName: Microsoft.WindowsAppRuntime.1.6_8wekyb3d8bbwe
+Installers:
+- InstallerSwitches:
+    Custom: /CURRENTUSER
+  Architecture: x64
+  InstallerUrl: https://github.com/MicaForEveryone/MicaForEveryone/releases/download/2.0.0.0-preview.2/wasdk-x64.msix
+  InstallerSha256: 573E86ECFBCD4001398BA0B9651715C7B2B70D8FEF784E539E43F796ACECE042
+  SignatureSha256: 1449BFB3FD762AD648EF4F629224CAA5B98613EC3D67D7250F2A4BC9F4494773
+  Scope: user
+- InstallerSwitches:
+    Custom: /ALLUSERS
+  Architecture: x64
+  InstallerUrl: https://github.com/MicaForEveryone/MicaForEveryone/releases/download/2.0.0.0-preview.2/wasdk-x64.msix
+  InstallerSha256: 573E86ECFBCD4001398BA0B9651715C7B2B70D8FEF784E539E43F796ACECE042
+  SignatureSha256: 1449BFB3FD762AD648EF4F629224CAA5B98613EC3D67D7250F2A4BC9F4494773
+  Scope: machine
+

@@ -1,0 +1,19 @@
+Installers:
+- Architecture: x64
+  InstallerSha256: BEE270926FC55B5B89ED9CE87FB2569A36C74E99D63E6392090B3D0F0C2775EB
+  InstallerUrl: https://github.com/getsops/sops/releases/download/v3.9.4/sops-v3.9.4.exe
+FileExtensions:
+- env
+- ini
+- json
+- yaml
+Commands:
+- sops
+PackageIdentifier: Mozilla.SOPS
+PackageVersion: 3.9.4
+InstallerType: portable
+InstallerLocale: en-US
+ManifestType: installer
+ReleaseDate: 2025-01-25
+ManifestVersion: 1.9.0
+

@@ -1,0 +1,19 @@
+PackageIdentifier: mmanela.markdownoutlook
+ManifestType: installer
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- ProductCode: '{4F59BA55-A58C-425D-A743-4D3D1B5756BC}'
+  UpgradeCode: '{DB5C72A6-2A12-4AE5-9F10-6ED9F802997E}'
+  DisplayVersion: 1.0.0
+InstallerType: msi
+ReleaseDate: 2021-12-08
+Scope: user
+PackageVersion: 1.2.0
+InstallationMetadata: {}
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x86
+  InstallerSha256: 9FAB92B0AFB4D0AFF0E7FAB403F0DF384628F1AEDE37FF5CFCD21D97D468490F
+  InstallerUrl: https://github.com/mmanela/MarkdownOutlook/releases/download/v1.2.0/MarkdownOutlookSetup.msi
+ProductCode: '{4F59BA55-A58C-425D-A743-4D3D1B5756BC}'
+

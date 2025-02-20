@@ -1,0 +1,16 @@
+InstallModes:
+- silent
+ManifestVersion: 1.9.0
+PackageIdentifier: Min.Min
+PackageVersion: 1.34.0
+InstallerType: exe
+InstallerLocale: en-US
+UpgradeBehavior: install
+ManifestType: installer
+Installers:
+- Architecture: x86
+  InstallerSha256: C8B5FA82967F5926423CD90CA4399F958E889A2985C04FC9AF12748ED700BFCE
+  InstallerUrl: https://github.com/minbrowser/min/releases/download/v1.34.0/min-1.34.0-ia32-setup.exe
+Scope: user
+ReleaseDate: 2025-02-06
+

@@ -1,0 +1,17 @@
+Installers:
+- Architecture: x64
+  InstallerSha256: 69D1545C64C93637E69D1BFBCE62C78A8DE11C1DD6BF947D4A281FB70BDD64CA
+  InstallerUrl: https://github.com/ms-jpq/sad/releases/download/v0.4.32/x86_64-pc-windows-msvc.zip
+- Architecture: arm64
+  InstallerSha256: 37290417CD469D8A4D601909685226573732E6A0A05173BCC41621772D43F377
+  InstallerUrl: https://github.com/ms-jpq/sad/releases/download/v0.4.32/aarch64-pc-windows-msvc.zip
+ManifestVersion: 1.9.0
+PackageIdentifier: ms-jpq.sad
+PackageVersion: 0.4.32
+InstallerType: zip
+NestedInstallerType: portable
+ReleaseDate: 2025-02-03
+NestedInstallerFiles:
+- RelativeFilePath: sad.exe
+ManifestType: installer
+

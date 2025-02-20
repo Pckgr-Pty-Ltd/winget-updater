@@ -1,0 +1,16 @@
+InstallModes:
+- silent
+ManifestVersion: 1.9.0
+PackageIdentifier: Microsoft.Azure.Kubelogin
+PackageVersion: 0.1.7
+InstallerType: zip
+NestedInstallerType: portable
+ReleaseDate: 2025-01-30
+NestedInstallerFiles:
+- RelativeFilePath: bin/windows_amd64/kubelogin.exe
+Installers:
+- Architecture: x64
+  InstallerSha256: 1ACC38124029683ADA9ED1740AF7E0D689306C1AEF5F4152C1C0088B71E1FF86
+  InstallerUrl: https://github.com/Azure/kubelogin/releases/download/v0.1.7/kubelogin-win-amd64.zip
+ManifestType: installer
+

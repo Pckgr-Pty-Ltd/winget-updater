@@ -1,0 +1,40 @@
+PackageIdentifier: mentebinaria.retoolkit
+ManifestType: installer
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- ProductCode: '{BB46345D-F5E9-408E-AA39-64A5EDD92E30}_is1'
+InstallerType: inno
+ReleaseDate: 2023-10-31
+Commands:
+- CobaltStrikeScan
+- DisView
+- OfficeMalScanner
+- RTFScan
+- bazzar
+- capa
+- d2j-dex2jar
+- de4dot
+- floss
+- hollows_hunter
+- manw
+- pe-sieve
+- redress
+- upx
+- vt
+- winapiexec
+Scope: user
+UpgradeBehavior: install
+PackageVersion: "2023.10"
+InstallationMetadata:
+  DefaultInstallLocation: '%LocalAppData%\Programs\retoolkit'
+InstallerSwitches:
+  Silent: /VERYSILENT /NORESTART /COMPONENTS="*android,*autoit,*calculators,*cobaltstrike,*debuggers,*decompilers,*delphi,*dotnet,*elf,*go,*hexeditors,*java,*ole,*network,*pdf,*pe,*peresourceeditors,*processinspection,*programming,*signature,*systeminformation,*unpacking,*utilities,!network\nmap"
+  SilentWithProgress: /SILENT /NORESTART /COMPONENTS="*android,*autoit,*calculators,*cobaltstrike,*debuggers,*decompilers,*delphi,*dotnet,*elf,*go,*hexeditors,*java,*ole,*network,*pdf,*pe,*peresourceeditors,*processinspection,*programming,*signature,*systeminformation,*unpacking,*utilities,!network\nmap"
+ManifestVersion: 1.9.0
+ElevationRequirement: elevatesSelf
+Installers:
+- Architecture: x86
+  InstallerSha256: 955DF4EF2E43167EAABA02F231CC45CCF18907AFA1C37B52429F1D1A70A5967C
+  InstallerUrl: https://github.com/mentebinaria/retoolkit/releases/download/2023.10/retoolkit_2023.10_setup.exe
+ProductCode: '{BB46345D-F5E9-408E-AA39-64A5EDD92E30}_is1'
+
