@@ -1,0 +1,14 @@
+ReleaseDate: 2025-02-08
+NestedInstallerFiles:
+- RelativeFilePath: kyverno.exe
+PackageVersion: 1.13.4
+ManifestVersion: 1.9.0
+InstallerType: zip
+NestedInstallerType: portable
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/kyverno/kyverno/releases/download/v1.13.4/kyverno-cli_v1.13.4_windows_x86_64.zip
+  InstallerSha256: AF3EAFAAA8FEFAB6FD5831B8122AD97578B2E08A723D30A5D5639512559CA59E
+ManifestType: installer
+PackageIdentifier: kyverno.kyverno
+

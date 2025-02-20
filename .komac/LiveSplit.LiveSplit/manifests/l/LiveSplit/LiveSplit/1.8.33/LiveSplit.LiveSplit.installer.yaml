@@ -1,0 +1,15 @@
+ReleaseDate: 2025-01-30
+NestedInstallerFiles:
+- RelativeFilePath: LiveSplit.exe
+PackageVersion: 1.8.33
+ManifestVersion: 1.9.0
+ArchiveBinariesDependOnPath: true
+InstallerType: zip
+NestedInstallerType: portable
+Installers:
+- Architecture: neutral
+  InstallerUrl: https://github.com/LiveSplit/LiveSplit/releases/download/1.8.33/LiveSplit_1.8.33.zip
+  InstallerSha256: 858C5C347AAC906BA48D0F6EFB5F5DB097FA36AC325DCD1E677B259FD14CBBAC
+ManifestType: installer
+PackageIdentifier: LiveSplit.LiveSplit
+
