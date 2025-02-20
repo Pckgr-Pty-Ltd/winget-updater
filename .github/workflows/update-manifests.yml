@@ -37,7 +37,7 @@ jobs:
           winget install wingetcreate --disable-interactivity --accept-source-agreements --accept-package-agreements
           wingetcreate info
           Copy-Item -Path wingetcreate_settings.json -Destination "$env:LOCALAPPDATA\Packages\Microsoft.WindowsPackageManagerManifestCreator_8wekyb3d8bbwe\LocalState\settings.json" -Force
-          winget install komac --scope machine --disable-interactivity --accept-source-agreements --accept-package-agreements
+          Start-Process -FilePath "./komac-setup-nightly-x86_64-pc-windows-msvc.exe" -ArgumentList "/ALLUSERS" -Wait
           $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
         working-directory: Automations
 
