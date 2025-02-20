@@ -184,6 +184,7 @@ function Convert-ToVersionOrNull {
         return [version]$raw
     }
     catch {
+        # fallback: attempt to parse initial portion as [Version]
         $clean = $raw -replace '^([\d\.]+).*', '$1'
         if (-not $clean) { return $null }
         try { return [version]$clean }
@@ -226,25 +227,48 @@ function Get-ExistingPRs {
     }
 }
 
+##############################################################################
+# UPDATED GPT FUNCTION: Provide old URL, architecture, new version, and all assets
+##############################################################################
 function GenerateNewAssetUrlWithGPT {
     param(
         [Parameter(Mandatory=$true)][string]$OldInstallerUrl,
+        [Parameter(Mandatory=$true)][string]$OldArchitecture,
         [Parameter(Mandatory=$true)][string]$NewVersion,
+        [Parameter(Mandatory=$true)][System.Object[]]$AllAssets,   # array of release assets
         [Parameter(Mandatory=$true)][string]$OpenAiKey
     )
-    
+
+    # Convert the release assets into a minimal text list (filename => download_url)
+    $assetsListText = $AllAssets | ForEach-Object {
+        "- Name: $($_.name), URL: $($_.browser_download_url)"
+    } | Out-String
+
     $systemMessage = @"
 You are a PowerShell assistant that updates installer URLs for Winget package manifests.
-Given an old installer URL and a new version number, output only the updated installer URL by replacing the old version with the new version.
-Do not include any extra text.
+Given:
+ - The old installer URL
+ - The old installer architecture
+ - The new version number
+ - A list of all available GitHub release assets (filename + URL)
+
+You should decide which single download URL from the list best matches the old architecture
+and is appropriate for the new version. Output only that direct download URL or the word 'none' 
+if no suitable asset can be determined. 
+No extra explanations, just a single line with the chosen URL or 'none'.
 "@
-    
+
     $userPrompt = @"
 Old Installer URL: $OldInstallerUrl
+Old Installer Architecture: $OldArchitecture
 New version: $NewVersion
-Please output only the updated installer URL.
+List of available GitHub release assets:
+$assetsListText
+
+Please output only the single best matching installer URL for the new version 
+(or 'none' if no match is found).
 "@
-    
+
     $openAiUrl = "https://api.openai.com/v1/chat/completions"
     $headers = @{
         "Content-Type"  = "application/json"
@@ -252,7 +276,7 @@ Please output only the updated installer URL.
     }
     
     $body = @{
-        "model" = "gpt-4o-mini"
+        "model"    = "gpt-4o-mini"  # or whichever model you'd like
         "messages" = @(
             @{
                 "role"    = "system"
@@ -263,17 +287,22 @@ Please output only the updated installer URL.
                 "content" = $userPrompt
             }
         )
+        # Depending on your usage, you may also want to set a temperature or max_tokens here
     } | ConvertTo-Json -Depth 5
     
     try {
         $response = Invoke-RestMethod -Uri $openAiUrl -Method POST -Headers $headers -Body $body
         if ($response.choices) {
             $output = $response.choices[0].message.content.Trim()
+            # Accept either a valid URL or 'none'
             if ($output -match '^https?://') {
                 return $output
             }
+            elseif ($output -eq 'none') {
+                return $null
+            }
             else {
-                Write-Warning "GPT output is not a valid URL: $output"
+                Write-Warning "GPT output is not a valid URL or 'none': $output"
                 return $null
             }
         }
@@ -285,7 +314,6 @@ Please output only the updated installer URL.
     return $null
 }
 
-
 function Find-NewAssetUrlHybrid {
     param(
         [Parameter(Mandatory)] $oldInstaller,
@@ -294,29 +322,35 @@ function Find-NewAssetUrlHybrid {
         [string]$OpenAiKey = $null
     )
     # Basic info extraction
-    $oldUrl = $oldInstaller.InstallerUrl
-    $oldFileName = [System.IO.Path]::GetFileName($oldUrl)
-    $newVerString = $newVersion.ToString()
+    $oldUrl    = $oldInstaller.InstallerUrl
+    $arch      = $oldInstaller.Architecture
+    $newVerStr = $newVersion.ToString()
 
-    Write-Host "Using GPT for generating new asset URL for $oldFileName."
+    Write-Host "Using GPT to determine new asset URL for architecture [$arch]."
 
-    # Directly call GPT fallback to generate the new URL
     if ($OpenAiKey) {
-        $gptUrl = GenerateNewAssetUrlWithGPT -OldInstallerUrl $oldUrl -NewVersion $newVerString -OpenAiKey $OpenAiKey
+        # Call GPT with extended context:
+        $gptUrl = GenerateNewAssetUrlWithGPT `
+            -OldInstallerUrl $oldUrl `
+            -OldArchitecture $arch `
+            -NewVersion $newVerStr `
+            -AllAssets $assets `
+            -OpenAiKey $OpenAiKey
+
         if ($gptUrl) {
             Write-Host "GPT returned URL: $gptUrl"
             return $gptUrl
-        } else {
+        }
+        else {
             Write-Warning "GPT did not return a valid URL."
+            return $null
         }
     }
-    
-    Write-Warning "No suitable asset found for $oldFileName."
-    return $null
+    else {
+        Write-Warning "No OpenAI key provided; skipping GPT-based URL generation."
+        return $null
+    }
 }
-
-
-
 
 ##############################################################################
 # 4. Komac Logic: Fix manifests, then submit PR
@@ -370,16 +404,13 @@ function Fix-KomacManifestsAndSubmit {
     # STEP 2A: For each old installer entry, force the matching new manifest entry to have the same architecture.
     foreach ($oldInst in $OldInstallers) {
         $oldArch = $oldInst.Architecture
-        # Try to find a new installer whose InstallerUrl (or candidate name) matches the old installer architecture.
-        # We assume that Find-NewAssetUrlHybrid already handled updating the URL,
-        # so here we simply check for any new installer with a matching architecture marker.
         $matchingNew = $manifestObj.Installers | Where-Object {
             $newArch = $_.Architecture
-            # Compare in a case-insensitive manner.
+            # Compare in a case-insensitive manner
             $newArch.ToLower() -eq $oldArch.ToLower()
         } | Select-Object -First 1
         if ($matchingNew) {
-            Write-Host "Forcing architecture for $WingetId Setting new installer ($($matchingNew.InstallerUrl)) architecture to $oldArch"
+            Write-Host "Forcing architecture for $WingetId => Setting new installer ($($matchingNew.InstallerUrl)) to architecture $oldArch"
             $matchingNew.Architecture = $oldArch
         }
         else {
@@ -407,6 +438,7 @@ function Fix-KomacManifestsAndSubmit {
     }
     return "CREATED_NEW_PR"
 }
+
 ##############################################################################
 # 5. Main Loop
 ##############################################################################
@@ -416,7 +448,7 @@ foreach ($wingetId in $wingetIds) {
         $lastTime = [datetime]$lastCheckedMap[$wingetId]
         $hoursSince = (Get-Date) - $lastTime
         if ($hoursSince.TotalHours -lt $SkipHours) {
-            Write-Host "`n=== Skipping $wingetId last checked $($hoursSince.TotalHours.ToString("F1")) hours ago (< $SkipHours h)."
+            Write-Host "`n=== Skipping $wingetId; last checked $($hoursSince.TotalHours.ToString("F1")) hours ago (< $SkipHours h)."
             continue
         }
     }
@@ -433,7 +465,6 @@ foreach ($wingetId in $wingetIds) {
         continue
     }
     
-
     # STEP 1: Get the current version from the Winget module
     $existingWingetVerString = Get-CurrentWingetVersion -WingetID $wingetId
     [Version]$existingWingetVersion = $null
