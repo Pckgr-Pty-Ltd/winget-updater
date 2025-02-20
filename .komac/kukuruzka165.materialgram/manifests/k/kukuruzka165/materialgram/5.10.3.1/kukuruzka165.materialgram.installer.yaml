@@ -1,0 +1,19 @@
+Protocols:
+- tg
+PackageIdentifier: kukuruzka165.materialgram
+PackageVersion: 5.10.3.1
+NestedInstallerType: portable
+NestedInstallerFiles:
+- RelativeFilePath: materialgram.exe
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/kukuruzka165/materialgram/releases/download/v5.10.3.1/win64_materialgram_v5.10.3.1.zip
+  InstallerSha256: 4E9D281A3E2C9C2C8ADAB1F1CFCB006A31249F03470313F8B9990A457C1045A1
+UpgradeBehavior: install
+ReleaseDate: 2025-01-18
+ManifestVersion: 1.9.0
+ManifestType: installer
+InstallerType: zip
+InstallModes:
+- silentWithProgress
+

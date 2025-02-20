@@ -1,0 +1,26 @@
+InstallerLocale: en-US
+PackageIdentifier: LeNgocKhoa.Laragon
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+PackageVersion: 7.0.6
+InstallationMetadata:
+  DefaultInstallLocation: C:\laragon
+ProductCode: Laragon_is1
+Installers:
+- Architecture: x86
+  InstallerUrl: https://github.com/leokhoa/laragon/releases/download/7.0.6/laragon-wamp.exe
+  InstallerSha256: 73541D29B9483F593C54D75F4750051626C9990BCAFC2CB67AE13C1EBAD7F0A7
+UpgradeBehavior: install
+InstallerSwitches:
+  Custom: /NORESTART
+AppsAndFeaturesEntries:
+- DisplayVersion: 7.0.6.250204
+  ProductCode: Laragon_is1
+ReleaseDate: 2025-02-04
+ManifestVersion: 1.9.0
+ManifestType: installer
+InstallerType: inno
+Scope: machine
+

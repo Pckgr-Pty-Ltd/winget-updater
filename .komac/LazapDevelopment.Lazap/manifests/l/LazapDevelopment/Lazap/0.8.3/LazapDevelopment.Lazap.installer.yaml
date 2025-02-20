@@ -1,0 +1,19 @@
+InstallerLocale: en-US
+PackageIdentifier: LazapDevelopment.Lazap
+PackageVersion: 0.8.3
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\Lazap'
+ProductCode: '{158F5809-7223-4219-B027-E242EAC19CB2}'
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/Lazap-Development/Lazap/releases/download/v0.8.3/Lazap_0.8.3_x64_en-US.msi
+  InstallerSha256: EC2F71C57535DA2E65F4A77F831DB724D3801C9D8D2A2D4D471FAFEA949FF2B2
+AppsAndFeaturesEntries:
+- ProductCode: '{158F5809-7223-4219-B027-E242EAC19CB2}'
+  UpgradeCode: '{7D2FB161-F13A-5E70-80F2-912BE7DC240C}'
+ReleaseDate: 2024-08-12
+ManifestVersion: 1.9.0
+ManifestType: installer
+InstallerType: wix
+Scope: machine
+

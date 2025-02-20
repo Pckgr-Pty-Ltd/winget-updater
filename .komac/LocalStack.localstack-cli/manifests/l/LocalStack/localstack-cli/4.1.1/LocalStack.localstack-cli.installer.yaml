@@ -1,0 +1,14 @@
+ReleaseDate: 2025-02-05
+NestedInstallerFiles:
+- RelativeFilePath: localstack.exe
+PackageVersion: 4.1.1
+ManifestVersion: 1.9.0
+InstallerType: zip
+NestedInstallerType: portable
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/localstack/localstack-cli/releases/download/v4.1.1/localstack-cli-4.1.1-windows-amd64-onefile.zip
+  InstallerSha256: C12403B8C25000E6A60E7E13A6FF8436A021D8323D64B456B22DC4CF09DA8334
+ManifestType: installer
+PackageIdentifier: LocalStack.localstack-cli
+
