@@ -568,4 +568,11 @@ foreach ($wingetId in $wingetIds) {
         -NewVersion $latestVersion `
         -InstallerUrls $newInstallerUrls `
         -OldInstallers $oldManifestObj.Installers `
-        -GitHubToken $GitHubToken
+        -GitHubToken $GitHubToken `
+        -OpenPr
+    Write-Host "Update result for $wingetId $updateResult"
+    $lastCheckedMap[$wingetId] = (Get-Date)
+    Save-LastChecked $lastCheckedMap $LastCheckedFile
+}
+
+Write-Host "`n=== Done scanning Winget IDs ==="
