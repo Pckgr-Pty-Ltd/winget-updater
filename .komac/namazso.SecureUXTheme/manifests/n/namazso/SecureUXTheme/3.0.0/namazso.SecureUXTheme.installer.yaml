@@ -1,0 +1,20 @@
+NestedInstallerFiles:
+- RelativeFilePath: ThemeTool.exe
+ManifestVersion: 1.9.0
+NestedInstallerType: portable
+InstallerType: portable
+PackageVersion: 3.0.0
+PackageIdentifier: namazso.SecureUXTheme
+Platform:
+- Windows.Desktop
+ReleaseDate: 2024-10-12
+ManifestType: installer
+UpgradeBehavior: install
+Installers:
+- InstallerUrl: https://github.com/namazso/SecureUxTheme/releases/download/v3.0.0/SecureUxTheme-x86.zip
+  Architecture: x86
+  InstallerSha256: 8E79CA6CDD0536D8669BE4553C968AB418423C336EEAB99CD9D7BE7BC32DD71B
+InstallModes:
+- silent
+- silentWithProgress
+

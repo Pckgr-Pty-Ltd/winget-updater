@@ -1,0 +1,21 @@
+ManifestVersion: 1.9.0
+Installers:
+- InstallerUrl: https://github.com/nikpapa/Palamedes/releases/download/0.53.1/Palamedes_install_0.53.1.exe
+  Architecture: x64
+  InstallerSha256: AFD9E254C6772BAF4C7DB29A476893269E6E3D7AA097E811CB1D60CA1C21D045
+Scope: machine
+InstallerType: nullsoft
+PackageVersion: 0.53.1
+PackageIdentifier: nikpapa.palamedes
+InstallerLocale: en-US
+ReleaseDate: 2025-01-29
+ManifestType: installer
+UpgradeBehavior: install
+FileExtensions:
+- tavli
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles(x86)%\Palamedes'
+InstallModes:
+- interactive
+- silent
+

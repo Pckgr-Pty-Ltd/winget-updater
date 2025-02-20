@@ -1,0 +1,14 @@
+ManifestVersion: 1.9.0
+Commands:
+- nmctl-windows-amd64
+PackageIdentifier: Netmaker.Netmaker
+InstallerType: portable
+Installers:
+- InstallerUrl: https://github.com/gravitl/netmaker/releases/download/v0.30.0/nmctl-windows-amd64.exe
+  Architecture: x64
+  InstallerSha256: 7A3E272176EB6169EFADB24A413B1E5FD41DF6D593BC5E5AB0FB1CA50538E667
+UpgradeBehavior: install
+PackageVersion: 0.30.0
+ReleaseDate: 2024-12-17
+ManifestType: installer
+

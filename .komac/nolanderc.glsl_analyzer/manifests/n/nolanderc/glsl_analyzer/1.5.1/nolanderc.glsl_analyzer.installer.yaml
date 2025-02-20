@@ -1,0 +1,15 @@
+ManifestVersion: 1.9.0
+PackageIdentifier: nolanderc.glsl_analyzer
+UpgradeBehavior: install
+ManifestType: installer
+InstallerType: zip
+Installers:
+- InstallerUrl: https://github.com/nolanderc/glsl_analyzer/releases/download/v1.5.1/x86_64-windows.zip
+  Architecture: x64
+  InstallerSha256: 95045627C237AC36ACC4FFBC4BBE204753F72DADA0F0C3BCF6A8B9A2957C8891
+NestedInstallerType: portable
+PackageVersion: 1.5.1
+ReleaseDate: 2024-07-31
+NestedInstallerFiles:
+- RelativeFilePath: bin/glsl_analyzer.exe
+

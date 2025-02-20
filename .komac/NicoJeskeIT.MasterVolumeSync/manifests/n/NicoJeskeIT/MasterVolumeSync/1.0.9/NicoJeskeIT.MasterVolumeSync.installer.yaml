@@ -1,0 +1,18 @@
+ReleaseDate: 2023-07-27
+ManifestVersion: 1.9.0
+ProductCode: Nico Jeske IT MasterVolumeSync
+AppsAndFeaturesEntries:
+- ProductCode: Nico Jeske IT MasterVolumeSync
+InstallerType: nullsoft
+PackageVersion: 1.0.9
+PackageIdentifier: NicoJeskeIT.MasterVolumeSync
+InstallerLocale: en-US
+Installers:
+- InstallerUrl: https://github.com/nicojeske/MasterVolumeSync/releases/download/v1.0.9/MastervolumeSync-v1.0.9-Setup.exe
+  Architecture: x64
+  InstallerSha256: 953C79173A4A3EFCDCEA65B3ED6990110C187BE221D6AD85B2668280215BBCE6
+ManifestType: installer
+Scope: machine
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\Nico Jeske IT\MasterVolumeSync'
+

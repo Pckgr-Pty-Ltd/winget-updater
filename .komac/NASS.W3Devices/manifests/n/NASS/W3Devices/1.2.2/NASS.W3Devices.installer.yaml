@@ -1,0 +1,18 @@
+ReleaseDate: 2024-12-30
+ManifestVersion: 1.9.0
+ProductCode: '{A9A81C16-DD06-418C-9130-13191CB62EEB}_is1'
+AppsAndFeaturesEntries:
+- ProductCode: '{A9A81C16-DD06-418C-9130-13191CB62EEB}_is1'
+InstallerType: inno
+PackageVersion: 1.2.2
+PackageIdentifier: NASS.W3Devices
+InstallerLocale: de-DE
+Installers:
+- InstallerUrl: https://github.com/manfred-mueller/W3Devices/releases/download/1.2.2/W3Devices-Setup-1.2.2.exe
+  Architecture: x86
+  InstallerSha256: 3898DD6F66FF3D3B8E962382F98C089E775D0FDC628E0FFBCF38C53890D3F9EC
+ManifestType: installer
+Scope: machine
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\W3Devices'
+
