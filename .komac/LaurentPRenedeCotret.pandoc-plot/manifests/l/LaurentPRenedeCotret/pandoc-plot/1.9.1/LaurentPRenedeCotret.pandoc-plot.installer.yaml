@@ -1,0 +1,25 @@
+ElevationRequirement: elevatesSelf
+InstallerLocale: en-US
+PackageIdentifier: LaurentPRenedeCotret.pandoc-plot
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+PackageVersion: 1.9.1
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\pandoc-plot'
+ProductCode: '{4AD298C3-6FD5-49B2-9E4A-8FEB19C63640}_is1'
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/LaurentRDC/pandoc-plot/releases/download/1.9.1/pandoc-plot-wininst-x86_64.exe
+  InstallerSha256: CAFB3BD51D73935598283C7DED1E2C5959324050A2068202BC904BF17691AFFA
+UpgradeBehavior: install
+AppsAndFeaturesEntries:
+- ProductCode: '{4AD298C3-6FD5-49B2-9E4A-8FEB19C63640}_is1'
+  Publisher: Laurent P. René de Cotret
+ReleaseDate: 2024-09-27
+ManifestVersion: 1.9.0
+ManifestType: installer
+InstallerType: inno
+Scope: machine
+

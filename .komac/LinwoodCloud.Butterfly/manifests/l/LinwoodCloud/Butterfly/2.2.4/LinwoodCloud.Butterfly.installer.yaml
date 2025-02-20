@@ -1,0 +1,35 @@
+InstallerLocale: en-US
+PackageIdentifier: LinwoodCloud.Butterfly
+ElevationRequirement: elevatesSelf
+InstallModes:
+- interactive
+- silent
+PackageVersion: 2.2.4
+ProductCode: '{966CE504-4AA5-49C7-A63B-74BD6C073E5B}_is1'
+Installers:
+- InstallerUrl: https://github.com/LinwoodDev/Butterfly/releases/download/v2.2.4/linwood-butterfly-windows-setup-x86_64.exe
+  InstallerSwitches:
+    Custom: /CURRENTUSER
+  Architecture: x64
+  Scope: user
+  InstallerSha256: 4C4107F3E106F88A61C2479703AB1F4C9BBC3BB4AA146F59967593750C241D0D
+- InstallerUrl: https://github.com/LinwoodDev/Butterfly/releases/download/v2.2.4/linwood-butterfly-windows-setup-x86_64.exe
+  InstallerSwitches:
+    Custom: /ALLUSERS
+  Architecture: x64
+  Scope: machine
+  InstallationMetadata:
+    DefaultInstallLocation: '%ProgramFiles%\Linwood\Butterfly'
+  InstallerSha256: 4C4107F3E106F88A61C2479703AB1F4C9BBC3BB4AA146F59967593750C241D0D
+AppsAndFeaturesEntries:
+- ProductCode: '{966CE504-4AA5-49C7-A63B-74BD6C073E5B}_is1'
+  Publisher: Linwood
+ReleaseDate: 2025-01-13
+ManifestVersion: 1.9.0
+ManifestType: installer
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.VCRedist.2015+.x64
+InstallerType: inno
+UpgradeBehavior: install
+

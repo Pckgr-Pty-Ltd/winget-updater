@@ -1,0 +1,14 @@
+Commands:
+- vcluster
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/loft-sh/vcluster/releases/download/v0.22.4/vcluster-windows-amd64.exe
+  InstallerSha256: 5FD1A16D3C1B8F34983436ACF779EA103A3DB91364365355B85D975D3F354775
+PackageVersion: 0.22.4
+ManifestVersion: 1.9.0
+InstallerType: portable
+InstallerLocale: en-US
+ManifestType: installer
+ReleaseDate: 2025-02-06
+PackageIdentifier: loft-sh.vcluster
+
