@@ -1,0 +1,35 @@
+PackageIdentifier: Microsoft.Azure.Aztfy
+ManifestType: installer
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- DisplayName: aztfy
+InstallerType: wix
+ReleaseDate: 2025-01-28
+Commands:
+- aztfy
+Scope: machine
+UpgradeBehavior: install
+PackageVersion: 0.16.0
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x86
+  InstallerUrl: https://github.com/Azure/aztfexport/releases/download/v0.16.0/aztfexport_v0.16.0_x86.msi
+  InstallerSha256: 5AB7FD63886048C406D821ADF0CDD2CB1E4372920CE05623D6D0AD3F7060A282
+  InstallationMetadata:
+    DefaultInstallLocation: '%ProgramFiles(x86)%\aztfexport'
+  AppsAndFeaturesEntries:
+  - ProductCode: '{7FA20871-4A97-4A6F-82DD-6E836510FB4D}'
+    UpgradeCode: '{64FEC5FC-2CAD-4EC0-95ED-BDF283F6F36D}'
+    DisplayName: aztfexport
+  ProductCode: '{7FA20871-4A97-4A6F-82DD-6E836510FB4D}'
+- Architecture: x64
+  InstallerUrl: https://github.com/Azure/aztfexport/releases/download/v0.16.0/aztfexport_v0.16.0_x64.msi
+  InstallerSha256: D6CC1DE27CD7CC8B193ED362C94C6941FA76DE247A60204344D82DCC5CF57C96
+  InstallationMetadata:
+    DefaultInstallLocation: '%ProgramFiles%\aztfexport'
+  AppsAndFeaturesEntries:
+  - ProductCode: '{FC54A165-9732-405B-BEB6-CFE97178B7DB}'
+    UpgradeCode: '{64FEC5FC-2CAD-4EC0-95ED-BDF283F6F36D}'
+    DisplayName: aztfexport
+  ProductCode: '{FC54A165-9732-405B-BEB6-CFE97178B7DB}'
+

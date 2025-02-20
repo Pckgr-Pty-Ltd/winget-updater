@@ -1,0 +1,31 @@
+PackageIdentifier: Microsoft.BotFrameworkEmulator
+ManifestType: installer
+InstallerLocale: en-US
+InstallModes:
+- interactive
+- silent
+AppsAndFeaturesEntries:
+- ProductCode: 4284f564-a844-5e4a-9dde-c2da80c6c6d6
+  DisplayName: Bot Framework Emulator 4.15.1
+InstallerType: nullsoft
+ReleaseDate: 2024-10-01
+PackageVersion: 4.15.1
+UpgradeBehavior: install
+Platform:
+- Windows.Desktop
+ManifestVersion: 1.9.0
+Installers:
+- InstallerSwitches:
+    Custom: /CURRENTUSER
+  Architecture: x86
+  InstallerUrl: https://github.com/microsoft/BotFramework-Emulator/releases/download/v4.15.1/BotFramework-Emulator-4.15.1-windows-setup.exe
+  InstallerSha256: C02B32FA861C448B3645D34F6E3719EE24C95BC0E4F9561DFF560407069006F2
+  Scope: user
+- InstallerSwitches:
+    Custom: /ALLUSERS
+  Architecture: x86
+  InstallerUrl: https://github.com/microsoft/BotFramework-Emulator/releases/download/v4.15.1/BotFramework-Emulator-4.15.1-windows-setup.exe
+  InstallerSha256: C02B32FA861C448B3645D34F6E3719EE24C95BC0E4F9561DFF560407069006F2
+  Scope: machine
+ProductCode: 4284f564-a844-5e4a-9dde-c2da80c6c6d6
+

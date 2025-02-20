@@ -1,0 +1,17 @@
+Installers:
+- Architecture: x64
+  InstallerSha256: 98B63260E5877BF8115DEF216BB52012A82968184ADD77A972C99287B74FF8A1
+  InstallerUrl: https://github.com/murgatt/recode-converter/releases/download/v2.0.10/Recode-Converter-Windows-2.0.10-Setup.exe
+ManifestVersion: 1.9.0
+PackageIdentifier: murgatt.recode-converter
+PackageVersion: 2.0.10
+InstallerType: nullsoft
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- ProductCode: 0e7c2196-9a3e-561d-a7f0-a767e56df036
+  DisplayName: Recode Converter 2.0.10
+ProductCode: 0e7c2196-9a3e-561d-a7f0-a767e56df036
+ManifestType: installer
+Scope: machine
+ReleaseDate: 2025-02-12
+

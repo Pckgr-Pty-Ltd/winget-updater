@@ -1,0 +1,22 @@
+PackageIdentifier: Mingo.Mingo
+ManifestType: installer
+InstallerLocale: en-US
+InstallModes:
+- silent
+AppsAndFeaturesEntries:
+- ProductCode: bd661032-3d34-50f1-a6c1-a9c0933cb9cd
+  DisplayName: Mingo 1.14.1
+InstallerType: nullsoft
+ReleaseDate: 2024-08-12
+PackageVersion: 1.14.1
+Scope: user
+UpgradeBehavior: install
+Platform:
+- Windows.Desktop
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x64
+  InstallerSha256: 74C5FBF8F30A1DA32F094B65CDDEDB02018ADBD054A78846EDC10EDFA1FA851C
+  InstallerUrl: https://github.com/mingo-app/mingo/releases/download/v1.14.1/Mingo.Setup.1.14.1.exe
+ProductCode: bd661032-3d34-50f1-a6c1-a9c0933cb9cd
+

@@ -1,0 +1,20 @@
+PackageIdentifier: muffinista.before-dawn
+ManifestType: installer
+InstallerLocale: en-US
+InstallModes:
+- silent
+AppsAndFeaturesEntries:
+- ProductCode: 07edae8c-2ab5-5dcb-98e8-3a39dadc25c4
+  DisplayName: Before Dawn 0.32.1
+InstallerType: nullsoft
+ReleaseDate: 2024-10-17
+Scope: user
+UpgradeBehavior: install
+PackageVersion: 0.32.1
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x64
+  InstallerSha256: 68526076E1C70E3ACCD6E69F6138B6A1B41922B1EC4CBB7CA4BE6F71FA1A2F81
+  InstallerUrl: https://github.com/muffinista/before-dawn/releases/download/v0.32.1/Before-Dawn-Setup-0.32.1.exe
+ProductCode: 07edae8c-2ab5-5dcb-98e8-3a39dadc25c4
+
