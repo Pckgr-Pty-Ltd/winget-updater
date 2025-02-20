@@ -553,6 +553,15 @@ foreach ($wingetId in $wingetIds) {
         Save-LastChecked $lastCheckedMap $LastCheckedFile
         continue
     }
+
+        # Skip if there are no assets
+    if (-not $latestRelease.assets -or $latestRelease.assets.Count -eq 0) {
+        Write-Host "No GitHub release assets found (latest tag is $($latestRelease.tag_name)). Skipping."
+        $lastCheckedMap[$wingetId] = (Get-Date)
+        Save-LastChecked $lastCheckedMap $LastCheckedFile
+        continue
+    }
+
     $latestVersion = Convert-ToVersionOrNull -TagName $latestRelease.tag_name
     if (-not $latestVersion) {
         Write-Host "Cannot parse numeric version from GH tag '$($latestRelease.tag_name)' for $wingetId. Skipping."
