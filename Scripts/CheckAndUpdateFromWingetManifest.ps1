@@ -3,7 +3,7 @@ Param(
     [string]$GitHubToken     = ${env:PAT_TOKEN},           # GitHub personal access token
     [string]$KomacPath       = "C:\Program Files\Komac\bin\Komac.exe",
     [string]$LastCheckedFile = ".\last_checked.json",     # store Winget IDs + last-check times
-    [int]$SkipHours          = 48,
+    [int]$SkipHours          = 120,
     [string]$gptKey          = ${env:OPENAI_KEY}
 )
 
