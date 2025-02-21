@@ -1,0 +1,17 @@
+InstallerType: zip
+ManifestVersion: 1.9.0
+ManifestType: installer
+Installers:
+- InstallerSha256: 9C38E852559304D2840934B0DA2ED8595517F22FA198FC064AC06DA3DBF9EEE7
+  InstallerUrl: https://github.com/OpenGMK/GM8Decompiler/releases/download/v2.2.0/gm8decompiler-v2.2.0-i686-pc-windows-msvc.zip
+  Architecture: x86
+- InstallerSha256: A68A4CDBD455A2164885C8D854E5F7891324043CDDAD19B80BF1D9C4D958A860
+  InstallerUrl: https://github.com/OpenGMK/GM8Decompiler/releases/download/v2.2.0/gm8decompiler-v2.2.0-x86_64-pc-windows-msvc.zip
+  Architecture: x64
+ReleaseDate: 2024-02-12
+PackageIdentifier: OpenGMK.GM8Decompiler.GNU
+NestedInstallerFiles:
+- RelativeFilePath: gm8decompiler.exe
+NestedInstallerType: portable
+PackageVersion: 2.2.0
+

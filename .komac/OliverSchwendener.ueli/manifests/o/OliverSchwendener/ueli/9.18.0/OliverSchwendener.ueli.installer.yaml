@@ -1,0 +1,23 @@
+AppsAndFeaturesEntries:
+- ProductCode: cfbc84b5-4a27-5e8d-8800-3f9c64bdb18d
+  DisplayName: Ueli 9.18.0
+ManifestVersion: 1.9.0
+ManifestType: installer
+InstallerLocale: en-US
+Scope: machine
+UpgradeBehavior: install
+Installers:
+- InstallerSha256: 6BCC163D3A750F0BCD9A27AA22D077C59AEF2B0F821F6B9DDF88118C5BE00B0B
+  InstallerUrl: https://github.com/oliverschwendener/ueli/releases/download/v9.18.0/Ueli-Setup-9.18.0.exe
+  Architecture: x64
+InstallerType: nullsoft
+PackageIdentifier: OliverSchwendener.ueli
+InstallModes:
+- interactive
+- silent
+ProductCode: cfbc84b5-4a27-5e8d-8800-3f9c64bdb18d
+PackageVersion: 9.18.0
+ReleaseDate: 2025-02-14
+Platform:
+- Windows.Desktop
+

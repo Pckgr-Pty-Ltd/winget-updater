@@ -1,0 +1,15 @@
+InstallerType: zip
+ManifestVersion: 1.9.0
+ManifestType: installer
+Installers:
+- InstallerSha256: E4EC58676039E86592A874D623C7A39BEE3D26B1036B30ADA4664231AC20F38A
+  InstallerUrl: https://github.com/oleg-shilo/cs-script/releases/download/v4.9.1.0/cs-script.win.v4.9.1.0.zip
+  Architecture: neutral
+ReleaseDate: 2025-02-09
+PackageIdentifier: oleg-shilo.cs-script
+NestedInstallerFiles:
+- RelativeFilePath: css.exe
+  PortableCommandAlias: css
+NestedInstallerType: portable
+PackageVersion: 4.9.1.0
+

@@ -1,0 +1,14 @@
+InstallerType: zip
+ManifestVersion: 1.9.0
+ManifestType: installer
+Installers:
+- InstallerSha256: 1DFB1E9F0F708F35132512C761C3A0C4B321FAAD9483B1DCBFABD338CBAB7516
+  InstallerUrl: https://github.com/openobserve/openobserve/releases/download/v0.14.3-rc3/openobserve-v0.14.3-rc3-windows-amd64.zip
+  Architecture: x64
+ReleaseDate: 2025-01-28
+PackageIdentifier: openobserve.openobserve
+NestedInstallerFiles:
+- RelativeFilePath: openobserve.exe
+NestedInstallerType: portable
+PackageVersion: 0.14.3
+

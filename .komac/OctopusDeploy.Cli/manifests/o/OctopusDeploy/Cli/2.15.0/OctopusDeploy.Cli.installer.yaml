@@ -1,0 +1,19 @@
+ManifestVersion: 1.9.0
+ManifestType: installer
+InstallerLocale: en-US
+Scope: machine
+Installers:
+- InstallerSha256: 4265F3BB6D671EFE24634FA8CE9F3679EB1303F8CDE0D8F393299F6BFCCD88C6
+  InstallerUrl: https://github.com/OctopusDeploy/cli/releases/download/v2.15.0/octopus_2.15.0_windows_amd64.msi
+  Architecture: x64
+InstallerType: wix
+PackageIdentifier: OctopusDeploy.Cli
+AppsAndFeaturesEntries:
+- ProductCode: '{0A26AC53-5365-4999-A9C4-101F48AA6CDB}'
+  UpgradeCode: '{738E840F-6305-4A12-8136-8AAD988DAF43}'
+ProductCode: '{0A26AC53-5365-4999-A9C4-101F48AA6CDB}'
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\Octopus CLI'
+PackageVersion: 2.15.0
+ReleaseDate: 2025-02-14
+

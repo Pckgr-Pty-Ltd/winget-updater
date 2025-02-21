@@ -1,0 +1,16 @@
+Installers:
+- InstallerSha256: 047033BEAA534EBDE908C4CBFB11229479E5A1AFE0227A322038141DFFC262D6
+  InstallerUrl: https://github.com/0neGal/viper/releases/download/v1.12.1/Viper-Setup-1.12.1.exe
+  Architecture: x64
+ProductCode: 3b2da589-329e-5681-af46-ee6c4acc377e
+ManifestVersion: 1.9.0
+ReleaseDate: 2024-06-23
+InstallerLocale: en-US
+PackageIdentifier: OneGal.Viper
+AppsAndFeaturesEntries:
+- ProductCode: 3b2da589-329e-5681-af46-ee6c4acc377e
+  DisplayName: Viper 1.12.1
+ManifestType: installer
+InstallerType: nullsoft
+PackageVersion: 1.12.1
+

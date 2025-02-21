@@ -1,0 +1,15 @@
+InstallerType: zip
+ManifestVersion: 1.9.0
+ManifestType: installer
+Installers:
+- InstallerSha256: 8DF9A57DA0726E2E95469A9EE54FBDFD5C852146B664B601AD779C6B9016FE10
+  InstallerUrl: https://github.com/nptr/msstyleEditor/releases/download/2.1.1.0/msstyleEditor.zip
+  Architecture: x64
+ReleaseDate: 2024-12-10
+UpgradeBehavior: install
+PackageIdentifier: nptr.msstyleEditor
+NestedInstallerFiles:
+- RelativeFilePath: msstyleEditor.exe
+NestedInstallerType: portable
+PackageVersion: 2.1.1.0
+
