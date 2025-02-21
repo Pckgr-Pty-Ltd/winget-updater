@@ -1,0 +1,13 @@
+Installers:
+- InstallerSha256: 7D59BD7AF3431BAA0ACC48DFA88879970461C77E4C36A57BF8ADC70FEDC38860
+  InstallerUrl: https://github.com/okteto/okteto/releases/download/3.4.0/okteto.exe
+  Architecture: x64
+ManifestType: installer
+ManifestVersion: 1.9.0
+ReleaseDate: 2025-02-05
+Commands:
+- okteto
+PackageIdentifier: okteto.okteto
+InstallerType: portable
+PackageVersion: 3.4.0
+
