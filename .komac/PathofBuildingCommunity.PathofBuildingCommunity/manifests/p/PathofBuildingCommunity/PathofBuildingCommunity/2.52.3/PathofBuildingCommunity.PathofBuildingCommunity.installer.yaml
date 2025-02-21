@@ -1,0 +1,20 @@
+InstallationMetadata:
+  DefaultInstallLocation: '%AppData%\Path of Building Community'
+ProductCode: Path of Building Community
+InstallerType: nullsoft
+InstallerLocale: en-US
+Scope: user
+AppsAndFeaturesEntries:
+- ProductCode: Path of Building Community
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x64
+  InstallerSha256: A16DFA98B743FAB26760E478297241788A75DC0F53B0908AD16F01F5C0A175FA
+  InstallerUrl: https://github.com/PathOfBuildingCommunity/PathOfBuilding/releases/download/v2.52.3/PathOfBuildingCommunity-Setup.exe
+ManifestType: installer
+ReleaseDate: 2025-02-20
+InstallerSwitches:
+  Silent: /S
+PackageVersion: 2.52.3
+PackageIdentifier: PathofBuildingCommunity.PathofBuildingCommunity
+

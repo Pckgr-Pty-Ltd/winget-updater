@@ -1,0 +1,29 @@
+ProductCode: d62e8524-eb11-5f72-b726-7906fed339c7
+InstallModes:
+- interactive
+- silent
+InstallerType: nullsoft
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- ProductCode: d62e8524-eb11-5f72-b726-7906fed339c7
+  DisplayName: Remix IDE 1.3.6
+ManifestVersion: 1.9.0
+Installers:
+- InstallerUrl: https://github.com/ethereum/remix-desktop/releases/download/v1.3.6/Remix-IDE-Setup-1.3.6.exe
+  InstallerSwitches:
+    Custom: /CURRENTUSER
+  InstallerSha256: DA652CB965732C0CE8470C9DC8294CBCC552B756A3FA066B0801B9C63E4B70E8
+  Scope: user
+  Architecture: x64
+- InstallerUrl: https://github.com/ethereum/remix-desktop/releases/download/v1.3.6/Remix-IDE-Setup-1.3.6.exe
+  InstallerSwitches:
+    Custom: /ALLUSERS
+  InstallerSha256: DA652CB965732C0CE8470C9DC8294CBCC552B756A3FA066B0801B9C63E4B70E8
+  Scope: machine
+  Architecture: x64
+ManifestType: installer
+UpgradeBehavior: install
+ReleaseDate: 2022-11-25
+PackageVersion: 1.3.6
+PackageIdentifier: RemixTeam.RemixIDE
+

@@ -1,0 +1,11 @@
+InstallerType: portable
+ReleaseDate: 2025-02-20
+PackageVersion: "1.47"
+ManifestVersion: 1.9.0
+PackageIdentifier: Picocrypt.Picocrypt
+ManifestType: installer
+Installers:
+- Architecture: x64
+  InstallerSha256: E6DBE16CC17198836BFA0AA1B4EDD26A12EAF60D0F3626DE3F57F7A8745F6E62
+  InstallerUrl: https://github.com/Picocrypt/Picocrypt/releases/download/1.47/Picocrypt.exe
+

@@ -1,0 +1,16 @@
+InstallerType: portable
+Commands:
+- whynotwin11
+ReleaseDate: 2024-10-10
+ManifestVersion: 1.9.0
+PackageIdentifier: rcmaehl.WhyNotWin11
+ManifestType: installer
+PackageVersion: 2.6.1.1
+Installers:
+- Architecture: x86
+  InstallerSha256: 48D6E476449F63235C9C6D19ED3DCD40B3EBA9F89FB515A4E4D2D54D5D577E56
+  InstallerUrl: https://github.com/rcmaehl/WhyNotWin11/releases/download/2.6.1.1/WhyNotWin11_x86.exe
+- Architecture: x64
+  InstallerSha256: A4085438C37CDD1B3356A142CF3D8D12B9EEBB9F5AF10A6F5ACA20FFE290A5F7
+  InstallerUrl: https://github.com/rcmaehl/WhyNotWin11/releases/download/2.6.1.1/WhyNotWin11.exe
+

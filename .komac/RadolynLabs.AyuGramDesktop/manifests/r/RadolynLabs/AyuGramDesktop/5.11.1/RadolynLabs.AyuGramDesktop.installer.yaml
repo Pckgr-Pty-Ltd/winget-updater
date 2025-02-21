@@ -1,0 +1,16 @@
+InstallerType: portable
+ManifestVersion: 1.9.0
+ManifestType: installer
+Commands:
+- ayugram
+ReleaseDate: 2025-02-14
+UpgradeBehavior: install
+PackageIdentifier: RadolynLabs.AyuGramDesktop
+Protocols:
+- tg
+PackageVersion: 5.11.1
+Installers:
+- Architecture: x64
+  InstallerSha256: 218A08772DEE46A3B046B802A84E62860139662B564E5AFD6BD6F1FAEC4335F7
+  InstallerUrl: https://github.com/AyuGram/AyuGramDesktop/releases/download/v5.11.1/AyuGram.exe
+

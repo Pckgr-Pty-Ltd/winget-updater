@@ -1,0 +1,40 @@
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+InstallerType: wix
+InstallerLocale: en-US
+Scope: machine
+ManifestVersion: 1.9.0
+Installers:
+- InstallerUrl: https://github.com/OpenSC/OpenSC/releases/download/0.26.1/OpenSC-0.26.1_win32.msi
+  InstallerSha256: FDE5DBD86FD21424EB048484D7B151C0A9B2953DECAB44576AD54AC98366CFC7
+  ProductCode: '{8EC29FDF-E265-40E9-BDFC-7057064E40D4}'
+  InstallationMetadata:
+    DefaultInstallLocation: '%ProgramFiles(x86)%\OpenSC Project\OpenSC'
+  AppsAndFeaturesEntries:
+  - ProductCode: '{8EC29FDF-E265-40E9-BDFC-7057064E40D4}'
+    UpgradeCode: '{69428F65-B96D-458D-BB87-DBB5FDB35DCE}'
+  Architecture: x86
+- InstallerUrl: https://github.com/OpenSC/OpenSC/releases/download/0.26.1/OpenSC-0.26.1_win64.msi
+  InstallerSha256: BB2A47BD7A87617F38828C17EB7129A40FE27FE6656781882F2924FC2C9CF96E
+  ProductCode: '{50A2275C-9AE6-4397-95FE-14E2DE548928}'
+  InstallModes:
+  - interactive
+  - silent
+  - silentWithProgress
+  InstallationMetadata:
+    DefaultInstallLocation: '%ProgramFiles%\OpenSC Project\OpenSC'
+  AppsAndFeaturesEntries:
+  - ProductCode: '{50A2275C-9AE6-4397-95FE-14E2DE548928}'
+    UpgradeCode: '{9A449570-69A2-11E0-9CC6-955B4824019B}'
+    DisplayName: OpenSC smartcard framework (64bit)
+  Architecture: x64
+ManifestType: installer
+UpgradeBehavior: install
+ReleaseDate: 2025-01-14
+InstallerSwitches:
+  Custom: /norestart
+PackageVersion: 0.26.1
+PackageIdentifier: OpenSC.OpenSC
+

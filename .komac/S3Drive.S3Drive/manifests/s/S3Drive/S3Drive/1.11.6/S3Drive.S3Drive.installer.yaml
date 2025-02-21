@@ -1,0 +1,23 @@
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\S3Drive'
+ProductCode: '{C7936438-3CBC-4585-B934-70C6A51AA21B}_is1'
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+InstallerType: inno
+InstallerLocale: en-US
+Scope: machine
+AppsAndFeaturesEntries:
+- ProductCode: '{C7936438-3CBC-4585-B934-70C6A51AA21B}_is1'
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x64
+  InstallerSha256: 131D2813AEC4DD74EA6DDB350E0F62C89CC187D464D81F859419E14AC9F61FA7
+  InstallerUrl: https://github.com/s3drive/windows-app/releases/download/1.11.6/s3drive-win-x64.exe
+ManifestType: installer
+UpgradeBehavior: install
+ReleaseDate: 2025-02-20
+PackageVersion: 1.11.6
+PackageIdentifier: S3Drive.S3Drive
+

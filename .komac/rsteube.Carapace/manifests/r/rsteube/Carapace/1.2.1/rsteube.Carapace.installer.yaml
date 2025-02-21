@@ -1,0 +1,15 @@
+InstallerType: zip
+NestedInstallerType: portable
+NestedInstallerFiles:
+- RelativeFilePath: carapace.exe
+ManifestVersion: 1.9.0
+ReleaseDate: 2025-01-25
+UpgradeBehavior: install
+PackageIdentifier: rsteube.Carapace
+ManifestType: installer
+PackageVersion: 1.2.1
+Installers:
+- Architecture: x64
+  InstallerSha256: 75497CECF06E70A329CAA99A694296FF6EB83F6D7751337397254859D9ACE2AB
+  InstallerUrl: https://github.com/carapace-sh/carapace-bin/releases/download/v1.2.1/carapace-bin_1.2.1_windows_amd64.zip
+

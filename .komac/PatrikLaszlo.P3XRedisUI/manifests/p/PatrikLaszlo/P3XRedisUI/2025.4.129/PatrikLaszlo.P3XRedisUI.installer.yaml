@@ -1,0 +1,22 @@
+ProductCode: 0744876b-856e-5d43-b1dd-bbec43da8733
+InstallModes:
+- silent
+InstallerType: nullsoft
+InstallerLocale: en-US
+Scope: user
+AppsAndFeaturesEntries:
+- ProductCode: 0744876b-856e-5d43-b1dd-bbec43da8733
+  DisplayName: P3X-Redis-UI 2025.4.129
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x64
+  InstallerSha256: 204C22F53E50818A509DD2A827242C1E98237A53018949FE6D0FE8B0ABD380E6
+  InstallerUrl: https://github.com/patrikx3/redis-ui/releases/download/v2025.4.129/P3X-Redis-UI-Setup-2025.4.129.exe
+ManifestType: installer
+UpgradeBehavior: install
+ReleaseDate: 2025-01-19
+PackageVersion: 2025.4.129
+Platform:
+- Windows.Desktop
+PackageIdentifier: PatrikLaszlo.P3XRedisUI
+

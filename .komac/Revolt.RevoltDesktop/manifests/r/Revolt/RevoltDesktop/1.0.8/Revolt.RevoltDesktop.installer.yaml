@@ -1,0 +1,16 @@
+InstallerType: nullsoft
+ReleaseDate: 2024-10-24
+ManifestVersion: 1.9.0
+ProductCode: 01ee3725-d391-5045-a4a3-adcd59764281
+InstallerLocale: en-US
+PackageIdentifier: Revolt.RevoltDesktop
+AppsAndFeaturesEntries:
+- ProductCode: 01ee3725-d391-5045-a4a3-adcd59764281
+  DisplayName: Revolt 1.0.8
+ManifestType: installer
+PackageVersion: 1.0.8
+Installers:
+- Architecture: x86
+  InstallerSha256: 41A5E0852F665FA7415A21275F9F9B4307670326499588D448ADF6463E1CFD22
+  InstallerUrl: https://github.com/revoltchat/desktop/releases/download/v1.0.8/Revolt-Setup-1.0.8.exe
+

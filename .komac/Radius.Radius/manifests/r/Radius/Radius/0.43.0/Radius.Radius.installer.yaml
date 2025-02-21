@@ -1,0 +1,14 @@
+InstallerType: portable
+ManifestVersion: 1.9.0
+Commands:
+- rad
+ReleaseDate: 2025-02-07
+InstallerLocale: en-US
+PackageIdentifier: Radius.Radius
+ManifestType: installer
+PackageVersion: 0.43.0
+Installers:
+- Architecture: x64
+  InstallerSha256: 5AACE1195C5CE9241051FF7F209B87B6E956E557CE0E25602C5B32817BC08202
+  InstallerUrl: https://github.com/radius-project/radius/releases/download/v0.43.0/rad_windows_amd64.exe
+

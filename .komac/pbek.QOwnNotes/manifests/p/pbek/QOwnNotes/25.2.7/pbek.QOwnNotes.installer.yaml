@@ -1,0 +1,15 @@
+InstallerType: zip
+NestedInstallerType: portable
+NestedInstallerFiles:
+- PortableCommandAlias: qownnotes.exe
+  RelativeFilePath: QOwnNotes.exe
+ReleaseDate: 2025-02-16
+ManifestVersion: 1.9.0
+PackageIdentifier: pbek.QOwnNotes
+ManifestType: installer
+PackageVersion: 25.2.7
+Installers:
+- Architecture: neutral
+  InstallerSha256: D75C56950E9C4C9A94DCE7C6B7BEA3750CEA50769F17941A1B47B2571E2FC58A
+  InstallerUrl: https://github.com/pbek/QOwnNotes/releases/download/v25.2.7/QOwnNotes.zip
+

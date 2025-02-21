@@ -1,0 +1,11 @@
+InstallerType: portable
+ReleaseDate: 2024-10-11
+PackageVersion: 8.0.0
+ManifestVersion: 1.9.0
+PackageIdentifier: qarmin.czkawka.cli
+ManifestType: installer
+Installers:
+- Architecture: x64
+  InstallerSha256: 1E4DAC49D6E9F11A1B375926966B08D0542DEA59F83B9E8195C12411DBBF3502
+  InstallerUrl: https://github.com/qarmin/czkawka/releases/download/8.0.0/windows_czkawka_cli.exe
+
