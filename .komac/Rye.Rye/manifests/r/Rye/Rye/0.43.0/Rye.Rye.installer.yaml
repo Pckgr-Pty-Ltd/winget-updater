@@ -1,0 +1,28 @@
+InstallerType: exe
+ReleaseDate: 2024-12-09
+ManifestVersion: 1.9.0
+Scope: user
+InstallModes:
+- interactive
+- silent
+UpgradeBehavior: install
+PackageIdentifier: Rye.Rye
+ManifestType: installer
+InstallerSwitches:
+  SilentWithProgress: self install --yes
+  Silent: self install --yes
+PackageVersion: 0.43.0
+Installers:
+- Dependencies:
+    PackageDependencies:
+    - PackageIdentifier: Microsoft.VCRedist.2015+.x86
+  Architecture: x86
+  InstallerSha256: 2C2A4435C9C80A3D4B59AAB018CC94EB9838519310916F7FAC27538D84722133
+  InstallerUrl: https://github.com/astral-sh/rye/releases/download/0.43.0/rye-x86-windows.exe
+- Dependencies:
+    PackageDependencies:
+    - PackageIdentifier: Microsoft.VCRedist.2015+.x64
+  Architecture: x64
+  InstallerSha256: 1C629D4103402FC1E6D9E00EA3243D39AEB7FDEC916598C9CE9B595D0B151DD2
+  InstallerUrl: https://github.com/astral-sh/rye/releases/download/0.43.0/rye-x86_64-windows.exe
+

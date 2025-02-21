@@ -1,0 +1,20 @@
+InstallModes:
+- silent
+ManifestVersion: 1.9.0
+ReleaseDate: 2025-01-19
+InstallerLocale: en-US
+PackageIdentifier: ransome1.sleek
+ManifestType: installer
+PackageVersion: 2.0.16
+Installers:
+- InstallerUrl: https://github.com/ransome1/sleek/releases/download/v2.0.16/sleek-2.0.16-win-x64.exe
+  InstallerSha256: 9305BF7328D0AAAB05AECAFDD27986F599F8BD48F6F6E684091ACB2275D5D0D4
+  InstallerType: nullsoft
+  UpgradeBehavior: install
+  Scope: user
+  Architecture: x64
+- Architecture: x64
+  InstallerType: portable
+  InstallerSha256: 9305BF7328D0AAAB05AECAFDD27986F599F8BD48F6F6E684091ACB2275D5D0D4
+  InstallerUrl: https://github.com/ransome1/sleek/releases/download/v2.0.16/sleek-2.0.16-win-x64.exe
+

@@ -1,0 +1,24 @@
+InstallModes:
+- silent
+InstallerType: exe
+ReleaseDate: 2024-12-17
+Scope: user
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x86
+  InstallerSha256: 77D9A94B984F4B921352D73C564438E9EEF038367514347819BB7A935EF140A4
+  InstallerUrl: https://github.com/RandomEngy/VidCoder/releases/download/v11.9/VidCoder-11.9.exe
+ManifestType: installer
+UpgradeBehavior: install
+InstallerSwitches:
+  InstallLocation: --installto
+  Silent: -s
+PackageVersion: "11.9"
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.DotNet.DesktopRuntime.6
+FileExtensions:
+- mkv
+- mp4
+PackageIdentifier: RandomEngy.VidCoder
+

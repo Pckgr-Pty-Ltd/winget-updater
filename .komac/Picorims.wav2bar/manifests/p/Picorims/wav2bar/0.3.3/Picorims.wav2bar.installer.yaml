@@ -1,0 +1,20 @@
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles(x86)%\Wav2Bar\app-0.3.3-beta'
+ProductCode: '{EEC67CE9-AA5E-4A80-AA4F-E914DE414E16}'
+InstallerType: wix
+InstallerLocale: en-US
+Scope: machine
+AppsAndFeaturesEntries:
+- ProductCode: '{EEC67CE9-AA5E-4A80-AA4F-E914DE414E16}'
+  UpgradeCode: '{714CD231-F927-4354-9B24-97577961AC9B}'
+  DisplayName: Wav2Bar (Machine - MSI)
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x64
+  InstallerSha256: 67531431018BE6E127CE6179AB7856ACC8BB1FCF5CFD3021A3AB4856FD181E5C
+  InstallerUrl: https://github.com/Picorims/wav2bar/releases/download/v0.3.3-beta/Wav2Bar-win32-x64-0.3.3-beta.msi
+ManifestType: installer
+ReleaseDate: 2023-02-04
+PackageVersion: 0.3.3
+PackageIdentifier: Picorims.wav2bar
+

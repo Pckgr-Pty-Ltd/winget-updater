@@ -1,0 +1,31 @@
+ProductCode: ea97f60e-66ce-5d9d-8e6a-f64104860c4d
+InstallModes:
+- interactive
+- silent
+InstallerType: nullsoft
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- ProductCode: ea97f60e-66ce-5d9d-8e6a-f64104860c4d
+  DisplayName: Deckboard 3.0.9
+ManifestVersion: 1.9.0
+Installers:
+- InstallerUrl: https://github.com/rivafarabi/deckboard/releases/download/v3.0.9/Deckboard-Setup-3.0.9.exe
+  InstallerSwitches:
+    Custom: /CURRENTUSER
+  InstallerSha256: C15604D435EF6606885F0A31D302F0C71CE6A8CE6B792DDD8A940DE7F9A0D4BB
+  Scope: user
+  Architecture: x86
+- InstallerUrl: https://github.com/rivafarabi/deckboard/releases/download/v3.0.9/Deckboard-Setup-3.0.9.exe
+  InstallerSwitches:
+    Custom: /ALLUSERS
+  InstallerSha256: C15604D435EF6606885F0A31D302F0C71CE6A8CE6B792DDD8A940DE7F9A0D4BB
+  Scope: machine
+  Architecture: x86
+ManifestType: installer
+UpgradeBehavior: install
+ReleaseDate: 2024-11-08
+PackageVersion: 3.0.9
+Platform:
+- Windows.Desktop
+PackageIdentifier: RivaFarabi.Deckboard
+

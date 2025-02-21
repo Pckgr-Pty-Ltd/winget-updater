@@ -1,0 +1,41 @@
+ProductCode: B5BF1EA0-B474-40D3-B31E-6AD92477CCAF
+InstallModes:
+- interactive
+- silent
+InstallerType: nullsoft
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- ProductCode: B5BF1EA0-B474-40D3-B31E-6AD92477CCAF
+  DisplayName: wnr 1.30.3
+ManifestVersion: 1.9.0
+Installers:
+- InstallerUrl: https://github.com/RoderickQiu/wnr/releases/download/v1.30.3/wnr-1.30.3-Setup-ia32.exe
+  InstallerSwitches:
+    Custom: /CURRENTUSER
+  InstallerSha256: B5F78545C84A16E10ACC51978FA17A1331E2D025067D1167E7C84D91B1958621
+  Scope: user
+  Architecture: x86
+- InstallerUrl: https://github.com/RoderickQiu/wnr/releases/download/v1.30.3/wnr-1.30.3-Setup-ia32.exe
+  InstallerSwitches:
+    Custom: /ALLUSERS
+  InstallerSha256: B5F78545C84A16E10ACC51978FA17A1331E2D025067D1167E7C84D91B1958621
+  Scope: machine
+  Architecture: x86
+- InstallerUrl: https://github.com/RoderickQiu/wnr/releases/download/v1.30.3/wnr-1.30.3-Setup-x64.exe
+  InstallerSwitches:
+    Custom: /CURRENTUSER
+  InstallerSha256: 4A936562A67B8D193CC5F51599462B5DF3F30AEA919C4D48C3F8CBEA6C305C14
+  Scope: user
+  Architecture: x64
+- InstallerUrl: https://github.com/RoderickQiu/wnr/releases/download/v1.30.3/wnr-1.30.3-Setup-x64.exe
+  InstallerSwitches:
+    Custom: /ALLUSERS
+  InstallerSha256: 4A936562A67B8D193CC5F51599462B5DF3F30AEA919C4D48C3F8CBEA6C305C14
+  Scope: machine
+  Architecture: x64
+ManifestType: installer
+UpgradeBehavior: install
+ReleaseDate: 2025-01-24
+PackageVersion: 1.30.3
+PackageIdentifier: RoderickQiu.wnr
+

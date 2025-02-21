@@ -1,0 +1,18 @@
+InstallerType: portable
+ManifestVersion: 1.9.0
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+Commands:
+- black
+ReleaseDate: 2025-01-29
+UpgradeBehavior: uninstallPrevious
+PackageIdentifier: psf.black
+ManifestType: installer
+PackageVersion: 25.1.0
+Installers:
+- Architecture: x64
+  InstallerSha256: C1A61EAD32306DEC1B7047A2A4E28059FDADCB9696705BC7505E109142282AFA
+  InstallerUrl: https://github.com/psf/black/releases/download/25.1.0/black_windows.exe
+

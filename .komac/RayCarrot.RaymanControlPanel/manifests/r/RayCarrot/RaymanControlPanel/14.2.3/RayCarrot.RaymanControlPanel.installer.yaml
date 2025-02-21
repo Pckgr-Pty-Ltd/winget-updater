@@ -1,0 +1,13 @@
+InstallerType: portable
+Commands:
+- rayman-control-panel
+ReleaseDate: 2025-01-12
+ManifestVersion: 1.9.0
+PackageIdentifier: RayCarrot.RaymanControlPanel
+ManifestType: installer
+PackageVersion: 14.2.3
+Installers:
+- Architecture: x64
+  InstallerSha256: B15312B0E7F651E7CD06FE3612C6E34ABD481676542D7D5DDB91AD2323F9280A
+  InstallerUrl: https://github.com/RayCarrot/RayCarrot.RCP.Metro/releases/download/14.2.3/Rayman.Control.Panel.exe
+

@@ -1,0 +1,30 @@
+ProductCode: f1339da8-b3f2-5116-b780-aafa611bc7f7
+InstallModes:
+- interactive
+- silent
+InstallerType: nullsoft
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- ProductCode: f1339da8-b3f2-5116-b780-aafa611bc7f7
+  DisplayName: Session 1.14.3
+ManifestVersion: 1.9.0
+Installers:
+- InstallerUrl: https://github.com/oxen-io/session-desktop/releases/download/v1.14.3/session-desktop-win-x64-1.14.3.exe
+  InstallerSwitches:
+    Custom: /CURRENTUSER
+  InstallerSha256: 596E3776E80D5E87FE7A8BA150718D2469160FC51E095FA72E12F4257E95E46A
+  Scope: user
+  Architecture: x64
+- InstallerUrl: https://github.com/oxen-io/session-desktop/releases/download/v1.14.3/session-desktop-win-x64-1.14.3.exe
+  InstallerSwitches:
+    Custom: /ALLUSERS
+  InstallerSha256: 596E3776E80D5E87FE7A8BA150718D2469160FC51E095FA72E12F4257E95E46A
+  Scope: machine
+  Architecture: x64
+ManifestType: installer
+ReleaseDate: 2024-12-10
+PackageVersion: 1.14.3
+Platform:
+- Windows.Desktop
+PackageIdentifier: Oxen.Session
+

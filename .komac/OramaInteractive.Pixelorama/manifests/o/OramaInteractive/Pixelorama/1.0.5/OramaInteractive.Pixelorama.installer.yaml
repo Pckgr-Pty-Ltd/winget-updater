@@ -1,0 +1,19 @@
+InstallerType: zip
+NestedInstallerType: portable
+ReleaseDate: 2024-11-18
+ManifestVersion: 1.9.0
+PackageIdentifier: OramaInteractive.Pixelorama
+ManifestType: installer
+PackageVersion: 1.0.5
+Installers:
+- NestedInstallerFiles:
+  - RelativeFilePath: Pixelorama-Windows-32bit/Pixelorama.exe
+  Architecture: x86
+  InstallerSha256: 56549294FEF357DAD2DEC870729EF53B063551CE95159B22E58410FE833CF1E5
+  InstallerUrl: https://github.com/Orama-Interactive/Pixelorama/releases/download/v1.0.5/Pixelorama-Windows-32bit.zip
+- NestedInstallerFiles:
+  - RelativeFilePath: Pixelorama-Windows-64bit/Pixelorama.exe
+  Architecture: x64
+  InstallerSha256: 7FE2ABC6DE5E723A0979C77CC8361D612B4103EB31D37EE29C11FA92565A430E
+  InstallerUrl: https://github.com/Orama-Interactive/Pixelorama/releases/download/v1.0.5/Pixelorama-Windows-64bit.zip
+

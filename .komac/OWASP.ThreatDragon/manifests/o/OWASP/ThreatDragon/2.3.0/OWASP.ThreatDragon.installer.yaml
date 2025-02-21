@@ -1,0 +1,21 @@
+ProductCode: 970b2d4f-cdcc-5118-bc8b-330d878ca743
+InstallModes:
+- interactive
+- silent
+InstallerType: nullsoft
+InstallerLocale: en-US
+AppsAndFeaturesEntries:
+- ProductCode: 970b2d4f-cdcc-5118-bc8b-330d878ca743
+  DisplayName: Threat-Dragon-ng 2.3.0
+  Publisher: OWASP Threat Dragon
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x64
+  InstallerSha256: 62EA716B162CAD7D2F8EBE13831B23314FA94937783F2DE1671B6C3C6B7E7EDB
+  InstallerUrl: https://github.com/OWASP/threat-dragon/releases/download/v2.3.0/Threat-Dragon-ng-Setup-2.3.0.exe
+ManifestType: installer
+UpgradeBehavior: install
+ReleaseDate: 2024-12-07
+PackageVersion: 2.3.0
+PackageIdentifier: OWASP.ThreatDragon
+

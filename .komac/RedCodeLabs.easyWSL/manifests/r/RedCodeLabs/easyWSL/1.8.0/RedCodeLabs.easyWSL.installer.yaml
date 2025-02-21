@@ -1,0 +1,31 @@
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\WindowsApps\27302RedCodeLabs.easyWSL_0.1.8.0_x64__m9ag49q0nrza2'
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.DotNet.Runtime.6
+  - PackageIdentifier: Microsoft.WindowsAppRuntime.1.0
+InstallerType: msix
+ReleaseDate: 2022-04-14
+AppsAndFeaturesEntries:
+- DisplayVersion: 0.1.8.0
+ManifestVersion: 1.9.0
+Installers:
+- SignatureSha256: 74CE82D42A7C04F7B44D9A4DB061D0A20E117262586E96D107B69797DE06F593
+  Architecture: x64
+  InstallerSha256: 0589059210ED198435F46AC80346B95DCBE90C913DA6AA4F7D800C903B8EE528
+  InstallerUrl: https://github.com/redcode-labs/easyWSL/releases/download/1.8.0/27302RedCodeLabs.easyWSL_0.1.8.0_x64__m9ag49q0nrza2.Msix
+ManifestType: installer
+UpgradeBehavior: install
+Capabilities:
+- internetClient
+- systemManagement
+PackageVersion: 1.8.0
+MinimumOSVersion: 10.0.17763.0
+RestrictedCapabilities:
+- runFullTrust
+Platform:
+- Windows.Desktop
+- Windows.Universal
+PackageIdentifier: RedCodeLabs.easyWSL
+PackageFamilyName: 27302RedCodeLabs.easyWSL_m9ag49q0nrza2
+

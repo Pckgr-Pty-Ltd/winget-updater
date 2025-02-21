@@ -1,0 +1,16 @@
+InstallerType: nullsoft
+ReleaseDate: 2025-02-17
+ManifestType: installer
+ManifestVersion: 1.9.0
+Scope: machine
+InstallationMetadata:
+  DefaultInstallLocation: '%ProgramFiles%\QField'
+InstallerLocale: en-US
+PackageIdentifier: QGIS.QField
+ProductCode: QField
+PackageVersion: 3.5.0
+Installers:
+- Architecture: x64
+  InstallerSha256: A1D63EB45D92D610D457F19211020300D834C8E087F0C6C1ACB5E9ACC544C456
+  InstallerUrl: https://github.com/opengisch/QField/releases/download/v3.5.0/qfield-v3.5.0-windows-x64.exe
+

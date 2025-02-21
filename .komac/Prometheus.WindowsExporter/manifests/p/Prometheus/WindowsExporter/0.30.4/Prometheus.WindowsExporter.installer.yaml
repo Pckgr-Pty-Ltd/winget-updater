@@ -1,0 +1,50 @@
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+ManifestVersion: 1.9.0
+ReleaseDate: 2025-02-13
+UpgradeBehavior: install
+PackageIdentifier: Prometheus.WindowsExporter
+ManifestType: installer
+PackageVersion: 0.30.4
+Installers:
+- InstallerUrl: https://github.com/prometheus-community/windows_exporter/releases/download/v0.30.4/windows_exporter-0.30.4-amd64.exe
+  InstallerSha256: BCA86F3A149895B2251162814C26EE816CDFEAB4EF56FB5E6353583D5E2C25AB
+  InstallerType: portable
+  Commands:
+  - windows_exporter
+  Architecture: x64
+- InstallerUrl: https://github.com/prometheus-community/windows_exporter/releases/download/v0.30.4/windows_exporter-0.30.4-arm64.exe
+  InstallerSha256: 760EF7566BBAF4B22E18FC159595A82BCA977E489E038CD966B3241911916C04
+  InstallerType: portable
+  Commands:
+  - windows_exporter
+  Architecture: arm64
+- InstallerUrl: https://github.com/prometheus-community/windows_exporter/releases/download/v0.30.4/windows_exporter-0.30.4-amd64.msi
+  InstallerSha256: C4ADAE92768B7A140FE9FBE1E93AC0EEC01B7A8007EB2AE2B34AD3FD531A00B3
+  InstallerType: wix
+  InstallationMetadata:
+    DefaultInstallLocation: '%ProgramFiles%\windows_exporter\textfile_inputs'
+  InstallerLocale: en-US
+  ProductCode: '{007D0223-1CC1-402D-808D-66D89A1ECE9D}'
+  Scope: machine
+  Architecture: x64
+  AppsAndFeaturesEntries:
+  - ProductCode: '{007D0223-1CC1-402D-808D-66D89A1ECE9D}'
+    UpgradeCode: '{66A6EB5B-1FC2-4B14-A362-5CEEC6413308}'
+    Publisher: prometheus-community
+- InstallerUrl: https://github.com/prometheus-community/windows_exporter/releases/download/v0.30.4/windows_exporter-0.30.4-arm64.msi
+  InstallerSha256: ED57BC3A095897EA5631C366625511AD4B5B7FC17444C640557400EC2B199CE7
+  InstallerType: wix
+  InstallationMetadata:
+    DefaultInstallLocation: '%ProgramFiles%\windows_exporter\textfile_inputs'
+  InstallerLocale: en-US
+  ProductCode: '{B23A763C-C809-4FE5-8946-47D6795D5FCE}'
+  Scope: machine
+  Architecture: arm64
+  AppsAndFeaturesEntries:
+  - ProductCode: '{B23A763C-C809-4FE5-8946-47D6795D5FCE}'
+    UpgradeCode: '{66A6EB5B-1FC2-4B14-A362-5CEEC6413308}'
+    Publisher: prometheus-community
+

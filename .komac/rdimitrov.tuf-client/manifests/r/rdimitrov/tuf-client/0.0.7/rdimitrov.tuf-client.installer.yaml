@@ -1,0 +1,19 @@
+InstallerType: zip
+NestedInstallerType: portable
+NestedInstallerFiles:
+- RelativeFilePath: tuf-client.exe
+ManifestVersion: 1.9.0
+ReleaseDate: 2025-01-14
+InstallerLocale: en-US
+UpgradeBehavior: uninstallPrevious
+PackageIdentifier: rdimitrov.tuf-client
+ManifestType: installer
+PackageVersion: 0.0.7
+Installers:
+- Architecture: x64
+  InstallerSha256: 09CFFAA312344DE74DB5355076AE146B1A73A6F54E60E61F085A4D26CAC611C7
+  InstallerUrl: https://github.com/rdimitrov/tuf-client-cli/releases/download/v0.0.7/tuf-client_0.0.7_windows_amd64.zip
+- Architecture: arm64
+  InstallerSha256: 2F697C67B284B8D30157AB4C522599DDF228C05EDB358CD8AA6CCB0D8FFC8671
+  InstallerUrl: https://github.com/rdimitrov/tuf-client-cli/releases/download/v0.0.7/tuf-client_0.0.7_windows_arm64.zip
+

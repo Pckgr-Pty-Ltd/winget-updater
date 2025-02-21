@@ -1,0 +1,14 @@
+InstallerType: zip
+NestedInstallerType: portable
+NestedInstallerFiles:
+- RelativeFilePath: BluetoothDevicePairing.exe
+ReleaseDate: 2024-09-10
+ManifestVersion: 1.9.0
+PackageIdentifier: PolarGoose.BluetoothDevicePairing
+ManifestType: installer
+PackageVersion: "12.0"
+Installers:
+- Architecture: x86
+  InstallerSha256: A08DDEDA760108252BFDA13C27B594E354EF694D34FF5965B47363ACCE9C57AE
+  InstallerUrl: https://github.com/PolarGoose/BluetoothDevicePairing/releases/download/v12.0/BluetoothDevicePairing.zip
+

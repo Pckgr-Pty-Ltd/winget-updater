@@ -1,0 +1,26 @@
+ReleaseDate: 2024-11-16
+PackageVersion: 1.5.5
+ManifestVersion: 1.9.0
+PackageIdentifier: printfn.fend
+ManifestType: installer
+Installers:
+- InstallerUrl: https://github.com/printfn/fend/releases/download/v1.5.5/fend-1.5.5-windows-x64-exe.zip
+  NestedInstallerType: portable
+  InstallerSha256: 4EF099990A897F3E8D3B60F0FF0610107B30190BF02E36953F962A497E705D48
+  InstallerType: zip
+  NestedInstallerFiles:
+  - RelativeFilePath: fend.exe
+  Architecture: x64
+- InstallerUrl: https://github.com/printfn/fend/releases/download/v1.5.5/fend-1.5.5-windows-x64.msi
+  InstallerSha256: 58492642AF9049F4A6E3B337A71D0F858036149F74D589736A09A20BE9252318
+  InstallerType: wix
+  InstallationMetadata:
+    DefaultInstallLocation: '%ProgramFiles%\.\fend\bin'
+  InstallerLocale: en-US
+  ProductCode: '{E59BDE99-3EC9-4C7D-BFB1-C05EFA56B937}'
+  Scope: machine
+  Architecture: x64
+  AppsAndFeaturesEntries:
+  - ProductCode: '{E59BDE99-3EC9-4C7D-BFB1-C05EFA56B937}'
+    UpgradeCode: '{2E3C8164-E07C-4B26-82B2-C5613FE8AD8F}'
+

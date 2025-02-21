@@ -1,0 +1,16 @@
+InstallerType: nullsoft
+ReleaseDate: 2024-10-25
+ManifestVersion: 1.9.0
+ProductCode: d9b7c2e4-3942-5a93-8279-25fb3923b0a4
+InstallerLocale: en-US
+PackageIdentifier: roryok.poe-writer
+AppsAndFeaturesEntries:
+- ProductCode: d9b7c2e4-3942-5a93-8279-25fb3923b0a4
+  DisplayName: poe-writer 2.5.6
+ManifestType: installer
+PackageVersion: 2.5.6
+Installers:
+- Architecture: x64
+  InstallerSha256: 7AFDAD01A1C3CC61742BDB1E9E6EBC1163F8EE074813BA9DB7C11BB1826F13F9
+  InstallerUrl: https://github.com/roryok/poe-auto-updater/releases/download/v2.5.6/poe-writer.2.5.6.exe
+

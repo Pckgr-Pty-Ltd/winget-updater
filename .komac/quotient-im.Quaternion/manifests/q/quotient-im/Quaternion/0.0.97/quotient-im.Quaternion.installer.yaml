@@ -1,0 +1,17 @@
+InstallerType: zip
+NestedInstallerType: portable
+NestedInstallerFiles:
+- RelativeFilePath: Quaternion-0.0.97/quaternion.exe
+ManifestVersion: 1.9.0
+ReleaseDate: 2025-02-11
+Dependencies:
+  PackageDependencies:
+  - PackageIdentifier: Microsoft.VCRedist.2015+.x64
+PackageIdentifier: quotient-im.Quaternion
+ManifestType: installer
+PackageVersion: 0.0.97
+Installers:
+- Architecture: neutral
+  InstallerSha256: 5FC9146736A64CABA791483523A733F374DEF2C769E7A4410B1B583A1331332A
+  InstallerUrl: https://github.com/quotient-im/Quaternion/releases/download/0.0.97/quaternion-0.0.97.zip
+
