@@ -1,0 +1,16 @@
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x64
+  InstallerSha256: 40B7EF11B9E25C009E54CDDD2D59ADA08B2C3A5682C4A21DE6C0E08B9A9F1CA1
+  InstallerUrl: https://github.com/abrignoni/ALEAPP/releases/download/v3.3.0/aleapp-v3.3.0-Windows.zip
+PackageIdentifier: abrignoni.ALEAPP-cli
+NestedInstallerType: portable
+NestedInstallerFiles:
+- RelativeFilePath: aleapp.exe
+InstallerType: portable
+ReleaseDate: 2025-02-22
+PackageVersion: 3.3.0
+Commands:
+- aleapp-cli
+ManifestType: installer
+

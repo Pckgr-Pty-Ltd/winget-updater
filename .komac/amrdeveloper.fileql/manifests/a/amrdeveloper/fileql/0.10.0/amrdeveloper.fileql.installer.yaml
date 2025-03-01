@@ -1,0 +1,24 @@
+PackageIdentifier: amrdeveloper.fileql
+Installers:
+- Architecture: x86
+  Dependencies:
+    PackageDependencies:
+    - PackageIdentifier: Microsoft.UI.Xaml.2.8
+    - PackageIdentifier: Microsoft.VCRedist.2015+.x86
+  InstallerSha256: B9161FA1B5205E7C042EC3B136A47C75FFEA707563FE5A13350C366D8CF60A2E
+  InstallerUrl: https://github.com/AmrDeveloper/FileQL/releases/download/0.10.0/fileql-x86-windows.exe
+- Architecture: x64
+  Dependencies:
+    PackageDependencies:
+    - PackageIdentifier: Microsoft.UI.Xaml.2.8
+    - PackageIdentifier: Microsoft.VCRedist.2015+.x64
+  InstallerSha256: FA4B8E519EB8ADCC01FCF6AFF80076C101820E758422DC67C595094E6DA48878
+  InstallerUrl: https://github.com/AmrDeveloper/FileQL/releases/download/0.10.0/fileql-x86_64-windows.exe
+Commands:
+- fileql
+InstallerType: portable
+ReleaseDate: 2025-02-20
+PackageVersion: 0.10.0
+ManifestVersion: 1.9.0
+ManifestType: installer
+

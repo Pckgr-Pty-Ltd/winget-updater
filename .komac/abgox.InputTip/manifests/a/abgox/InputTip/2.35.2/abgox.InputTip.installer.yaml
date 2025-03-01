@@ -1,0 +1,32 @@
+ManifestVersion: 1.9.0
+UpgradeBehavior: install
+Installers:
+- InstallerUrl: https://github.com/abgox/InputTip/releases/download/v2.35.2/InputTip.zip
+  Architecture: x64
+  InstallerSha256: 590904F3E8E26920C5956FB91A3BCEEA6F943C7BE1DD985ABAF652353E8E52E4
+  NestedInstallerType: portable
+  NestedInstallerFiles:
+  - RelativeFilePath: InputTip/InputTip.exe
+  InstallerType: zip
+- Architecture: x64
+  InstallerType: portable
+  InstallerSha256: 35D3BC620048A20A6D1BC73C36241B42EDD13309C7AB9A611FF280D34CD6C971
+  InstallerUrl: https://github.com/abgox/InputTip/releases/download/v2.35.2/InputTip.exe
+- InstallerLocale: zh-CN
+  Architecture: x64
+  InstallerSha256: 590904F3E8E26920C5956FB91A3BCEEA6F943C7BE1DD985ABAF652353E8E52E4
+  NestedInstallerType: portable
+  NestedInstallerFiles:
+  - RelativeFilePath: InputTip/InputTip.exe
+  InstallerType: zip
+  InstallerUrl: https://github.com/abgox/InputTip/releases/download/v2.35.2/InputTip.zip
+- InstallerUrl: https://github.com/abgox/InputTip/releases/download/v2.35.2/InputTip.exe
+  Architecture: x64
+  InstallerType: portable
+  InstallerSha256: 35D3BC620048A20A6D1BC73C36241B42EDD13309C7AB9A611FF280D34CD6C971
+  InstallerLocale: zh-CN
+PackageIdentifier: abgox.InputTip
+ReleaseDate: 2025-02-22
+PackageVersion: 2.35.2
+ManifestType: installer
+

@@ -1,0 +1,16 @@
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x64
+  InstallerSha256: AF507B4E7719BCC07EDC0BFF8CEA14E779F92FAB671CBA02EF42D8D187179E50
+  InstallerUrl: https://github.com/abrignoni/iLEAPP/releases/download/v2.1.0/ileapp-v2.1.0-Windows.zip
+PackageIdentifier: abrignoni.iLEAPP-cli
+NestedInstallerType: portable
+NestedInstallerFiles:
+- RelativeFilePath: ileapp.exe
+InstallerType: portable
+ReleaseDate: 2025-02-16
+PackageVersion: 2.1.0
+Commands:
+- ileapp-cli
+ManifestType: installer
+

@@ -1,0 +1,28 @@
+UpgradeBehavior: install
+InstallerType: exe
+ElevationRequirement: elevatesSelf
+Platform:
+- Windows.Desktop
+InstallModes:
+- silent
+- silentWithProgress
+Scope: machine
+Protocols:
+- http
+- https
+PackageVersion: 11.23.1
+ReleaseDate: 2025-02-18
+PackageIdentifier: Ablaze.Floorp.Daylight
+MinimumOSVersion: 10.0.17763.0
+InstallerLocale: en-US
+Installers:
+- Architecture: x64
+  InstallerSha256: 99D5C59376870CFF697B9B91933AB4862714D3B66C41E719739BD84FF8026893
+  InstallerUrl: https://github.com/Floorp-Projects/Floorp/releases/download/v11.23.1/floorp-win64.installer.exe
+ManifestType: installer
+ManifestVersion: 1.9.0
+FileExtensions:
+- htm
+- html
+- url
+
