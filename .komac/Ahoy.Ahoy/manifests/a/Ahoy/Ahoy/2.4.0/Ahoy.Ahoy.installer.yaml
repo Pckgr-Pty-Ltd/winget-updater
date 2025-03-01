@@ -1,0 +1,13 @@
+PackageIdentifier: Ahoy.Ahoy
+Installers:
+- Architecture: x64
+  InstallerSha256: 38C903EEC5F67F6A59C4C10334D3DC9D5F2B9409FFD8178DAE1DFA2A55A4C183
+  InstallerUrl: https://github.com/ahoy-cli/ahoy/releases/download/v2.4.0/ahoy-bin-windows-amd64.exe
+Commands:
+- ahoy
+InstallerType: portable
+ReleaseDate: 2025-02-25
+PackageVersion: 2.4.0
+ManifestVersion: 1.9.0
+ManifestType: installer
+

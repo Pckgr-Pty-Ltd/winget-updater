@@ -1,0 +1,27 @@
+InstallerLocale: en-US
+InstallerType: nullsoft
+AppsAndFeaturesEntries:
+- ProductCode: be25d1f4-3999-55bd-a6b3-0abfff8cb898
+  DisplayName: Altus 5.5.3
+UpgradeBehavior: install
+ProductCode: be25d1f4-3999-55bd-a6b3-0abfff8cb898
+PackageIdentifier: AmanHarwara.Altus
+Installers:
+- Architecture: x64
+  Scope: user
+  InstallerSha256: 78F7180C9BA281C68A5F10CEEBAF161DB4DE2F43D4757CA9B62496DB49974ED7
+  InstallerUrl: https://github.com/amanharwara/altus/releases/download/5.5.3/Altus-Setup-5.5.3.exe
+- Architecture: x64
+  Scope: machine
+  InstallerSha256: 78F7180C9BA281C68A5F10CEEBAF161DB4DE2F43D4757CA9B62496DB49974ED7
+  InstallerUrl: https://github.com/amanharwara/altus/releases/download/5.5.3/Altus-Setup-5.5.3.exe
+PackageVersion: 5.5.3
+ReleaseDate: 2025-02-27
+InstallerSwitches:
+  Custom: /CURRENTUSER
+ManifestType: installer
+InstallModes:
+- interactive
+- silent
+ManifestVersion: 1.9.0
+

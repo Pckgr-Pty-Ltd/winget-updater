@@ -1,0 +1,17 @@
+ManifestVersion: 1.9.0
+Installers:
+- Architecture: x64
+  InstallerSha256: 546C70FC036213B84EA7691B3F85AA39726D1C844B3EEF3543F024FE07E029E1
+  InstallerUrl: https://github.com/aimotrens/impulsar/releases/download/v0.17.8/impulsar_windows_amd64.zip
+- Architecture: arm64
+  InstallerSha256: 972B097982D9D2FDA27715DD0EEB413CFB22C846E356335F8F39E5F0BB631900
+  InstallerUrl: https://github.com/aimotrens/impulsar/releases/download/v0.17.8/impulsar_windows_arm64.zip
+PackageIdentifier: aimotrens.impulsar
+NestedInstallerType: portable
+NestedInstallerFiles:
+- RelativeFilePath: impulsar.exe
+InstallerType: zip
+ReleaseDate: 2025-02-25
+PackageVersion: 0.17.8
+ManifestType: installer
+
