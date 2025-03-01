@@ -1,0 +1,17 @@
+PackageIdentifier: anatawa12.ALCOM
+ManifestType: installer
+AppsAndFeaturesEntries:
+- ProductCode: ALCOM
+ManifestVersion: 1.9.0
+PackageVersion: 1.9.0
+ProductCode: ALCOM
+InstallationMetadata:
+  DefaultInstallLocation: placeholder\ALCOM
+Installers:
+- InstallerSha256: C4F8814EAC3DAD86397814CDA3E1D4CC11B9F4377F53B4405F750D68D223D561
+  InstallerUrl: https://github.com/vrc-get/vrc-get/releases/download/v1.9.0/x86_64-pc-windows-msvc-vrc-get.exe
+  Architecture: x64
+InstallerLocale: en-US
+InstallerType: nullsoft
+ReleaseDate: 2025-01-01
+
