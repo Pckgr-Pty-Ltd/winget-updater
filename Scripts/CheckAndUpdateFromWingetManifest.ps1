@@ -964,6 +964,9 @@ function Fix-KomacManifestsAndSubmit {
         [switch]$OpenPr
     )
     
+    # Create uniquely named temp file for capturing output
+    $tempOutputFile = [System.IO.Path]::GetTempFileName()
+    
     # Clear output folder first if it exists
     if (Test-Path $OutputFolder) {
         try {
@@ -1086,25 +1089,24 @@ function Fix-KomacManifestsAndSubmit {
     Write-Log "Submitting updated manifest with arguments: $($komacSubmitArgs -join ' ')" -Level INFO
     
     try {
-        $submitOutput = & $KomacPath @komacSubmitArgs 2>&1
+        # Redirect all output to both the console and our temp file
+        & $KomacPath @komacSubmitArgs 2>&1 | Tee-Object -FilePath $tempOutputFile
         $submitExitCode = $LASTEXITCODE
         
+        # Read all output for processing
+        $submitOutput = Get-Content -Path $tempOutputFile -Raw
+        
         # Log the Komac output
-        $submitOutput | ForEach-Object {
-            Write-Log "Komac Submit: $_" -Level DEBUG -NoConsole
-        }
+        Write-Log "Komac Submit Output: $submitOutput" -Level DEBUG -NoConsole
         
         if ($submitExitCode -ne 0) {
             Write-Log "Komac submit failed with exit code $submitExitCode" -Level ERROR
             return "FAILED_TO_CREATE_PR"
         }
         
-        # Try to extract PR URL from output
-        $prUrl = $submitOutput | Where-Object { $_ -match 'https://github.com/microsoft/winget-pkgs/pull/\d+' } | 
-                  ForEach-Object { $matches[0] } | 
-                  Select-Object -First 1
-        
-        if ($prUrl) {
+        # Try to extract PR URL from output using improved regex
+        if ($submitOutput -match 'https://github\.com/microsoft/winget-pkgs/pull/\d+') {
+            $prUrl = $matches[0]
             Write-Log "Created PR: $prUrl" -Level SUCCESS
             return "CREATED_NEW_PR:$prUrl"
         }
@@ -1116,6 +1118,12 @@ function Fix-KomacManifestsAndSubmit {
     catch {
         Write-Log "Exception submitting PR: $_" -Level ERROR
         return "FAILED_TO_CREATE_PR"
+    }
+    finally {
+        # Clean up temp file
+        if (Test-Path $tempOutputFile) {
+            Remove-Item -Path $tempOutputFile -Force -ErrorAction SilentlyContinue
+        }
     }
 }
 
@@ -1393,8 +1401,9 @@ foreach ($wingetId in $wingetIds) {
     
     Write-Log "Update result for $wingetId $updateResult" -Level INFO
     
-    # Parse PR URL if available
-    if ($updateResult -match '^CREATED_NEW_PR:(.+)$') {
+    # Parse PR URL if available - fix to handle additional text in the output
+    if ($updateResult -match 'CREATED_NEW_PR:(\S+)') {
+        # Extract PR URL using more flexible pattern that works even with additional text
         $prUrl = $matches[1]
         $summary.PRs += @{
             PackageId = $wingetId
@@ -1404,7 +1413,8 @@ foreach ($wingetId in $wingetIds) {
         }
         $summary.Updated++
     }
-    elseif ($updateResult -eq "CREATED_NEW_PR") {
+    elseif ($updateResult -like "*CREATED_NEW_PR*") {
+        # Handle case where PR was created but URL couldn't be extracted
         $summary.PRs += @{
             PackageId = $wingetId
             NewVersion = $latestVersion.ToString()
