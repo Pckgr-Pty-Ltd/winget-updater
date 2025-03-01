@@ -1,20 +1,20 @@
-InstallerType: msi
-Scope: machine
 PackageIdentifier: ANTOrg-Inc.ASCIIEngine
-PackageVersion: "3.0"
-Installers:
-- InstallerSha256: 8D767358300A70FB4B6F07BCF31B8A698EEE9C060AB44C7AA73334174298A0C8
-  InstallerUrl: https://github.com/hdfsyu/ASCIIEngine/releases/download/v3.0/ASCIIEngine.msi
-  Architecture: x86
-InstallerLocale: und
-ReleaseDate: 2022-10-26
+ProductCode: '{7FA33D16-D79D-48EF-BCED-C85C29110BED}'
 InstallationMetadata:
   DefaultInstallLocation: '%ProgramFiles%\.'
-ProductCode: '{7FA33D16-D79D-48EF-BCED-C85C29110BED}'
-AppsAndFeaturesEntries:
-- DisplayVersion: 1.0.0
-  UpgradeCode: '{58832A38-D27F-4F3A-8A9F-2028F95FAEE6}'
-  ProductCode: '{7FA33D16-D79D-48EF-BCED-C85C29110BED}'
+Installers:
+- Architecture: x86
+  InstallerSha256: 8D767358300A70FB4B6F07BCF31B8A698EEE9C060AB44C7AA73334174298A0C8
+  InstallerUrl: https://github.com/hdfsyu/ASCIIEngine/releases/download/v3.0/ASCIIEngine.msi
+PackageVersion: "3.0"
 ManifestType: installer
+InstallerLocale: und
+InstallerType: msi
+AppsAndFeaturesEntries:
+- ProductCode: '{7FA33D16-D79D-48EF-BCED-C85C29110BED}'
+  DisplayVersion: 1.0.0
+  UpgradeCode: '{58832A38-D27F-4F3A-8A9F-2028F95FAEE6}'
+Scope: machine
 ManifestVersion: 1.9.0
+ReleaseDate: 2022-10-26
 
