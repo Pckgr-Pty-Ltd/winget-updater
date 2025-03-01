@@ -1,0 +1,11 @@
+Installers:
+- InstallerSha256: 1B62E2E20E5A76DF4C35203EF3AA728C6868D5408A7758FEDE32504F50D18B26
+  InstallerUrl: https://github.com/ianmaclarty/amulet/releases/download/v1.21.11/amulet-v1.21.11-windows.zip
+  Architecture: neutral
+ManifestType: installer
+ManifestVersion: 1.9.0
+PackageIdentifier: Amulet.Amulet
+PackageVersion: 1.21.11
+ReleaseDate: 2025-02-12
+InstallerType: zip
+
