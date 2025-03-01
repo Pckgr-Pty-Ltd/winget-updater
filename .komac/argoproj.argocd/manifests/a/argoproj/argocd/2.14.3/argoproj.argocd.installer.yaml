@@ -1,0 +1,16 @@
+Installers:
+- Architecture: x64
+  InstallerSha256: D5D1E7A72EBEECCB92382BC2AA22794D66BE63E52CDC256C2D0FE1BA2A5C8F7D
+  InstallerUrl: https://github.com/argoproj/argo-cd/releases/download/v2.14.3/argocd-windows-amd64.exe
+ManifestType: installer
+PackageVersion: 2.14.3
+InstallerType: portable
+ManifestVersion: 1.9.0
+Commands:
+- argocd
+ReleaseDate: 2025-02-28
+InstallModes:
+- silent
+InstallerLocale: en-US
+PackageIdentifier: argoproj.argocd
+
